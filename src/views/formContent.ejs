@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+								<i class="fa fa-star"></i>
+							</button> -->
+						</div>
+					</div>
+				</div>
+                <% if(action=='edit') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/form_content_post" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
+
+                                    <div class="form-group">
+                                        <label class="label" for="page_id">Page *</label>
+                                        <select class="form-control" id="page_id" name="page_id"required disabled>
+                                            <option value="">Select</option>
+                                            <% pages.forEach(function(page, index) { %>
+                                            <option value="<%- page.id %>" <%- row && row.page_id == page.id ? 'selected' : '' %>><%- page.name %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="label" for="title">Title *</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="<%- row ? row.title : '' %>" required/>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="shadow_title">Shadow Title *</label>
+                                        <input type="text" class="form-control" id="shadow_title" name="shadow_title" value="<%- row ? row.shadow_title : '' %>" required/>
+                                    </div> -->
+
+                                    <% if(row.id == 1) { %>
+                                    <div class="form-group">
+                                        <label class="label" for="shadow_title">Shadow Title *</label>
+                                        <input type="text" class="form-control" id="shadow_title" name="shadow_title" value="<%- row ? row.shadow_title : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="name_label">Name Label *</label>
+                                        <input type="text" class="form-control" id="name_label" name="name_label" value="<%- row ? row.name_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="email_label">Email Label *</label>
+                                        <input type="text" class="form-control" id="email_label" name="email_label" value="<%- row ? row.email_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="phone_label">Phone Label *</label>
+                                        <input type="text" class="form-control" id="phone_label" name="phone_label" value="<%- row ? row.phone_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="date_label">Date Label *</label>
+                                        <input type="text" class="form-control" id="date_label" name="date_label" value="<%- row ? row.date_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="location_label">Location *</label>
+                                        <input type="text" class="form-control" id="location_label" name="location_label" value="<%- row ? row.location_label : '' %>" required/>
+                                    </div>
+                                    <% } else if(row.id == 2) { %>
+                                    <div class="form-group">
+                                        <label class="label" for="shadow_title">Shadow Title *</label>
+                                        <input type="text" class="form-control" id="shadow_title" name="shadow_title" value="<%- row ? row.shadow_title : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="name_label">Name Label *</label>
+                                        <input type="text" class="form-control" id="name_label" name="name_label" value="<%- row ? row.name_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="phone_label">Phone Label *</label>
+                                        <input type="text" class="form-control" id="phone_label" name="phone_label" value="<%- row ? row.phone_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="email_label">Email Label *</label>
+                                        <input type="text" class="form-control" id="email_label" name="email_label" value="<%- row ? row.email_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="service_label">Service Label *</label>
+                                        <input type="text" class="form-control" id="service_label" name="service_label" value="<%- row ? row.service_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="subservice_label">Subservice Label *</label>
+                                        <input type="text" class="form-control" id="subservice_label" name="subservice_label" value="<%- row ? row.subservice_label : '' %>" required/>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="image">Image *</label>
+                                        <input type="file" class="form-control" id="image" name="image" value="<%- row ? row.image : '' %>"/>
+                                        <input type="hidden" id="image" name="image" value="<%- row ? row.image : '' %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 1923 X 870 PX.</b></span><br>
+                                        <% if(row && row.image) { %>
+                                        <a href="<%- siteUrl +'/uploads/cms/'+ row.image %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/cms/'+ row.image %>"/>
+                                        </a>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="alt_tag">Alt Tag Image</label>
+                                        <input type="text" class="form-control" id="alt_tag" name="alt_tag" value="<%- row ? row.alt_tag : '' %>"/>
+                                    </div> -->
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="cv_label">Attach CV Label *</label>
+                                        <input type="text" class="form-control" id="cv_label" name="cv_label" value="<%- row ? row.cv_label : '' %>" required/>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label class="label" for="location_label">Location *</label>
+                                        <input type="text" class="form-control" id="location_label" name="location_label" value="<%- row ? row.location_label : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="message_label">Message Label *</label>
+                                        <input type="text" class="form-control" id="message_label" name="message_label" value="<%- row ? row.message_label : '' %>" required/>
+                                    </div>
+                                    
+
+                                    <% } else if(row.id == 3) { %>
+                                        <div class="form-group">
+                                            <label class="label" for="name_label">Name Label *</label>
+                                            <input type="text" class="form-control" id="name_label" name="name_label" value="<%- row ? row.name_label : '' %>" required/>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label class="label" for="phone_label">Phone Label *</label>
+                                            <input type="text" class="form-control" id="phone_label" name="phone_label" value="<%- row ? row.phone_label : '' %>" required/>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label class="label" for="email_label">Email Label *</label>
+                                            <input type="text" class="form-control" id="email_label" name="email_label" value="<%- row ? row.email_label : '' %>" required/>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label class="label" for="image">Image *</label>
+                                            <input type="file" class="form-control" id="image" name="image" value="<%- row ? row.image : '' %>"/>
+                                            <input type="hidden" id="image" name="image" value="<%- row ? row.image : '' %>"/>
+                                            <span class="help-block text-danger"><b>Recommend Size : 1923 X 870 PX.</b></span><br>
+                                            <% if(row && row.image) { %>
+                                            <a href="<%- siteUrl +'/uploads/cms/'+ row.image %>" target="_blank">
+                                                <img class="img-thumbnail" src="<%- siteUrl +'/uploads/cms/'+ row.image %>"/>
+                                            </a>
+                                            <% } %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="alt_tag">Alt Tag Image</label>
+                                            <input type="text" class="form-control" id="alt_tag" name="alt_tag" value="<%- row ? row.alt_tag : '' %>"/>
+                                        </div> -->
+                                        <!-- <div class="form-group">
+                                            <label class="label" for="location_label">Location *</label>
+                                            <input type="text" class="form-control" id="location_label" name="location_label" value="<%- row ? row.location_label : '' %>" required/>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label class="label" for="message_label">Comment Label *</label>
+                                            <input type="text" class="form-control" id="message_label" name="message_label" value="<%- row ? row.message_label : '' %>" required/>
+                                        </div>
+                                        <% } %>
+
+                                    <div class="form-group">
+                                        <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>    
+                <% } else if(action=='view') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table class="mb-0 table table-bordered">
+                            <tbody>
+                                <!-- <tr>
+                                    <th style="width: 15%">Form</th>
+                                    <td><%- row.form %></td>
+                                </tr> -->
+                                <tr>
+                                    <th style="width: 15%">Page</th>
+                                    <td><%- row.page_id %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Title</th>
+                                    <td><%- row.title %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Shadow Title</th>
+                                    <td><%- row.shadow_title %></td>
+                                </tr>
+                                <!-- <tr>
+                                    <th style="width: 15%">Description</th>
+                                    <td><%- row.description %></td>
+                                </tr> -->
+                                <tr>
+                                    <th style="width: 15%">Name Label</th>
+                                    <td><%- row.name_label %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Email Label</th>
+                                    <td><%- row.email_label %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Phone Label</th>
+                                    <td><%- row.phone_label %></td>
+                                </tr>
+                                <% if(row.id == 1) { %>
+                                    <!-- <tr>
+                                        <th style="width: 15%">Start Date</th>
+                                        <td><%- row.date_label %></td>
+                                    </tr> -->
+                                <!-- <tr>
+                                    <th style="width: 15%">Subject Label</th>
+                                    <td><%- row.subject_label %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Company Name</th>
+                                    <td><%- row.company_label %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Job Title</th>
+                                    <td><%- row.job_title_label %></td>
+                                </tr> -->
+                                <tr>
+                                    <th style="width: 15%">Location</th>
+                                    <td><%- row.location_label %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Message Label</th>
+                                    <td><%- row.message_label %></td>
+                                </tr>
+                                <% } else if(row.id == 2) { %>
+                                    <tr>
+                                        <th style="width: 15%">Location</th>
+                                        <td><%- row.location_label %></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 15%">Message Label</th>
+                                        <td><%- row.message_label %></td>
+                                    </tr>
+                                <!-- <tr>
+                                    <th style="width: 15%">CV Label</th>
+                                    <td><%- row.cv_label %></td>
+                                </tr> -->
+                                <% } %>
+                                
+                                <tr>
+                                    <th style="width: 15%">Updated At</th>
+                                    <td><%- new Date(row.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <a href="<%- siteUrl+'/'+pageUrl %>" class="btn btn-secondary btn-icon" style="color: white;"><i class="pe-7s-back btn-icon-wrapper"> </i>Back</a>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%- include('layouts/flash'); %>
+                        <!-- <a href="<%- siteUrl +'/'+ page %>?action=add" class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New Record</a> -->
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <!-- <th>Form</th> -->
+                                    <th>Form</th>
+                                    <th>Title</th>
+                                    <!-- <th width="10%">Updated At</th> -->
+                                    <th width="10%" style="text-align: center;vertical-align: middle;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% rows.forEach(function(data, index) { %>
+                                <tr>
+                                    <td><%- index + 1 %></td>
+                                    <!-- <td><%- data.form %></td> -->
+                                    <td><%- data.form ? data.form.name : data.page_id %></td>
+                                    <td><%- data.title %></td>
+                                    <!-- <td><%- new Date(data.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td> -->
+                                    <td style="text-align: center;vertical-align: middle;">
+                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=view&form='+data.page_id+'&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a> -->
+                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&form='+data.page_id+'&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a> -->
+                                        <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a> -->
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><span style=" color: rgb(0, 0, 0);"><i class="fa fa-eye" title="View"></i></span></a>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><span style=" color: rgb(32, 108, 221);"><i class="fa fa-pen" title="Edit"></i></span></a>
+                                        <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><span style=" color: red;"><i class="fa fa-trash" title="Delete"></i></span></a> -->
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+                <% } %>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>

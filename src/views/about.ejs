@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+								<i class="fa fa-star"></i>
+							</button> -->
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/about_post" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="label" for="title">Title *</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="<%- row ? row.title : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="description">Description *</label>
+                                        <textarea class="form-control joeditor" id="description" name="description" required><%- row ? row.description : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="image">Image *</label>
+                                        <input type="file" class="form-control" id="image" name="image" <%- row && row.image ? '' : 'required' %>/>
+                                        <input type="hidden" id="image_old" name="image_old" value="<%- row ? row.image : '' %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 1025 X 483 PX.</b></span><br>
+                                        <% if(row && row.image) { %>
+                                        <a href="<%- siteUrl +'/uploads/about/'+ row.image %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/about/'+ row.image %>"/>
+                                        </a>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="altTag">Alt Tag </label>
+                                        <textarea class="form-control" id="altTag" name="altTag" required><%- row.altTag %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="methodology_bg_img">Our Methodology BG Image *</label>
+                                        <input type="file" class="form-control" id="methodology_bg_img" name="methodology_bg_img" <%- row && row.methodology_bg_img ? '' : 'required' %>/>
+                                        <input type="hidden" id="methodology_bg_img_old" name="methodology_bg_img_old" value="<%- row ? row.methodology_bg_img : '' %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 1025 X 483 PX.</b></span><br>
+                                        <% if(row && row.methodology_bg_img) { %>
+                                        <a href="<%- siteUrl +'/uploads/about/'+ row.methodology_bg_img %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/about/'+ row.methodology_bg_img %>"/>
+                                        </a>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="altTagMethodlology">Alt Tag Methodology BG Image </label>
+                                        <textarea class="form-control" id="altTagMethodlology" name="altTagMethodlology" required><%- row.altTagMethodlology %></textarea>
+                                    </div>
+                                    <div class="mb-3 card">
+                                        <div class="card-header">
+                                            Our Methodology
+                                            <div class="btn-actions-pane-right actions-icon-btn">
+                                                <button type="button" class="btn btn-primary mb-2 mr-2 btn-pill" id="btnAdd" onClick="javascript:appendRow('datatable1')"><i class="fa fa-plus"></i> Add Item</button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="mb-0 table table-bordered" id="datatable1">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 80%;">Title</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="appenew">
+                                                    <% if(meths && meths.length > 0) { %>
+                                                        <% meths.forEach(function(val, index) { %>
+                                                        <tr class="tr_clone">
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" name="meth_title[]" value="<%- val %>"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onClick="javascript:deleteRow(this, 'datatable1'); return false;"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                    <% } else { %>
+                                                    <tr class="tr_clone">
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="meth_title[]" value=""/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="mb-2 mr-2 btn-icon btn-icon-only btn btn-danger" onClick="javascript:deleteRow(this, 'datatable1'); return false;"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div> 
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+<script>
+function appendRow(gethisii) 
+{ 
+    var tblBody = document.getElementById(gethisii).tBodies[0];
+    var newNode = tblBody.rows[0].cloneNode(true);
+    tblBody.appendChild(newNode);
+}
+</script>
+<script type="text/javascript">
+var deleteRow = function (link, getthis) 
+{
+    var rowCount = $('#'+getthis+' >tbody >tr').length;
+    if(rowCount > 1)  
+    {
+        var row = link.parentNode.parentNode;
+        var table = row.parentNode; 
+        table.removeChild(row);
+    } 
+}
+</script>
+</body>
+</html>

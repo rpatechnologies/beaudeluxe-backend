@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/home_page_contents_post" method="post" enctype="multipart/form-data">
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="welcome_banner_button_one_title">Welcome Banner Button 1 Title</label>
+                                        <input type="text" class="form-control" id="welcome_banner_button_one_title" name="welcome_banner_button_one_title" value="<%- data.welcome_banner_button_one_title %>"/>
+                                    </div> -->
+
+                                    <div class="form-group">
+                                        <label class="label" for="welcome_banner_button_two_title">Welcome Banner Button 2 Title</label>
+                                        <input type="text" class="form-control" id="welcome_banner_button_two_title" name="welcome_banner_button_two_title" value="<%- data.welcome_banner_button_two_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="welcome_banner_button_two_link">Welcome Banner Button 2 Link</label>
+                                        <input type="text" class="form-control" id="welcome_banner_button_two_link" name="welcome_banner_button_two_link" value="<%- data.welcome_banner_button_two_link %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="banner_screen_title">Banner Screen Title</label>
+                                        <input type="text" class="form-control" id="banner_screen_title" name="banner_screen_title" value="<%- data.banner_screen_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="banner_screen_shadow_title">Banner Screen Shadow Title</label>
+                                        <input type="text" class="form-control" id="banner_screen_shadow_title" name="banner_screen_shadow_title" value="<%- data.banner_screen_shadow_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_one_title">Screen One Title</label>
+                                        <input type="text" class="form-control" id="screen_one_title" name="screen_one_title" value="<%- data.screen_one_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_one_shadow_title">Screen One Shadow Title</label>
+                                        <input type="text" class="form-control" id="screen_one_shadow_title" name="screen_one_shadow_title" value="<%- data.screen_one_shadow_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_title">Screen Two Title</label>
+                                        <input type="text" class="form-control" id="screen_two_title" name="screen_two_title" value="<%- data.screen_two_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_shadow_title">Screen Two Shadow Title</label>
+                                        <input type="text" class="form-control" id="screen_two_shadow_title" name="screen_two_shadow_title" value="<%- data.screen_two_shadow_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_inner_title">Screen Two Inner Title</label>
+                                        <input type="text" class="form-control" id="screen_two_inner_title" name="screen_two_inner_title" value="<%- data.screen_two_inner_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_description">Screen Two Description</label>
+                                        <input type="text" class="form-control" id="screen_two_description" name="screen_two_description" value="<%- data.screen_two_description %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_image">Screen Two Image</label>
+                                        <% if(data && data.screen_two_image) { %>
+                                        <input type="file" class="form-control" id="screen_two_image" name="screen_two_image" value="<%- data.screen_two_image %>"/>
+                                        <% } else{ %>
+                                            <input type="file" class="form-control" id="screen_two_image" name="screen_two_image" value="<%- data.screen_two_image %>" required/>
+                                        <% } %>
+                                        <input type="hidden" id="screen_two_image" name="screen_two_image" value="<%- data.screen_two_image %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 1025 X 483 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/homepagecontents/'+ data.screen_two_image %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/homepagecontents/'+ data.screen_two_image %>"/>
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="home_banner_video">Screen Two Video</label>
+                                        <% if(data && data.home_banner_video) { %>
+                                            <input type="file" class="form-control" id="home_banner_video" name="home_banner_video" value="<%- data.home_banner_video %>"/>
+                                        <% } else { %>
+                                            <input type="file" class="form-control" id="home_banner_video" name="home_banner_video" value="<%- data.home_banner_video %>" required/>
+                                        <% } %>
+                                        <input type="hidden" id="home_banner_video_hidden" name="home_banner_video" value="<%- data.home_banner_video %>"/>
+                                        <span class="help-block text-danger"><b>Recommended Format: MP4, Recommended Resolution: 1920 x 1080 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_banner_video %>" target="_blank">
+                                            <video class="video-thumbnail" width="320" height="180" controls>
+                                                <source src="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_banner_video %>" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_two_image_alt_tag">Screen Two Image Alt Tag</label>
+                                        <input type="text" class="form-control" id="screen_two_image_alt_tag" name="screen_two_image_alt_tag" value="<%- data.screen_two_image_alt_tag %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_three_title">Screen Three Title</label>
+                                        <input type="text" class="form-control" id="screen_three_title" name="screen_three_title" value="<%- data.screen_three_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_three_shadow_title">Screen Three Shadow Title</label>
+                                        <input type="text" class="form-control" id="screen_three_shadow_title" name="screen_three_shadow_title" value="<%- data.screen_three_shadow_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_faq_title">Screen Faq Title</label>
+                                        <input type="text" class="form-control" id="screen_faq_title" name="screen_faq_title" value="<%- data.screen_faq_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_faq_shadow_title">Screen Faq Shadow Title</label>
+                                        <input type="text" class="form-control" id="screen_faq_shadow_title" name="screen_faq_shadow_title" value="<%- data.screen_faq_shadow_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="animation_content">Animation Content</label>
+                                        <input type="text" class="form-control" id="animation_content" name="animation_content" value="<%- data.animation_content %>"/>
+                                    </div>
+
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="screen_four_title">Screen Four Title</label>
+                                        <input type="text" class="form-control" id="screen_four_title" name="screen_four_title" value="<%- data.screen_four_title %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_four_shadow_title">Screen Four Shadow Title</label>
+                                        <input type="text" class="form-control" id="screen_four_shadow_title" name="screen_four_shadow_title" value="<%- data.screen_four_shadow_title %>"/>
+                                    </div> -->
+
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="screen_four_image">Screen Four Image</label>
+                                        <input type="file" class="form-control" id="screen_four_image" name="screen_four_image" value="<%- data.screen_four_image %>"/>
+                                        <input type="hidden" id="screen_four_image" name="screen_four_image" value="<%- data.screen_four_image %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 950 X 812 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/homepagecontents/'+ data.screen_four_image %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/homepagecontents/'+ data.screen_four_image %>"/>
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="screen_four_image_alt_tag">Screen Four Image Alt Tag</label>
+                                        <input type="text" class="form-control" id="screen_four_image_alt_tag" name="screen_four_image_alt_tag" value="<%- data.screen_four_image_alt_tag %>"/>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>

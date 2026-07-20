@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+								<i class="fa fa-star"></i>
+							</button> -->
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/general_setting_post" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="label" for="email">Email</label>
+                                        <input type="text" class="form-control" id="email" name="email" value="<%- data.email %>"/>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <label class="label" for="contact">Contact Number</label>
+                                        <input type="text" class="form-control" id="contact" name="contact" value="<%- data.contact %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="address">Address</label>
+                                        <textarea class="form-control" id="address" name="address"><%- data.address %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="logo">Header Logo</label>
+                                        <input type="file" class="form-control" id="logo" name="logo" value="<%- data.logo %>"/>
+                                        <input type="hidden" id="logo_old" name="logo_old" value="<%- data.logo %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 256x51 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/info/'+ data.logo %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/info/'+ data.logo %>"/>
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="altTagHeaderLogo">Alt Tag Header Logo</label>
+                                        <input type="text" class="form-control" id="altTagHeaderLogo" name="altTagHeaderLogo" value="<%- data.altTagHeaderLogo %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="footer_logo">Footer Logo</label>
+                                        <input type="file" class="form-control" id="footer_logo" name="footer_logo" value="<%- data.footer_logo %>"/>
+                                        <input type="hidden" id="footer_logo_old" name="footer_logo_old" value="<%- data.footer_logo %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 247x49 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/info/'+ data.footer_logo %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/info/'+ data.footer_logo %>"/>
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="altTagFooterLogo">Alt Tag Footer Logo</label>
+                                        <input type="text" class="form-control" id="altTagFooterLogo" name="altTagFooterLogo" value="<%- data.altTagFooterLogo %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="favicon">Favicon</label>
+                                        <input type="file" class="form-control" id="favicon" name="favicon" value="<%- data.favicon %>"/>
+                                        <input type="hidden" id="favicon_old" name="favicon_old" value="<%- data.favicon %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 35x35 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/info/'+ data.favicon %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/info/'+ data.favicon %>"/>
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="altTagFavicon">Alt Tag Favicon</label>
+                                        <input type="text" class="form-control" id="altTagFavicon" name="altTagFavicon" value="<%- data.altTagFavicon %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="partner_icon">Partner Logo</label>
+                                        <input type="file" class="form-control" id="partner_icon" name="partner_icon" value="<%- data.partner_icon %>"/>
+                                        <input type="hidden" id="partner_icon_old" name="partner_icon_old" value="<%- data.partner_icon %>"/>
+                                        <span class="help-block text-danger"><b>Recommend Size : 35x35 PX.</b></span><br>
+                                        <a href="<%- siteUrl +'/uploads/info/'+ data.partner_icon %>" target="_blank">
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/info/'+ data.partner_icon %>"/>
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="alt_tag_partner_icon">Alt Tag Partner Logo</label>
+                                        <input type="text" class="form-control" id="alt_tag_partner_icon" name="alt_tag_partner_icon" value="<%- data.alt_tag_partner_icon %>"/>
+                                    </div>
+                                    <!-- facebook -->
+                                    <div class="form-group">
+                                        <label class="label" for="facebook">Facebook Link</label>
+                                        <input type="text" class="form-control" id="facebook" name="facebook" value="<%- data.facebook %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="twitter">Twitter Link</label>
+                                        <input type="text" class="form-control" id="twitter" name="twitter" value="<%- data.twitter %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="instagram">Instagram Link</label>
+                                        <input type="text" class="form-control" id="instagram" name="instagram" value="<%- data.instagram %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="linkedin">Linkedin Link</label>
+                                        <input type="text" class="form-control" id="linkedin" name="linkedin" value="<%- data.linkedin %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="meta_title">Meta Title</label>
+                                        <input type="text" class="form-control" id="meta_title" name="meta_title" value="<%- data.meta_title %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="meta_description">Meta Description</label>
+                                        <textarea class="form-control" id="meta_description" name="meta_description"><%- data.meta_description %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="meta_keywords">Meta Keywords</label>
+                                        <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="<%- data.meta_keywords %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="hotline_text">Hotline Text</label>
+                                        <textarea class="form-control" id="hotline_text" name="hotline_text"><%- data.hotline_text %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="copyright_text">Copyright Text</label>
+                                        <input type="text" class="form-control" id="copyright_text" name="copyright_text" value="<%- data.copyright_text %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="about_text_footer">Footer About Text</label>
+                                        <textarea class="form-control" id="about_text_footer" name="about_text_footer"><%- data.about_text_footer %></textarea>
+                                    </div>
+                                    <!-- map_location -->
+                                    <div class="form-group">
+                                        <label class="label" for="map_location">Map Location</label>
+                                        <textarea class="form-control" id="map_location" name="map_location"><%- data.map_location %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="map_location">Mails To</label>
+                                        <textarea class="form-control" id="mails_to" name="mails_to"><%- data.mails_to %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>
