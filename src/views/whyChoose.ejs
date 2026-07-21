@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                    <div class="page-title-actions">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/why_choose_post" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label class="label" for="why_choose_title">Section
+                                                            Title</label>
+                                                        <input type="text" class="form-control" id="why_choose_title"
+                                                            name="why_choose_title"
+                                                            value="<%- data.why_choose_title || '' %>" />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="why_choose_description">Section
+                                                            Description</label>
+                                                        <textarea class="form-control" id="why_choose_description"
+                                                            name="why_choose_description"
+                                                            rows="3"><%- data.why_choose_description || '' %></textarea>
+                                                    </div>
+
+                                                    <!-- Card 1 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Card 1 (Time Savings)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_one_title">Title</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_one_title"
+                                                                    name="why_choose_card_one_title"
+                                                                    value="<%- data.why_choose_card_one_title || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_one_description">Description</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="why_choose_card_one_description"
+                                                                    name="why_choose_card_one_description"
+                                                                    rows="2"><%- data.why_choose_card_one_description || '' %></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="why_choose_card_one_icon">Icon
+                                                                    Class (FontAwesome / Pe-icon)</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_one_icon"
+                                                                    name="why_choose_card_one_icon"
+                                                                    value="<%- data.why_choose_card_one_icon || '' %>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Card 2 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Card 2 (Privacy & Comfort)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_two_title">Title</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_two_title"
+                                                                    name="why_choose_card_two_title"
+                                                                    value="<%- data.why_choose_card_two_title || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_two_description">Description</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="why_choose_card_two_description"
+                                                                    name="why_choose_card_two_description"
+                                                                    rows="2"><%- data.why_choose_card_two_description || '' %></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="why_choose_card_two_icon">Icon
+                                                                    Class (FontAwesome / Pe-icon)</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_two_icon"
+                                                                    name="why_choose_card_two_icon"
+                                                                    value="<%- data.why_choose_card_two_icon || '' %>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Card 3 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Card 3 (Flexibility)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_three_title">Title</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_three_title"
+                                                                    name="why_choose_card_three_title"
+                                                                    value="<%- data.why_choose_card_three_title || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_three_description">Description</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="why_choose_card_three_description"
+                                                                    name="why_choose_card_three_description"
+                                                                    rows="2"><%- data.why_choose_card_three_description || '' %></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_three_icon">Icon Class
+                                                                    (FontAwesome / Pe-icon)</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_three_icon"
+                                                                    name="why_choose_card_three_icon"
+                                                                    value="<%- data.why_choose_card_three_icon || '' %>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Card 4 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Card 4 (Ultimate Relaxation)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_four_title">Title</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_four_title"
+                                                                    name="why_choose_card_four_title"
+                                                                    value="<%- data.why_choose_card_four_title || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_four_description">Description</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="why_choose_card_four_description"
+                                                                    name="why_choose_card_four_description"
+                                                                    rows="2"><%- data.why_choose_card_four_description || '' %></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label"
+                                                                    for="why_choose_card_four_icon">Icon Class
+                                                                    (FontAwesome / Pe-icon)</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="why_choose_card_four_icon"
+                                                                    name="why_choose_card_four_icon"
+                                                                    value="<%- data.why_choose_card_four_icon || '' %>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <%- include('layouts/script'); %>
+</body>
+
+</html>

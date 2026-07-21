@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/massage_cost_post" method="post">
+                                    <div class="form-group">
+                                        <label class="label" for="massage_cost_title">Section Title</label>
+                                        <input type="text" class="form-control" id="massage_cost_title" name="massage_cost_title" value="<%- data.massage_cost_title || '' %>" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="massage_cost_description">Left-Side Description (Para 1 & 2)</label>
+                                        <textarea class="form-control joeditor" id="massage_cost_description" name="massage_cost_description" rows="5"><%- data.massage_cost_description || '' %></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="massage_cost_box_title">Right-Side Box Title</label>
+                                        <input type="text" class="form-control" id="massage_cost_box_title" name="massage_cost_box_title" value="<%- data.massage_cost_box_title || '' %>" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="massage_cost_box_bullets">Box Bullet Points List</label>
+                                        <textarea class="form-control joeditor" id="massage_cost_box_bullets" name="massage_cost_box_bullets" rows="8"><%- data.massage_cost_box_bullets || '' %></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg">Update Cost Details</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>

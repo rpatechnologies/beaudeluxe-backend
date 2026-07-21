@@ -1,0 +1,180 @@
+<div class="app-sidebar sidebar-shadow">
+    <div class="app-header__logo">
+        <div class="logo-src"></div>
+        <div class="header__pane ml-auto">
+            <div>
+                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                    data-class="closed-sidebar">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="app-header__mobile-menu">
+        <div>
+            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="app-header__menu">
+        <span>
+            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                <span class="btn-icon-wrapper">
+                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                </span>
+            </button>
+        </span>
+    </div>
+    <div class="scrollbar-sidebar">
+        <div class="app-sidebar__inner">
+            <ul class="vertical-nav-menu">
+                <li class="app-sidebar__heading">Menu</li>
+                <li class="<%- page == 'dashboard' ? 'mm-active' : ''  %>"><a href="<%= siteUrl %>/dashboard"><i
+                            class="metismenu-icon pe-7s-rocket"></i> Dashboard</a></li>
+                <li
+                    class="<%- page == 'home_massage' || page == 'why_choose' || page == 'services_offered' || page == 'massage_types' || page == 'health_benefits' || page == 'safety_privacy' || page == 'booking_steps' || page == 'massage_cost' || page == 'areas_covered' || page == 'massage_legal' || page == 'get_started' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-home"></i> Manage Home Page
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+                        class="<%- page == 'home_massage' || page == 'why_choose' || page == 'services_offered' || page == 'massage_types' || page == 'health_benefits' || page == 'safety_privacy' || page == 'booking_steps' || page == 'massage_cost' || page == 'areas_covered' || page == 'massage_legal' || page == 'get_started' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/home_massage"
+                                class="<%- page == 'home_massage' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Home Massage</a></li>
+                        <li><a href="<%= siteUrl %>/why_choose" class="<%- page == 'why_choose' ? 'mm-active' : ''  %>">
+                                <i class="metismenu-icon"></i> Why Choose</a></li>
+                        <li><a href="<%= siteUrl %>/services_offered"
+                                class="<%- page == 'services_offered' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Services Offered</a></li>
+                        <li><a href="<%= siteUrl %>/massage_types"
+                                class="<%- page == 'massage_types' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Massage Types</a></li>
+                        <li><a href="<%= siteUrl %>/health_benefits"
+                                class="<%- page == 'health_benefits' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Health Benefits</a></li>
+                        <li><a href="<%= siteUrl %>/safety_privacy"
+                                class="<%- page == 'safety_privacy' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Safety & Privacy</a></li>
+                        <li><a href="<%= siteUrl %>/booking_steps"
+                                class="<%- page == 'booking_steps' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> How to Book</a></li>
+                        <li><a href="<%= siteUrl %>/massage_cost"
+                                class="<%- page == 'massage_cost' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Massage Cost</a></li>
+                        <li><a href="<%= siteUrl %>/areas_covered"
+                                class="<%- page == 'areas_covered' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Areas Covered</a></li>
+                        <li><a href="<%= siteUrl %>/massage_legal"
+                                class="<%- page == 'massage_legal' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Massage Legal</a></li>
+                        <li><a href="<%= siteUrl %>/get_started"
+                                class="<%- page == 'get_started' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i>
+                                Get Started</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="<%- page == 'menu' || page == 'banner' || page == 'cms'|| page == 'faq' || page == 'why_us' || page == 'location' || page == 'testimonials' || page == 'home_page_contents' || page == 'meta_contents' || page == 'about' || page == 'what_we_stand_for_content' || page == 'page_content' || page == 'form_content' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plugin"></i> Manage Resources
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+                        class="<%- page == 'menu' || page == 'banner' || page == 'cms' || page == 'faq' || page == 'why_us' || page == 'location' || page == 'testimonials' || page == 'home_page_contents' || page == 'meta_contents' || page == 'about' || page == 'what_we_stand_for_content' || page == 'page_content' || page == 'form_content' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/menu" class="<%- page == 'menu' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Menu</a></li>
+                        <li><a href="<%= siteUrl %>/banner" class="<%- page == 'banner' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Banners</a></li>
+                        <li><a href="<%= siteUrl %>/cms" class="<%- page == 'cms' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> CMS</a></li>
+                        <li><a href="<%= siteUrl %>/faq" class="<%- page == 'faq' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Faq</a></li>
+                        <!-- <li><a href="<%= siteUrl %>/our_presence" class="<%- page == 'our_presence' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Our Presence</a></li> -->
+                        <!-- <li><a href="<%= siteUrl %>/why_us" class="<%- page == 'why_us' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Why Choose Beaudeluxe</a></li> -->
+                        <li><a href="<%= siteUrl %>/testimonials"
+                                class="<%- page == 'testimonials' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Testimonials</a></li>
+                        <li><a href="<%= siteUrl %>/home_page_contents"
+                                class="<%- page == 'home_page_contents' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Homepage Content</a></li>
+                        <li><a href="<%= siteUrl %>/meta_contents"
+                                class="<%- page == 'meta_contents' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Meta Content</a></li>
+                        <!-- <li><a href="<%= siteUrl %>/page_content" class="<%- page == 'page_content' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Page Content</a></li> -->
+                        <li><a href="<%= siteUrl %>/form_content"
+                                class="<%- page == 'form_content' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Form Content</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="<%- page == 'service' ||  page == 'category'  ||  page == 'sub_service' || page == 'time_slot' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-albums"></i> Manage Services
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+                        class="<%- page == 'service' || page == 'category'  ||  page == 'sub_service' || page == 'time_slot'  ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/service" class="<%- page == 'service' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Services</a></li>
+                        <li><a href="<%= siteUrl %>/sub_service"
+                                class="<%- page == 'sub_service' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i>
+                                Sub Services</a></li>
+                        <li><a href="<%= siteUrl %>/category" class="<%- page == 'category' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Service Category</a></li>
+                        <li><a href="<%= siteUrl %>/time_slot" class="<%- page == 'time_slot' ? 'mm-active' : ''  %>">
+                                <i class="metismenu-icon"></i> Time Slot </a></li>
+                        <!-- <li><a href="<%= siteUrl %>/main_service_page_settings" class="<%- page == 'mainServicePage' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Main Service Settings</a></li>
+                        <li><a href="<%= siteUrl %>/sub_services_page_settings" class="<%- page == 'subServicesPage' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Service Details Settings</a></li> -->
+                    </ul>
+                </li>
+                <li class="<%- page == 'form_enquiry' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-photo-gallery"></i> Manage Enquiries
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul class="<%- page == 'form_enquiry' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/form_enquiry"
+                                class="<%- page == 'form_enquiry' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Form Enquiries</a></li>
+                    </ul>
+                </li>
+
+                <!-- <li class="<%- page == 'blogs' || page == 'blog_comments' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-news-paper"></i> Manage Blogs
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul class="<%- page == 'blogs' || page == 'blog_comments' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/blogs" class="<%- page == 'blogs' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Blogs</a></li>
+                        <li><a href="<%= siteUrl %>/blog_comments" class="<%- page == 'blog_comments' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Comments</a></li>
+                    </ul>
+                </li> -->
+
+                <!-- <li class="<%- page == 'career_enquiry' || page == 'get_in_touch_enquiry' || page == 'get_a_quote_enquiry' || page == 'contact' || page == 'call-log' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-headphones"></i> Manage Enquiries
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul class="<%- page == 'career_enquiry' || page == 'get_in_touch_enquiry' || page == 'get_a_quote_enquiry' || page == 'contact' || page == 'call-log' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/get_in_touch_enquiry" class="<%- page == 'get_in_touch_enquiry' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Contact Enquiries</a></li>
+                        <li><a href="<%= siteUrl %>/get_a_quote_enquiry" class="<%- page == 'get_a_quote_enquiry' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Get A Quote</a></li>
+                        <li><a href="<%= siteUrl %>/call-log" class="<%- page == 'blogs' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i> Call Logs</a></li>
+
+                    </ul>
+                </li>  -->
+                <li class="app-sidebar__heading">Settings</li>
+                <li class="<%- page == 'general' ? 'mm-active' : ''  %>"><a href="<%= siteUrl %>/general_setting"> <i
+                            class="metismenu-icon pe-7s-settings"></i>General Settings</a></li>
+                <li class="<%- page == 'smtp' ? 'mm-active' : ''  %>"><a href="<%= siteUrl %>/smtp_setting"> <i
+                            class="metismenu-icon pe-7s-config"></i>SMTP Settings</a></li>
+                <li class="<%- page == 'email_template' ? 'mm-active' : ''  %>"><a href="<%= siteUrl %>/email_template">
+                        <i class="metismenu-icon pe-7s-helm"></i>Email Templates</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

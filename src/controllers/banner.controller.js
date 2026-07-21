@@ -1,0 +1,188 @@
+const { body, validationResult } = require('express-validator');
+var multer = require("multer");
+const models = require("../models");
+const { Op } = require("sequelize");
+const fs = require("fs");
+const pageModel = models.page;
+const Banner 	= models.banner;
+
+const title 	= "Banner";
+const page  	= "banner";
+const pageUrl   = "banner";
+const metaTitle = siteName + " | Banner";
+
+const list = async (req, res) => {
+    var action = req.query.action;
+	var rows   = await Banner.findAll({ where: {}, include: [pageModel], order: [ ['updatedAt', 'DESC'] ]});
+	var usedPages = [];
+	for(let k = 0; k < rows.length; k++)
+	{usedPages.push(rows[k]['page_id']);}
+	usedPages = Array.from(new Set(usedPages));
+	const pages = await pageModel.findAll({
+		where: { id: {[Op.notIn]: usedPages} },
+	});
+	console.log()
+    res.render("banner", {
+        title:  	title+"s",
+        page:   	page,
+		pageUrl: 	pageUrl,
+		pages:		pages,
+		metaTitle:  metaTitle,
+        action: 	action,
+        rows:		rows
+    });
+};
+  
+const add = async (req, res) => {
+    var action = req.query.action;
+	var banner = await Banner.findAll({where: {status: 1},});
+	var usedPages = [];
+	for(let k = 0; k < banner.length; k++)
+	{usedPages.push(banner[k]['page_id']);}
+	usedPages = Array.from(new Set(usedPages));
+	const pages = await pageModel.findAll({
+		where: { id: {[Op.notIn]: usedPages} },
+	});
+	// console.log(pages);
+    res.render("banner", {
+		title:  	"Add "+title,
+		page:   	page,
+		pageUrl: 	pageUrl,
+		metaTitle:  metaTitle,
+        action: 	action,
+		pages:		pages,
+		usedPages:	usedPages,
+		row:		[]
+    });
+};
+
+const view = async (req, res) => {
+	var action = req.query.action;
+	var getId  = req.query.id;
+	const row  = await Banner.findOne({ where: {id: getId}, include: [pageModel] });
+	res.render("banner", {
+		title:  	"View "+title,
+		page:   	page,
+		pageUrl: 	pageUrl,
+		metaTitle:  metaTitle,
+        action: 	action,
+		row:		row
+	});
+};
+  
+const edit = async (req, res) => {
+	var action = req.query.action;
+	var getId  = req.query.id;
+	const pages= await pageModel.findAll();
+	const row  = await Banner.findOne({ where: {id: getId} });
+    res.render("banner", {
+		title:  	"Edit "+title,
+		page:   	page,
+		pageUrl: 	pageUrl,
+		metaTitle:  metaTitle,
+        action: 	action,
+		pages:		pages,
+		row:		row
+    });
+};
+
+const destroy = async (req, res) => {
+	var getId  = req.query.id;
+	await Banner.destroy({ where: {id: getId}});
+	await req.flash("success", "Banner deleted successfully.");
+	res.redirect(siteUrl + "/" + pageUrl);
+};
+ 
+module.exports = {
+
+    index: async function (req, res) {
+        var action = req.query.action;
+        switch (action) {
+            case "add":
+                add(req, res);
+                break;
+            case "edit":
+                edit(req, res);
+                break;
+            case "view":
+                view(req, res);
+                break;
+            case "delete":
+                destroy(req, res);
+                break;
+            default:
+                list(req, res);
+        }
+    },
+
+	store: async function store(req, res) {
+		try{
+
+		var dirForUpload = "./public/uploads/banners/";
+		if (!fs.existsSync(dirForUpload)) {
+			fs.mkdirSync(dirForUpload);
+		}
+
+		var storage = multer.diskStorage({
+            destination: function (req, file, callback) {
+                callback(null, "./public/uploads/banners/");
+            },
+            filename: function (req, file, callback) {
+                callback(null, Date.now() + "-" + file.originalname);
+            },
+        });
+        const initUpload = multer({ storage: storage });
+        const uploadMiddleware = initUpload.fields([
+            { name: "image", maxCount: 1 },
+            { name: "image_mob", maxCount: 1 }
+        ]);
+        uploadMiddleware(req, res, async () => {
+
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				req.flash("error", errors.array()[0].msg);
+				res.redirect('back');
+				return;
+			}
+			// if(!req.files.image){
+			// 	req.flash("error", "Please Upload the required Image");
+			// 	res.redirect('back');
+			// 	return;
+			// }
+			// if(!req.files.image_mob){
+			// 	req.flash("error", "Please Upload the required Mobile Image");
+			// 	res.redirect('back');
+			// 	return;
+			// }
+
+			const {id, page_id, title, status, description, image_old, altTagImage, image_mob_old, altTagImageMob} = req.body;
+			const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
+			const imageMob = req.files && req.files.image_mob ? req.files.image_mob[0].filename : image_mob_old;
+
+			const formData = {
+				page_id:	 page_id,
+				title: 		 title,
+				image:		 image,
+				altTagImage: altTagImage,
+				image_mob:	 imageMob,
+				altTagImageMob:altTagImageMob,
+				description: description,
+				status: 	 status,
+				order_no: 	 1
+			};
+
+			if(id && id != '')
+			{
+				await Banner.update(formData, {where: {id: id}});
+				await req.flash("success", "Banner updated successfully.");
+			}
+			else
+			{
+				await Banner.create(formData);
+				await req.flash("success", "Banner created successfully.");
+			}
+			res.redirect(siteUrl + "/" + pageUrl);
+		});
+	}catch(e){console.log(e);}
+	},
+};

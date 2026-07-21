@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                    <div class="page-title-actions">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/services_offered_post" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label class="label" for="services_offered_title">Section
+                                                            Title</label>
+                                                        <input type="text" class="form-control"
+                                                            id="services_offered_title" name="services_offered_title"
+                                                            value="<%- data.services_offered_title || '' %>" />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="services_offered_intro">Introductory
+                                                            Paragraph</label>
+                                                        <textarea class="form-control joeditor"
+                                                            id="services_offered_intro" name="services_offered_intro"
+                                                            rows="3"><%- data.services_offered_intro || '' %></textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="services_offered_image">Image</label>
+                                                        <input type="file" class="form-control"
+                                                            id="services_offered_image" name="services_offered_image" />
+                                                        <input type="hidden" id="services_offered_image_old"
+                                                            name="services_offered_image_old"
+                                                            value="<%- data.services_offered_image || '' %>" />
+                                                        <% if(data && data.services_offered_image) { %>
+                                                            <br><a
+                                                                href="<%- siteUrl +'/uploads/homepagecontents/'+ data.services_offered_image %>"
+                                                                target="_blank">
+                                                                <img class="img-thumbnail" style="max-height: 150px;"
+                                                                    src="<%- siteUrl +'/uploads/homepagecontents/'+ data.services_offered_image %>" />
+                                                            </a>
+                                                            <% } %>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="services_offered_image_alt_tag">Image
+                                                            Alt Tag</label>
+                                                        <input type="text" class="form-control"
+                                                            id="services_offered_image_alt_tag"
+                                                            name="services_offered_image_alt_tag"
+                                                            value="<%- data.services_offered_image_alt_tag || '' %>" />
+                                                    </div>
+
+                                                    <!-- Q&A 1 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Residential Home Massage (Q&A 1)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label" for="services_offered_q1">Question
+                                                                    Heading</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="services_offered_q1" name="services_offered_q1"
+                                                                    value="<%- data.services_offered_q1 || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="services_offered_a1_p1">Answer
+                                                                    Paragraph</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="services_offered_a1_p1"
+                                                                    name="services_offered_a1_p1"
+                                                                    rows="3"><%- data.services_offered_a1_p1 || '' %></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Q&A 2 -->
+                                                    <div class="card mb-3">
+                                                        <div class="card-header">Hotels and Offices (Q&A 2)</div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label" for="services_offered_q2">Question
+                                                                    Heading</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="services_offered_q2" name="services_offered_q2"
+                                                                    value="<%- data.services_offered_q2 || '' %>" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="services_offered_a2_p1">Answer
+                                                                    Paragraph</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="services_offered_a2_p1"
+                                                                    name="services_offered_a2_p1"
+                                                                    rows="3"><%- data.services_offered_a2_p1 || '' %></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <%- include('layouts/script'); %>
+</body>
+
+</html>

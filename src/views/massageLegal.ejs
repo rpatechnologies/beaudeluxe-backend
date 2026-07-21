@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/massage_legal_post" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="label" for="massage_legal_title">Section Title</label>
+                                        <input type="text" class="form-control" id="massage_legal_title" name="massage_legal_title" value="<%- data.massage_legal_title || '' %>"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="massage_legal_description">Section Description</label>
+                                        <textarea class="form-control joeditor" id="massage_legal_description" name="massage_legal_description" rows="5"><%- data.massage_legal_description || '' %></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="label" for="massage_legal_image">Right-Side Main Image</label>
+                                        <input type="file" class="form-control" id="massage_legal_image" name="massage_legal_image">
+                                        <% if(data.massage_legal_image) { %>
+                                            <br><a href="<%= siteUrl %>/uploads/homepagecontents/<%= data.massage_legal_image %>" target="_blank">
+                                                <img class="img-thumbnail" style="max-height: 150px;" src="<%= siteUrl %>/uploads/homepagecontents/<%= data.massage_legal_image %>"/>
+                                            </a>
+                                            <input type="hidden" name="massage_legal_image_old" value="<%= data.massage_legal_image %>">
+                                        <% } %>
+                                    </div>
+
+                                    <h4 class="mt-4 mb-3">Legal Accordion Items</h4>
+                                    
+                                    <div id="items-container">
+                                        <% 
+                                            let items = [];
+                                            try {
+                                                items = JSON.parse(data.massage_legal_items || '[]');
+                                            } catch (e) {
+                                                items = [];
+                                            }
+                                            items.forEach(function(item, idx) { 
+                                        %>
+                                            <div class="card mb-3 item-row" data-index="<%= idx %>">
+                                                <div class="card-header d-flex justify-content-between align-items-center">
+                                                    <span>Accordion Item: <%= item.title %></span>
+                                                    <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove Item</button>
+                                                </div>
+                                                <div class="card-body">
+                                                    <input type="hidden" name="item_index[]" value="<%= idx %>">
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="label">Accordion Title</label>
+                                                        <input type="text" class="form-control" name="item_title[]" value="<%= item.title %>" required>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="label">Accordion Content</label>
+                                                        <textarea class="form-control" name="item_description[]" rows="3" required><%= item.description %></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% }) %>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <button type="button" class="btn btn-success" id="add-item-btn"><i class="fa fa-plus"></i> Add Accordion Item</button>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg">Update Section</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let container = document.getElementById("items-container");
+    let addBtn = document.getElementById("add-item-btn");
+    
+    // Find next unique index
+    let nextIndex = 0;
+    document.querySelectorAll(".item-row").forEach(item => {
+        let idx = parseInt(item.getAttribute("data-index"));
+        if (idx >= nextIndex) {
+            nextIndex = idx + 1;
+        }
+    });
+
+    // Remove item delegation
+    container.addEventListener("click", function(e) {
+        if (e.target.classList.contains("remove-item-btn")) {
+            if (confirm("Are you sure you want to remove this accordion item?")) {
+                let row = e.target.closest(".item-row");
+                if (row) {
+                    row.remove();
+                }
+            }
+        }
+    });
+
+    // Add item logic
+    addBtn.addEventListener("click", function() {
+        let itemHtml = `
+            <div class="card mb-3 item-row" data-index="${nextIndex}">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <span>New Accordion Item</span>
+                    <button type="button" class="btn btn-danger btn-sm remove-item-btn">Remove Item</button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="item_index[]" value="${nextIndex}">
+                    
+                    <div class="form-group">
+                        <label class="label">Accordion Title</label>
+                        <input type="text" class="form-control" name="item_title[]" placeholder="Enter title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="label">Accordion Content</label>
+                        <textarea class="form-control" name="item_description[]" rows="3" placeholder="Enter content details" required></textarea>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        container.insertAdjacentHTML('beforeend', itemHtml);
+        nextIndex++;
+    });
+});
+</script>
+</body>
+</html>

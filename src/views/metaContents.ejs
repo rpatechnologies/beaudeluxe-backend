@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+								<i class="fa fa-star"></i>
+							</button> -->
+						</div>
+					</div>
+				</div>
+                <% if(action=='add' || action=='edit') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/meta_contents_post" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
+                                    <div class="form-group">
+                                        <label class="label" for="metaTitle">Meta Title *</label>
+                                        <input type="text" class="form-control" id="metaTitle" name="metaTitle" value="<%- row ? row.metaTitle : '' %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="metaDescription">Meta Description *</label>
+                                        <textarea class="form-control" id="metaDescription" name="metaDescription" required><%- row ? row.metaDescription : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="metaKeywords">Meta Keywords *</label>
+                                        <textarea class="form-control" id="metaKeywords" name="metaKeywords" required><%- row ? row.metaKeywords : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="h1">H1</label>
+                                        <textarea class="form-control" id="h1" name="h1" ><%- row ? row.h1 : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="h2">H2</label>
+                                        <textarea class="form-control" id="h2" name="h2" ><%- row ? row.h2 : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="slug">Slug *</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" value="<%- row ? row.slug : '' %>" required/>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="label" for="createdAt">Publishing Date *</label>
+                                        <input type="text" class="form-control datepicker" id="createdAt" name="createdAt" value="<%- row ? row.createdAt : '' %>" required/>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>    
+                <% } else if(action=='view') { %>
+                    <!-- id, name, country, rating, description, photo, status, createdAt -->
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table class="mb-0 table table-bordered">
+                            <tbody>
+                                <!-- <tr>
+                                    <th style="width: 15%">Page</th>
+                                    <td><%- row.page?.name %></td>
+                                </tr> -->
+                                <tr>
+                                    <th style="width: 15%">Meta Title</th>
+                                    <td><%- row.metaTitle %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Meta Description</th>
+                                    <td><%- row.metaDescription %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Meta Keywords</th>
+                                    <td><%- row.metaKeywords %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">H1</th>
+                                    <td><%- row.h1 %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">H2</th>
+                                    <td><%- row.h2 %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Slug</th>
+                                    <td><%- row.slug %></td>
+                                </tr>
+                                <!-- <tr>
+                                    <th style="width: 15%">Published At</th>
+                                    <td><%- new Date(row.createdAt).toLocaleString('en-GB', { hour12: false }) %></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <br>
+                        <a href="<%- siteUrl+'/'+pageUrl %>" class="btn btn-secondary btn-icon" style="color: white;"><i class="pe-7s-back btn-icon-wrapper"> </i>Back</a>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%- include('layouts/flash'); %>
+                        <a href="<%- siteUrl +'/'+ page %>?action=add" class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New Record</a>
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <!-- id, name, country, rating, description, photo, status, createdAt -->
+                                    <th width="5%">#</th>
+                                    <!-- <th>Page</th> -->
+                                    <th>metaTitle</th>
+                                    <th>metaDescription</th>
+                                    <th>metaKeywords</th>
+                                    <th>Slug</th>
+                                    <!-- <th width="10%">Publishing Date</th> -->
+                                    <th width="15%" style="text-align: center;vertical-align: middle;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% rows.forEach(function(data, index) { %>
+                                <tr>
+                                    <td><%- index + 1 %></td>
+                                    <!-- <td><%- data.page ? data.page.name : '' %></td> -->
+                                    <td><%- data.metaTitle %></td>
+                                    <td><%- data.metaDescription %></td>
+                                    <td><%- data.metaKeywords %></td>
+                                    <td><%- data.slug %></td>
+                                    <!-- <td><%- data.createdAt ? new Date(data.createdAt).toLocaleDateString("en-US") : 'N/A' %></td> -->
+                                    <td style="text-align: center;vertical-align: middle;">
+                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a> -->
+                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a> -->
+                                        <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a> -->
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><span style=" color: rgb(0, 0, 0);"><i class="fa fa-eye" title="View"></i></span></a>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><span style=" color: rgb(32, 108, 221);"><i class="fa fa-pen" title="Edit"></i></span></a>
+                                        <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><span style=" color: red;"><i class="fa fa-trash" title="Delete"></i></span></a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+                <% } %>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+<script>
+function appendRow(gethisii) 
+{ 
+    var tblBody = document.getElementById(gethisii).tBodies[0];
+    var newNode = tblBody.rows[0].cloneNode(true);
+    tblBody.appendChild(newNode);
+}
+</script>
+<script type="text/javascript">
+var deleteRow = function (link, getthis) 
+{
+    var rowCount = $('#'+getthis+' >tbody >tr').length;
+    if(rowCount > 1)  
+    {
+        var row = link.parentNode.parentNode;
+        var table = row.parentNode; 
+        table.removeChild(row);
+    } 
+}
+</script>
+</body>
+</html>

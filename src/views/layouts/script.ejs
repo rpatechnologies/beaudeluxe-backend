@@ -1,0 +1,50 @@
+<script type="text/javascript">
+function del(url)
+{
+    if(	confirm('Are you sure, You really want to delete this?') )
+    {
+        window.location=url;
+    }
+}
+</script>
+<script type="text/javascript" src="<%= siteUrl %>/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%= siteUrl %>/css/jodit.min.css">
+<script src="<%= siteUrl %>/js/jodit.min.js"></script>
+<!-- <script>
+	const editor = Jodit.make('.joeditor', {
+		showTooltip: true
+	});
+</script> -->
+<script>
+if (document.querySelector('.joeditor') != undefined) {
+    var editors = [].slice.call(document.querySelectorAll('.joeditor'));
+    editors.forEach(function (div) {
+        if (!Jodit.instances[div.id]) {
+            var editor = new Jodit(div, {
+                preset: '',
+                language: 'en',
+                toolbarButtonSize: "middle",
+                removeButtons: ['superscript', 'subscript'],
+                showTooltip: true
+            });
+        }
+    });
+}
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+$(function() {
+    $(".datepicker").datepicker({ 
+        dateFormat: 'dd-MM-yy',
+        changeMonth: true,
+        onSelect: function(selectedDate) {
+            // we can write code here 
+        }
+    });
+});
+</script>
