@@ -173,9 +173,15 @@ module.exports = {
         };
       }
 
+      const reqGender = req.body.gender || req.query.gender;
+      let subServiceWhere = { status: 1 };
+      if (reqGender) {
+        subServiceWhere.gender = reqGender;
+      }
+
       const subService = await SubServices.findAll({
-        attributes: ["id", "slug", "title", "description", "order_no", "type"],
-        where: { status: 1 },
+        attributes: ["id", "slug", "title", "description", "order_no", "type", "gender"],
+        where: subServiceWhere,
         order: [["order_no", "ASC"]],
         include: [
           {

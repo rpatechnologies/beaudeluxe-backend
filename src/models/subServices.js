@@ -29,6 +29,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         status:{
             type: Sequelize.TINYINT
+        },
+        gender: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: "Both"
         }
     }, 
     {
