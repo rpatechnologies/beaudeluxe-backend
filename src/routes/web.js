@@ -5,6 +5,8 @@ const authController = require('../controllers/auth.controller');
 const homeController = require('../controllers/home.controller');
 const settingController = require('../controllers/setting.controller');
 const homePageContentsController = require('../controllers/homePageContents.controller');
+const aboutPageContentsController = require('../controllers/aboutPageContents.controller');
+const therapistController = require('../controllers/therapist.controller');
 const emailTemplateController = require('../controllers/emailTemplate.controller');
 const bannerController = require('../controllers/banner.controller');
 const cmsController = require('../controllers/cms.controller');
@@ -74,6 +76,28 @@ router.post('/massage_legal_post', auth, homePageContentsController.massageLegal
 router.get('/get_started', auth, homePageContentsController.getStarted);
 router.post('/get_started_post', auth, homePageContentsController.getStartedPost);
 
+router.get('/about_story', auth, aboutPageContentsController.aboutStory);
+router.post('/about_story_post', auth, aboutPageContentsController.aboutStoryPost);
+
+router.get('/about_mission', auth, aboutPageContentsController.aboutMission);
+router.post('/about_mission_post', auth, aboutPageContentsController.aboutMissionPost);
+
+router.get('/about_numbers', auth, aboutPageContentsController.aboutNumbers);
+router.post('/about_numbers_post', auth, aboutPageContentsController.aboutNumbersPost);
+
+router.get('/about_team', auth, aboutPageContentsController.aboutTeam);
+router.post('/about_team_post', auth, aboutPageContentsController.aboutTeamPost);
+
+router.get('/our-teams', auth, therapistController.index);
+router.post('/our_teams_post', auth, therapistController.store);
+router.get('/therapist_founder', auth, therapistController.therapistFounder);
+router.post('/therapist_founder_post', auth, therapistController.therapistFounderPost);
+router.get('/therapist_specialization', auth, therapistController.therapistSpecialization);
+router.post('/therapist_specialization_post', auth, therapistController.therapistSpecializationPost);
+
+router.get('/about_contact', auth, aboutPageContentsController.aboutContact);
+router.post('/about_contact_post', auth, aboutPageContentsController.aboutContactPost);
+
 router.get('/smtp_setting', auth, settingController.smtp);
 router.post('/smtp_setting_post', auth, settingController.smtpPost);
 
@@ -127,8 +151,5 @@ router.get('/time_slot', auth, timeSlotController.index);
 router.post('/time_slot_post', auth, timeSlotController.store);
 
 router.get('/form_enquiry', auth, formEnquiryController.index);
-
-
-
 
 module.exports = router;

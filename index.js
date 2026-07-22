@@ -80,8 +80,21 @@ app.use(upload.array());
 
 //{ force: true }{alter: true}{logging: true}
 db.sequelize.sync()
-	.then(() => {
-		// console.log("Synced db.");
+	.then(async () => {
+		try {
+			await db.sequelize.query("ALTER TABLE faqs ADD COLUMN category VARCHAR(255) NOT NULL DEFAULT 'About';");
+		} catch (e) {
+			if (e.original && e.original.errno !== 1060) {
+				console.error("FAQ schema sync error:", e);
+			}
+		}
+		try {
+			await db.sequelize.query("ALTER TABLE sub_services ADD COLUMN gender VARCHAR(255) NOT NULL DEFAULT 'Both';");
+		} catch (e) {
+			if (e.original && e.original.errno !== 1060) {
+				console.error("SubServices gender schema sync error:", e);
+			}
+		}
 		app.listen(port, () => {
 			console.log(`Server is Up and Running at Port - ${port}\nVisit it on http://127.0.0.1:${port}/ or http://localhost:${port}/`);
 		})

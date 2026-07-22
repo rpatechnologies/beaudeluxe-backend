@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/about_numbers_post" method="post">
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_numbers_title">Section Main
+                                                            Title *</label>
+                                                        <input type="text" class="form-control" id="about_numbers_title"
+                                                            name="about_numbers_title"
+                                                            value="<%- data.about_numbers_title || 'BeauDeluxe by the Numbers' %>"
+                                                            required />
+                                                    </div>
+
+                                                    <hr>
+                                                    <h5>Statistic Cards</h5>
+
+                                                    <div class="form-row mt-3">
+                                                        <div class="col-md-4 form-group">
+                                                            <label class="label">Stat 1 Number</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat1_num"
+                                                                value="<%- data.about_numbers_stat1_num || '12+' %>" />
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <label class="label">Stat 1 Description Label</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat1_label"
+                                                                value="<%- data.about_numbers_stat1_label || 'years of home massage service in Dubai since 2014' %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 form-group">
+                                                            <label class="label">Stat 2 Number</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat2_num"
+                                                                value="<%- data.about_numbers_stat2_num || '24,000+' %>" />
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <label class="label">Stat 2 Description Label</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat2_label"
+                                                                value="<%- data.about_numbers_stat2_label || 'sessions delivered' %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 form-group">
+                                                            <label class="label">Stat 3 Number</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat3_num"
+                                                                value="<%- data.about_numbers_stat3_num || '48' %>" />
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <label class="label">Stat 3 Description Label</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat3_label"
+                                                                value="<%- data.about_numbers_stat3_label || 'certified therapists on active roster' %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 form-group">
+                                                            <label class="label">Stat 4 Number</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat4_num"
+                                                                value="<%- data.about_numbers_stat4_num || '39' %>" />
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <label class="label">Stat 4 Description Label</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat4_label"
+                                                                value="<%- data.about_numbers_stat4_label || 'Dubai neighborhoods served. See our Service Areas page' %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 form-group">
+                                                            <label class="label">Stat 5 Number</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat5_num"
+                                                                value="<%- data.about_numbers_stat5_num || '4.8' %>" />
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <label class="label">Stat 5 Description Label</label>
+                                                            <input type="text" class="form-control"
+                                                                name="about_numbers_stat5_label"
+                                                                value="<%- data.about_numbers_stat5_label || 'out of 5 average rating across client reviews. See BeauDeluxe Reviews' %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            Changes</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <%- include('layouts/script'); %>
+</body>
+
+</html>

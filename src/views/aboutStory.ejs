@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/about_story_post" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_story_main_title">Section Main
+                                                            Title *</label>
+                                                        <input type="text" class="form-control"
+                                                            id="about_story_main_title" name="about_story_main_title"
+                                                            value="<%- data.about_story_main_title || 'Our Story' %>"
+                                                            required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_story_how_content">"How Started"
+                                                            Content *</label>
+                                                        <textarea class="form-control joeditor"
+                                                            id="about_story_how_content" name="about_story_how_content"
+                                                            required><%- data.about_story_how_content || '' %></textarea>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_story_image_1">Story Image
+                                                            1</label>
+                                                        <input type="file" class="form-control" id="about_story_image_1"
+                                                            name="about_story_image_1" />
+                                                        <input type="hidden" name="about_story_image_1_old"
+                                                            value="<%- data.about_story_image_1 || '' %>" />
+                                                        <% if (data.about_story_image_1) { %>
+                                                            <br><img
+                                                                src="<%- siteUrl + '/uploads/homepagecontents/' + data.about_story_image_1 %>"
+                                                                style="max-height: 100px; border-radius: 8px;" />
+                                                            <% } %>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_story_image_2">Story Image
+                                                            2</label>
+                                                        <input type="file" class="form-control" id="about_story_image_2"
+                                                            name="about_story_image_2" />
+                                                        <input type="hidden" name="about_story_image_2_old"
+                                                            value="<%- data.about_story_image_2 || '' %>" />
+                                                        <% if (data.about_story_image_2) { %>
+                                                            <br><img
+                                                                src="<%- siteUrl + '/uploads/homepagecontents/' + data.about_story_image_2 %>"
+                                                                style="max-height: 100px; border-radius: 8px;" />
+                                                            <% } %>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_story_image_3">Story Image
+                                                            3</label>
+                                                        <input type="file" class="form-control" id="about_story_image_3"
+                                                            name="about_story_image_3" />
+                                                        <input type="hidden" name="about_story_image_3_old"
+                                                            value="<%- data.about_story_image_3 || '' %>" />
+                                                        <% if (data.about_story_image_3) { %>
+                                                            <br><img
+                                                                src="<%- siteUrl + '/uploads/homepagecontents/' + data.about_story_image_3 %>"
+                                                                style="max-height: 100px; border-radius: 8px;" />
+                                                            <% } %>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            Changes</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <%- include('layouts/script'); %>
+</body>
+
+</html>

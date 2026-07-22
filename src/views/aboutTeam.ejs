@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/about_team_post" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_team_title">Section Title
+                                                            *</label>
+                                                        <input type="text" class="form-control" id="about_team_title"
+                                                            name="about_team_title"
+                                                            value="<%- data.about_team_title || 'Meet Our Team' %>"
+                                                            required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="about_team_description">Section
+                                                            Description *</label>
+                                                        <textarea class="form-control joeditor"
+                                                            id="about_team_description" name="about_team_description"
+                                                            required><%- data.about_team_description || 'BeauDeluxe is only as good as the therapists who deliver every session. El Hassan leads the business; the team leads the craft. Meet the people who show up at your door on our therapists page.' %></textarea>
+                                                    </div>
+
+                                                    <div class="mb-3 card">
+                                                        <div
+                                                            class="card-header d-flex justify-content-between align-items-center">
+                                                            <span>Team Members List</span>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                id="btnAddMember" onclick="appendTeamRow()"><i
+                                                                    class="fa fa-plus"></i> Add Team Member</button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div id="teamMembersContainer">
+                                                                <% let teamMembers=[]; try { if
+                                                                    (data.about_team_members) {
+                                                                    teamMembers=JSON.parse(data.about_team_members); } }
+                                                                    catch(e) {} if (teamMembers && teamMembers.length>
+                                                                    0) {
+                                                                    teamMembers.forEach(function(member, index) {
+                                                                    let idx = member.id || index;
+                                                                    %>
+                                                                    <div class="card mb-3 border p-3 team-member-card">
+                                                                        <input type="hidden" name="card_index"
+                                                                            value="<%- idx %>" />
+                                                                        <div class="form-row">
+                                                                            <div class="col-md-3 form-group">
+                                                                                <label class="label">Member
+                                                                                    Photo</label>
+                                                                                <input type="file"
+                                                                                    class="form-control-file"
+                                                                                    name="card_image_<%- idx %>" />
+                                                                                <input type="hidden"
+                                                                                    name="card_image_old"
+                                                                                    value="<%- member.image || '' %>" />
+                                                                                <% if(member.image) { %>
+                                                                                    <br><img
+                                                                                        src="<%- siteUrl + '/uploads/homepagecontents/' + member.image %>"
+                                                                                        style="max-height: 80px; border-radius: 6px;" />
+                                                                                    <% } %>
+                                                                            </div>
+                                                                            <div class="col-md-4 form-group">
+                                                                                <label class="label">Name / Title
+                                                                                    *</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    name="member_name"
+                                                                                    value="<%- member.name || '' %>"
+                                                                                    placeholder="e.g. Sarah Jenkins"
+                                                                                    required />
+                                                                            </div>
+                                                                            <div class="col-md-4 form-group">
+                                                                                <label class="label">Role / Short Bio
+                                                                                    *</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    name="member_role"
+                                                                                    value="<%- member.role || '' %>"
+                                                                                    placeholder="e.g. Senior Massage Therapist"
+                                                                                    required />
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-md-1 form-group d-flex align-items-end justify-content-end">
+                                                                                <button type="button"
+                                                                                    class="btn btn-danger btn-sm"
+                                                                                    onclick="deleteTeamRow(this)"><i
+                                                                                        class="fa fa-trash"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <% }); } else { %>
+                                                                        <!-- Default initial member row -->
+                                                                        <div
+                                                                            class="card mb-3 border p-3 team-member-card">
+                                                                            <input type="hidden" name="card_index"
+                                                                                value="0" />
+                                                                            <div class="form-row">
+                                                                                <div class="col-md-3 form-group">
+                                                                                    <label class="label">Member
+                                                                                        Photo</label>
+                                                                                    <input type="file"
+                                                                                        class="form-control-file"
+                                                                                        name="card_image_0" />
+                                                                                    <input type="hidden"
+                                                                                        name="card_image_old"
+                                                                                        value="" />
+                                                                                </div>
+                                                                                <div class="col-md-4 form-group">
+                                                                                    <label class="label">Name / Title
+                                                                                        *</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        name="member_name"
+                                                                                        placeholder="e.g. Sarah Jenkins"
+                                                                                        required />
+                                                                                </div>
+                                                                                <div class="col-md-4 form-group">
+                                                                                    <label class="label">Role / Short
+                                                                                        Bio *</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        name="member_role"
+                                                                                        placeholder="e.g. Senior Massage Therapist"
+                                                                                        required />
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-md-1 form-group d-flex align-items-end justify-content-end">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-danger btn-sm"
+                                                                                        onclick="deleteTeamRow(this)"><i
+                                                                                            class="fa fa-trash"></i></button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group mt-3">
+                                                        <button type="submit" class="btn btn-primary">Save Team
+                                                            Members</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <%- include('layouts/script'); %>
+
+        <script>
+            let memberCounter = 100;
+            function appendTeamRow() {
+                memberCounter++;
+                const container = document.getElementById("teamMembersContainer");
+                const cardHtml = `
+            <div class="card mb-3 border p-3 team-member-card">
+                <input type="hidden" name="card_index" value="${memberCounter}" />
+                <div class="form-row">
+                    <div class="col-md-3 form-group">
+                        <label class="label">Member Photo</label>
+                        <input type="file" class="form-control-file" name="card_image_${memberCounter}" />
+                        <input type="hidden" name="card_image_old" value="" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label class="label">Name / Title *</label>
+                        <input type="text" class="form-control" name="member_name" placeholder="e.g. Sarah Jenkins" required/>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label class="label">Role / Short Bio *</label>
+                        <input type="text" class="form-control" name="member_role" placeholder="e.g. Senior Massage Therapist" required/>
+                    </div>
+                    <div class="col-md-1 form-group d-flex align-items-end justify-content-end">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteTeamRow(this)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            }
+
+            function deleteTeamRow(btn) {
+                const cards = document.querySelectorAll(".team-member-card");
+                if (cards.length > 1) {
+                    btn.closest(".team-member-card").remove();
+                } else {
+                    alert("At least one team member row is required.");
+                }
+            }
+        </script>
+</body>
+
+</html>

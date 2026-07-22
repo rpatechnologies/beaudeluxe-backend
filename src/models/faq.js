@@ -9,6 +9,11 @@ module.exports = (sequelize, Sequelize) => {
         question: {
             type: Sequelize.STRING
         },
+        category: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: "About"
+        },
         answer:{
             type: Sequelize.TEXT                                                                                                                                                                                                                                                  
         },

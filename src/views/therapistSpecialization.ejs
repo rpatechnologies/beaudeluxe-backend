@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/therapist_specialization_post" method="post">
+                                                    <div class="form-group">
+                                                        <label class="label" for="therapist_specialization_title">Section Main Title *</label>
+                                                        <input type="text" class="form-control" id="therapist_specialization_title"
+                                                            name="therapist_specialization_title"
+                                                            value="<%- data.therapist_specialization_title || 'Our Therapists by Specialization' %>"
+                                                            required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="therapist_specialization_description">Section Description / Subtitle *</label>
+                                                        <textarea class="form-control"
+                                                            id="therapist_specialization_description"
+                                                            name="therapist_specialization_description"
+                                                            rows="2"
+                                                            required><%- data.therapist_specialization_description || 'Different massage types require different training. Below is the team\'s specialization map.' %></textarea>
+                                                    </div>
+
+                                                    <div class="mb-3 card">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <span>Specialization Cards</span>
+                                                            <button type="button" class="btn btn-primary btn-sm" onclick="appendSpecializationCardRow()"><i class="fa fa-plus"></i> Add Card</button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div id="specializationCardsContainer">
+                                                                <% 
+                                                                let cards = [];
+                                                                try {
+                                                                    if (data.therapist_specialization_cards) {
+                                                                        cards = JSON.parse(data.therapist_specialization_cards);
+                                                                    }
+                                                                } catch(e) {}
+                                                                if (!cards || cards.length === 0) {
+                                                                    cards = [
+                                                                        { id: 0, title: 'Swedish Massage Specialists', description: 'Therapists certified and experienced in all five classical Swedish techniques (effleurage, petrissage, tapotement, friction, vibration) : Sofia Martins', link_text: 'Book via swedish massage at home.' },
+                                                                        { id: 1, title: 'Deep Tissue Specialists', description: 'Therapists trained in myofascial release, trigger point therapy, cross-fiber friction, and stripping techniques for chronic muscle tension work: Elena Petrova', link_text: 'Book via deep tissue massage at home.' },
+                                                                        { id: 2, title: 'Prenatal and Postnatal Specialists', description: 'Therapists with specific pregnancy massage certification and supervised prenatal training, familiar with side-lying positioning and safe technique adaptation: Fatima Al Mansoori', link_text: 'Details on Pregnancy Massage page.' },
+                                                                        { id: 3, title: 'Sports and Deep Recovery Specialists', description: 'Therapists with sports massage certification for pre-event preparation, post-event recovery, and chronic athletic injury support: Aisha Khan', link_text: 'Details on Sports Massage page.' },
+                                                                        { id: 4, title: 'Female Therapists', description: 'Female certified therapists available by request and by default for women\'s bookings: Maria Gonzalez', link_text: 'Details on massage service for women .' }
+                                                                    ];
+                                                                }
+                                                                cards.forEach(function(card, index) { 
+                                                                    let idx = card.id !== undefined ? card.id : index;
+                                                                %>
+                                                                    <div class="card mb-3 border p-3 specialization-card-item">
+                                                                        <input type="hidden" name="card_index" value="<%- idx %>" />
+                                                                        <div class="form-group">
+                                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                                <label class="label font-weight-bold mb-0">Card Title *</label>
+                                                                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteSpecializationCardRow(this)"><i class="fa fa-trash"></i> Delete Card</button>
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="card_title" value="<%- card.title || '' %>" placeholder="e.g. Swedish Massage Specialists" required />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label">Card Description *</label>
+                                                                            <textarea class="form-control" name="card_desc" rows="3" placeholder="Description details..." required><%- card.description || '' %></textarea>
+                                                                        </div>
+                                                                        <div class="form-group mb-0">
+                                                                            <label class="label">Link Text / CTA *</label>
+                                                                            <input type="text" class="form-control" name="card_link" value="<%- card.link_text || '' %>" placeholder="e.g. Book via swedish massage at home." required />
+                                                                        </div>
+                                                                    </div>
+                                                                <% }); %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group mt-3">
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <%- include('layouts/script'); %>
+    <script>
+        let cardCounter = 200;
+        function appendSpecializationCardRow() {
+            cardCounter++;
+            const container = document.getElementById("specializationCardsContainer");
+            const cardHtml = `
+                <div class="card mb-3 border p-3 specialization-card-item">
+                    <input type="hidden" name="card_index" value="\${cardCounter}" />
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="label font-weight-bold mb-0">Card Title *</label>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteSpecializationCardRow(this)"><i class="fa fa-trash"></i> Delete Card</button>
+                        </div>
+                        <input type="text" class="form-control" name="card_title" placeholder="e.g. Swedish Massage Specialists" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Card Description *</label>
+                        <textarea class="form-control" name="card_desc" rows="3" placeholder="Description details..." required></textarea>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="label">Link Text / CTA *</label>
+                        <input type="text" class="form-control" name="card_link" placeholder="e.g. Book via swedish massage at home." required />
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', cardHtml);
+        }
+
+        function deleteSpecializationCardRow(btn) {
+            const items = document.querySelectorAll(".specialization-card-item");
+            if (items.length > 1) {
+                btn.closest(".specialization-card-item").remove();
+            } else {
+                alert("At least one specialization card is required.");
+            }
+        }
+    </script>
+</body>
+</html>
