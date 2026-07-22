@@ -144,7 +144,7 @@ module.exports = {
             // order_no, name, country, rating, description, photo, altTag, status, publishedAt
 
 			const {id, name, country, rating, description, photo_old, altTag, status, slug} = req.body;
-			// const image = req.files && req.files.photo ? req.files.photo[0].filename : photo_old;
+			const image = req.files && req.files.photo ? req.files.photo[0].filename : photo_old;
 			const countr  = await Countries.findOne({ where: {name: country} });
 			const formData = {
 				name: name,
@@ -152,9 +152,9 @@ module.exports = {
 				flag: `https://flagsapi.com/${countr.code}/flat/64.png`,
                 rating: rating,
 				description: description,
-				// photo: image,
+				photo: image,
 				slug: slug,
-				// altTag: altTag,
+				altTag: altTag || name,
 				status: status
 			};
 			if(id != '')

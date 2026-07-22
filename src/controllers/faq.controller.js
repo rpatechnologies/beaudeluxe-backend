@@ -99,11 +99,12 @@ module.exports = {
             return;
         }
 
-        const {id, slug, answer, question, show_on_homepage, status} = req.body;
+        const {id, slug, answer, question, category, show_on_homepage, status} = req.body;
         const formData = {
             slug: slug,
             answer: answer,
             question: question,
+            category: category || "About",
             show_on_homepage: show_on_homepage,
             status: status
         };

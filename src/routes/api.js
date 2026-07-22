@@ -31,6 +31,9 @@ router.get('/get_home_page_sections', homeController.getHomePageSections);
 
 // About Page
 router.post('/about_content', homeController.aboutUsPost);
+router.get('/get_about_page_sections', homeController.getAboutPageSections);
+router.get('/get_our_teams', homeController.getOurTeams);
+router.get('/get_therapists', homeController.therapists);
 
 // Service Page
 router.post('/get_all_services', serviceController.getServiceList);

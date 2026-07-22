@@ -60,7 +60,7 @@
                                         <textarea name="description" id="description" rows="5" class="form-control joeditor"><%- row ? row.description : "" %></textarea>
                                     </div>
 
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <label class="label" for="photo">Image *</label>
                                         <% if(row && row.photo) { %>
                                         <input type="file" class="form-control" id="photo" name="photo" value="<%- row ? row.photo : '' %>"/>
@@ -71,19 +71,15 @@
                                         <span class="help-block text-danger"><b>Recommend Size : 127 X 107 PX.</b></span><br>
                                         <% if(row && row.photo) { %>
                                             <a href="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>" target="_blank">
-                                                <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>"/>
+                                                <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>" style="max-height: 80px;"/>
                                             </a>
                                         <% } %>
-                                    </div> -->
+                                    </div>
 
-                                    <!-- <div class="form-group">
-                                        <label class="label" for="slug">Url</label>
-                                        <input type="text" class="form-control" id="slug" name="slug" value="<%- row ? row.slug : '' %>"/>
-                                    </div> -->
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <label class="label" for="altTag">Alt Tag</label>
                                         <input type="text" class="form-control" id="altTag" name="altTag" value="<%- row ? row.altTag : '' %>"/>
-                                    </div> -->
+                                    </div>
                                     <div class="form-group">
                                         <label class="label" for="status">Status *</label>
                                         <select class="form-control" id="status" name="status"required>
@@ -123,22 +119,18 @@
                                     <th style="width: 15%">Description</th>
                                     <td><%- row.description %></td>
                                 </tr>
-                                <!-- <tr>
-                                    <th style="width: 15%">Url</th>
-                                    <td><%- row.slug %></td>
-                                </tr>
                                 <tr>
                                     <th style="width: 15%">Image</th>
                                     <td>
                                         <a href="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>"/>
+                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ row.photo %>" style="max-height: 100px;"/>
                                         </a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">Alt Tag</th>
                                     <td><%- row.altTag %></td>
-                                </tr> -->
+                                </tr>
                                 <!-- <tr>
                                     <th style="width: 15%">Updated At</th>
                                     <td><%- new Date(row.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td>
@@ -177,9 +169,7 @@
                                     <th>Country</th>
                                     <th>Rating</th>
                                     <th>Description</th>
-                                    <!-- <th>Photo</th> -->
-                                    <!-- <th>Alt Tag</th> -->
-                                    <!-- <th width="10%">Updated At</th> -->
+                                    <th>Photo</th>
                                     <th width="5%">Status</th>
                                     <th width="15%" style="text-align: center;vertical-align: middle;">Action</th>
                                 </tr>
@@ -192,11 +182,13 @@
                                     <td><%- data.country %></td>
                                     <td><%- data.rating %></td>
                                     <td><%- data.description %></td>
-                                    <!-- <td>
-                                        <a href="<%- siteUrl +'/uploads/testimonials/'+ data.photo %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ data.photo %>"/>
-                                        </a>
-                                    </td> -->
+                                    <td>
+                                        <% if(data.photo) { %>
+                                            <a href="<%- siteUrl +'/uploads/testimonials/'+ data.photo %>" target="_blank">
+                                                <img class="img-thumbnail" src="<%- siteUrl +'/uploads/testimonials/'+ data.photo %>" style="max-height: 50px;"/>
+                                            </a>
+                                        <% } %>
+                                    </td>
                                     <!-- <td><%- data.altTag %></td> -->
                                     <!-- <td><%- new Date(data.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td> -->
                                     <td>

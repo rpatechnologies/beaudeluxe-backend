@@ -20,7 +20,7 @@ module.exports = {
   serviceGet: async function (req, res) {
     try {
       const services = await Service.findAll({
-        where: {status : 1},
+        where: { status: 1 },
         attributes: ["id", "title", "slug"],
       });
       return res.status(200).json({
@@ -43,7 +43,7 @@ module.exports = {
           {
             model: SubServices,
             attributes: ["id", "slug", "title", "description", "order_no", "type"],
-            order: [["order_no", "ASC"]], 
+            order: [["order_no", "ASC"]],
             where: {
               status: 1,
               service_id: id,
@@ -62,105 +62,102 @@ module.exports = {
     }
   },
   getServiceList: async function (req, res) {
-		try { 
+    try {
       const slug = 'services';
-			const services = await Service.findAll({});
-      
-     
-			const banners = await Banner.findAll({
-				where: {status: 1, page_id: 3}, 
-				attributes: ['id', 'page_id', 'title', 'image', 'altTagImage', 'image_mob', 'altTagImageMob', 'description', 'status', 'order_no'],
-				order: [ ['order_no', 'ASC'] ]
-			});
+      const services = await Service.findAll({});
 
-			const cmsList = await Cms.findAll({
-				where: {status: 1, slug: slug}, 
-				attributes: ['id','title','shadow_title','description', 'image', 'alt_tag','slug']
-			});
-			const serviceFaqs = await ServiceFaqs.findAll({
-				where: {show_in_main: 1},
-				order: [ ['order_no', 'ASC'] ]
-			});
-			const faqTitle = await MainServiceSettings.findOne({
-                where: {serviceTitleId: 6}
-            });
-			const serviceTitle = await MainServiceSettings.findOne({
-                where: {serviceTitleId: 5}
-            });
-			// let arrayCms = {};
-			for(let q = 0; q < cmsList.length; q++)
-			{
-				const itemBanner = cmsList[q];
-				arrayCms = {
-					id: itemBanner.id,
-					title: itemBanner.title,
-					shadow_title: itemBanner.shadow_title,
-					image: `${siteUrl}/uploads/cms/${itemBanner.image}`,
-					alt_tag: itemBanner.alt_tag,
-					slug: itemBanner.slug,
-					description: itemBanner.description,
-				}
-			}
-			let arrayBanners = {};
-			for(let j = 0; j < banners.length; j++)
-			{
-				const itemBanner = banners[j];
-				arrayBanners = {
-					id: itemBanner.id,
-					title: itemBanner.title,
-					image: `${siteUrl}/uploads/banners/${itemBanner.image}`,
-					altTagImage: itemBanner.altTagImage,
-					mob_image: 	`${siteUrl}/uploads/banners/${itemBanner.image_mob}`,
-					altTagImageMob: itemBanner.altTagImageMob,
-					description: itemBanner.description,
-				}
-			}
-		 
-			let serviceList = [];
-			for(let i = 0; i < services.length; i++)
-			{
-				const item = services[i];
-				item["image"]=`${siteUrl}/uploads/service/${item.image}`;
-				item["logo"]=`${siteUrl}/uploads/service/${item.logo}`;
-				item["banner"]=`${siteUrl}/uploads/service/banners/${item.banner}`;
-				item["banner_mob"]=`${siteUrl}/uploads/service/banners/${item.banner_mob}`;
-				serviceList.push(item);
-			}
 
-			const servicesDict = {
-				title: serviceTitle['title'],
-				shadow_title: serviceTitle['shadow_title'],
-				services: serviceList,
-			};
+      const banners = await Banner.findAll({
+        where: { status: 1, page_id: 3 },
+        attributes: ['id', 'page_id', 'title', 'image', 'altTagImage', 'image_mob', 'altTagImageMob', 'description', 'status', 'order_no'],
+        order: [['order_no', 'ASC']]
+      });
 
-			const faqDict = {
-				title: faqTitle['title'],
-				shadowTitle: faqTitle['shadow_title'],
-				faqs: serviceFaqs,
-			}
-          
+      const cmsList = await Cms.findAll({
+        where: { status: 1, slug: slug },
+        attributes: ['id', 'title', 'shadow_title', 'description', 'image', 'alt_tag', 'slug']
+      });
+      const serviceFaqs = await ServiceFaqs.findAll({
+        where: { show_in_main: 1 },
+        order: [['order_no', 'ASC']]
+      });
+      const faqTitle = await MainServiceSettings.findOne({
+        where: { serviceTitleId: 6 }
+      });
+      const serviceTitle = await MainServiceSettings.findOne({
+        where: { serviceTitleId: 5 }
+      });
+      // let arrayCms = {};
+      for (let q = 0; q < cmsList.length; q++) {
+        const itemBanner = cmsList[q];
+        arrayCms = {
+          id: itemBanner.id,
+          title: itemBanner.title,
+          shadow_title: itemBanner.shadow_title,
+          image: `${siteUrl}/uploads/cms/${itemBanner.image}`,
+          alt_tag: itemBanner.alt_tag,
+          slug: itemBanner.slug,
+          description: itemBanner.description,
+        }
+      }
+      let arrayBanners = {};
+      for (let j = 0; j < banners.length; j++) {
+        const itemBanner = banners[j];
+        arrayBanners = {
+          id: itemBanner.id,
+          title: itemBanner.title,
+          image: `${siteUrl}/uploads/banners/${itemBanner.image}`,
+          altTagImage: itemBanner.altTagImage,
+          mob_image: `${siteUrl}/uploads/banners/${itemBanner.image_mob}`,
+          altTagImageMob: itemBanner.altTagImageMob,
+          description: itemBanner.description,
+        }
+      }
+
+      let serviceList = [];
+      for (let i = 0; i < services.length; i++) {
+        const item = services[i];
+        item["image"] = `${siteUrl}/uploads/service/${item.image}`;
+        item["logo"] = `${siteUrl}/uploads/service/${item.logo}`;
+        item["banner"] = `${siteUrl}/uploads/service/banners/${item.banner}`;
+        item["banner_mob"] = `${siteUrl}/uploads/service/banners/${item.banner_mob}`;
+        serviceList.push(item);
+      }
+
+      const servicesDict = {
+        title: serviceTitle['title'],
+        shadow_title: serviceTitle['shadow_title'],
+        services: serviceList,
+      };
+
+      const faqDict = {
+        title: faqTitle['title'],
+        shadowTitle: faqTitle['shadow_title'],
+        faqs: serviceFaqs,
+      }
+
       return res.status(200).json({
-				status: true,
-				message: "Data fetched successfully.",
-				banner:arrayBanners,
-				// cms:arrayCms,
-				faqs: faqDict,
-				services: servicesDict,
-			});
-		} catch (error) {
-			console.log(error);
-			console.log("Error While implementing Service");
-		}
-	},
+        status: true,
+        message: "Data fetched successfully.",
+        banner: arrayBanners,
+        // cms:arrayCms,
+        faqs: faqDict,
+        services: servicesDict,
+      });
+    } catch (error) {
+      console.log(error);
+      console.log("Error While implementing Service");
+    }
+  },
   servicePost: async function (req, res) {
     try {
-      const { slug } = req.body;
-      
+      const { slug } = req.query;
+
       const page = await Page.findOne({
         where: { slug: slug },
         attributes: ["id"],
       });
-      
+
       const banners = await Banner.findOne({
         where: { status: 1, page_id: page.id },
         attributes: ["id", "title", "description", "image", "image_mob"],
@@ -170,11 +167,11 @@ module.exports = {
 
       if (banners) {
         bannerData = {
-          ...banners.toJSON(), 
-          image: `${siteUrl}/uploads/banners/${banners.image}`, 
-          image_mob: `${siteUrl}/uploads/banners/${banners.image_mob}`, 
+          ...banners.toJSON(),
+          image: `${siteUrl}/uploads/banners/${banners.image}`,
+          image_mob: `${siteUrl}/uploads/banners/${banners.image_mob}`,
         };
-      } 
+      }
 
       const subService = await SubServices.findAll({
         attributes: ["id", "slug", "title", "description", "order_no", "type"],
@@ -190,32 +187,32 @@ module.exports = {
             model: SubServicePrice,
             attributes: ["subservice_id", "title", "price"],
             where: {
-               price: { [Op.ne]: "" } ,
+              price: { [Op.ne]: "" },
             },
-            separate: true,  
+            separate: true,
             order: [["title", "ASC"]],
           },
-        ], 
-      }); 
+        ],
+      });
 
       return res.status(200).json({
         status: true,
         data: {
-          services:subService,
-          banner : bannerData 
+          services: subService,
+          banner: bannerData
         },
         title: subService[0]?.service?.title ?? null,
         shadow_title: 'Service',
         message: "Data fetched successfully.",
-      }); 
+      });
     } catch (error) {
       console.log(error);
       console.log("Error While implementing Service");
       return res.status(200).json({
-        status: false, 
+        status: false,
         message: "Something went wrong, please try again.",
         error,
-      }); 
+      });
     }
   },
   details: async function (req, res) {

@@ -113,7 +113,7 @@ module.exports = {
 
       let faqs = await Faq.findAll({
         where: { show_on_homepage: 1 },
-        attributes: ["id", "question", "answer", "slug", "status"],
+        attributes: ["id", "question", "answer", "slug", "category", "status"],
       });
 
       const arrayfaqs = [];
@@ -124,6 +124,7 @@ module.exports = {
           question: faqItem.question,
           answer: faqItem.answer,
           slug: faqItem.slug,
+          category: faqItem.category || "About",
           status: faqItem.status,
         };
         arrayfaqs.push(objFaq);
@@ -467,18 +468,82 @@ module.exports = {
 
   faq: async function (req, res) {
     try {
+      const selectedCategory = req.query.category;
+      let whereClause = { status: 1 };
+      if (selectedCategory) {
+        whereClause.category = selectedCategory;
+      }
+
       const rows = await Faq.findAll({
-        where: { status: 1 },
-        order: [["id", "DESC"]],
-        attributes: ["id", "question", "answer", "slug"],
+        where: whereClause,
+        order: [["id", "ASC"]],
+        attributes: ["id", "question", "answer", "slug", "category"],
       });
+
+      if (selectedCategory) {
+        return res.status(200).json({
+          status: true,
+          message: "Data fetched successfully.",
+          data: rows.map(item => ({
+            id: item.id,
+            question: item.question,
+            answer: item.answer,
+            slug: item.slug,
+            category: item.category || "About"
+          }))
+        });
+      }
+
+      const categoriesOrder = [
+        "About",
+        "Booking & Scheduling",
+        "Pricing & Payment",
+        "Therapist & Team",
+        "Service Type",
+        "Safety & Hygenic",
+        "During the Session"
+      ];
+
+      let grouped = {};
+      categoriesOrder.forEach(cat => {
+        grouped[cat] = [];
+      });
+
+      rows.forEach(item => {
+        const cat = item.category || "About";
+        if (!grouped[cat]) {
+          grouped[cat] = [];
+        }
+        grouped[cat].push({
+          id: item.id,
+          question: item.question,
+          answer: item.answer,
+          slug: item.slug,
+          category: cat
+        });
+      });
+
       return res.status(200).json({
         status: true,
         message: "Data fetched successfully.",
-        data: rows,
+        data: {
+          categories: categoriesOrder,
+          grouped: grouped,
+          list: rows.map(item => ({
+            id: item.id,
+            question: item.question,
+            answer: item.answer,
+            slug: item.slug,
+            category: item.category || "About"
+          }))
+        },
       });
     } catch (error) {
       console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: error.message
+      });
     }
   },
 
@@ -731,7 +796,6 @@ module.exports = {
     const cachedData = cache.get(cacheKey);
 
     if (cachedData) {
-      console.log("Cache hit for home page sections!");
       return res.status(200).json({
         status: true,
         message: "Data fetched successfully.",
@@ -938,6 +1002,334 @@ module.exports = {
         areasCoveredSection,
         massageLegalSection,
         getStartedSection
+      };
+
+      cache.put(cacheKey, response);
+
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: response,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: error.message,
+      });
+    }
+  },
+
+  getAboutPageSections: async function (req, res) {
+    const cacheKey = "about_page_sections_cache";
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: cachedData,
+      });
+    }
+
+    try {
+      const homePageContents = await HomePageContents.findAll({
+        attributes: ["id", "field", "value", "createdAt", "updatedAt"],
+      });
+      let contentsObj = {};
+      for (let q = 0; q < homePageContents.length; q++) {
+        contentsObj[homePageContents[q]["field"]] = homePageContents[q]["value"];
+      }
+
+      // 1. Story Section
+      let storySection = {
+        mainTitle: contentsObj["about_story_main_title"] || null,
+        howContent: contentsObj["about_story_how_content"] || null,
+        image1: contentsObj["about_story_image_1"] ? `${siteUrl}/uploads/homepagecontents/${contentsObj["about_story_image_1"]}` : null,
+        image2: contentsObj["about_story_image_2"] ? `${siteUrl}/uploads/homepagecontents/${contentsObj["about_story_image_2"]}` : null,
+        image3: contentsObj["about_story_image_3"] ? `${siteUrl}/uploads/homepagecontents/${contentsObj["about_story_image_3"]}` : null
+      };
+
+      // 2. Mission Section
+      let missionSection = {
+        missionTitle: contentsObj["about_mission_title"] || null,
+        missionContent: contentsObj["about_mission_content"] || null,
+      };
+
+      // 3. Numbers Section
+      let numbersSection = {
+        mainTitle: contentsObj["about_numbers_title"] || null,
+        stats: [
+          { num: contentsObj["about_numbers_stat1_num"] || null, label: contentsObj["about_numbers_stat1_label"] || null },
+          { num: contentsObj["about_numbers_stat2_num"] || null, label: contentsObj["about_numbers_stat2_label"] || null },
+          { num: contentsObj["about_numbers_stat3_num"] || null, label: contentsObj["about_numbers_stat3_label"] || null },
+          { num: contentsObj["about_numbers_stat4_num"] || null, label: contentsObj["about_numbers_stat4_label"] || null },
+          { num: contentsObj["about_numbers_stat5_num"] || null, label: contentsObj["about_numbers_stat5_label"] || null }
+        ]
+      };
+
+      // 4. Team Section
+      let teamMembers = [];
+      try {
+        if (contentsObj["about_team_members"]) {
+          const parsedMembers = JSON.parse(contentsObj["about_team_members"]);
+          teamMembers = parsedMembers.map(m => ({
+            id: m.id,
+            name: m.name || "",
+            role: m.role || "",
+            image: m.image ? `${siteUrl}/uploads/homepagecontents/${m.image}` : null
+          }));
+        }
+      } catch (e) {
+        console.error("Error parsing about_team_members:", e);
+      }
+      let teamSection = {
+        title: contentsObj["about_team_title"] || null,
+        description: contentsObj["about_team_description"] || null,
+        members: teamMembers
+      };
+
+      // 5. Contact Section
+      let contactCards = [];
+      try {
+        if (contentsObj["about_contact_cards"]) {
+          const parsedCards = JSON.parse(contentsObj["about_contact_cards"]);
+          contactCards = parsedCards.map(c => ({
+            id: c.id,
+            title: c.title || "",
+            description: c.description || ""
+          }));
+        } else {
+          contactCards = [
+            { title: contentsObj["about_contact_card1_title"] || null, description: contentsObj["about_contact_card1_desc"] || null },
+            { title: contentsObj["about_contact_card2_title"] || null, description: contentsObj["about_contact_card2_desc"] || null },
+            { title: contentsObj["about_contact_card3_title"] || null, description: contentsObj["about_contact_card3_desc"] || null }
+          ];
+        }
+      } catch (e) {
+        console.error("Error parsing about_contact_cards:", e);
+      }
+
+      let contactSection = {
+        title: contentsObj["about_contact_title"] || null,
+        description: contentsObj["about_contact_description"] || null,
+        cards: contactCards
+      };
+
+      const response = {
+        storySection,
+        missionSection,
+        numbersSection,
+        teamSection,
+        contactSection
+      };
+
+      cache.put(cacheKey, response);
+
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: response,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: error.message,
+      });
+    }
+  },
+
+  getOurTeams: async function (req, res) {
+    const cacheKey = "our_teams_roster_cache";
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: cachedData,
+      });
+    }
+
+    try {
+      const homePageContents = await HomePageContents.findAll({
+        attributes: ["id", "field", "value"],
+      });
+      let contentsObj = {};
+      for (let q = 0; q < homePageContents.length; q++) {
+        contentsObj[homePageContents[q]["field"]] = homePageContents[q]["value"];
+      }
+
+      // let founderSection = {
+      //   title: contentsObj["therapist_founder_title"] || "A Note from Our Founder",
+      //   quote: contentsObj["therapist_founder_quote"] || "I founded BeauDeluxe because Dubai deserved home massage service that felt as reliable as a good hotel spa. I do not practice myself. My job is to find the best therapists in this city, treat them well, and keep the quality bar high. Every person on this page is someone I would trust with my own family.",
+      //   name: contentsObj["therapist_founder_name"] || "El Hassan Elfadli",
+      //   role: contentsObj["therapist_founder_role"] || "Founder, BeauDeluxe.",
+      //   image: contentsObj["therapist_founder_image"] ? `${siteUrl}/uploads/homepagecontents/${contentsObj["therapist_founder_image"]}` : null
+      // };
+
+      // let specializationCards = [];
+      // try {
+      //   if (contentsObj["therapist_specialization_cards"]) {
+      //     specializationCards = JSON.parse(contentsObj["therapist_specialization_cards"]);
+      //   } else {
+      //     specializationCards = [
+      //       { id: 0, title: 'Swedish Massage Specialists', description: 'Therapists certified and experienced in all five classical Swedish techniques (effleurage, petrissage, tapotement, friction, vibration) : Sofia Martins', link_text: 'Book via swedish massage at home.' },
+      //       { id: 1, title: 'Deep Tissue Specialists', description: 'Therapists trained in myofascial release, trigger point therapy, cross-fiber friction, and stripping techniques for chronic muscle tension work: Elena Petrova', link_text: 'Book via deep tissue massage at home.' },
+      //       { id: 2, title: 'Prenatal and Postnatal Specialists', description: 'Therapists with specific pregnancy massage certification and supervised prenatal training, familiar with side-lying positioning and safe technique adaptation: Fatima Al Mansoori', link_text: 'Details on Pregnancy Massage page.' },
+      //       { id: 3, title: 'Sports and Deep Recovery Specialists', description: 'Therapists with sports massage certification for pre-event preparation, post-event recovery, and chronic athletic injury support: Aisha Khan', link_text: 'Details on Sports Massage page.' },
+      //       { id: 4, title: 'Female Therapists', description: 'Female certified therapists available by request and by default for women\'s bookings: Maria Gonzalez', link_text: 'Details on massage service for women .' }
+      //     ];
+      //   }
+      // } catch (e) {
+      //   console.error("Error parsing therapist_specialization_cards:", e);
+      // }
+
+      // let specializationSection = {
+      //   title: contentsObj["therapist_specialization_title"] || "Our Therapists by Specialization",
+      //   description: contentsObj["therapist_specialization_description"] || "Different massage types require different training. Below is the team's specialization map.",
+      //   cards: specializationCards
+      // };
+
+      const Therapist = models.therapist || require("../../models").therapist;
+      const therapistsList = await Therapist.findAll({
+        where: { status: 1 },
+        order: [["order_number", "ASC"], ["id", "DESC"]]
+      });
+
+      const formattedTherapists = therapistsList.map(item => {
+        const specializationsArray = (item.specializations || '')
+          .split(/,|\n/)
+          .map(s => s.trim())
+          .filter(Boolean);
+
+        const certificationsArray = (item.certifications || '')
+          .split('\n')
+          .map(c => c.trim())
+          .filter(Boolean);
+
+        return {
+          id: item.id,
+          name: item.name,
+          designation: item.designation,
+          experience: item.experience,
+          image: item.image ? `${siteUrl}/uploads/therapist/${item.image}` : null,
+          altTag: item.altTag || item.name,
+          specializations: specializationsArray,
+          certifications: certificationsArray,
+          order_number: item.order_number
+        };
+      });
+
+      const response = {
+        // founderSection,
+        // specializationSection,
+        teams: formattedTherapists
+      };
+
+      cache.put(cacheKey, response);
+
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: response,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: error.message,
+      });
+    }
+  },
+
+  therapists: async function (req, res) {
+    const cacheKey = "therapists_cache";
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: cachedData,
+      });
+    }
+
+    try {
+      const homePageContents = await HomePageContents.findAll({
+        attributes: ["id", "field", "value"],
+      });
+      let contentsObj = {};
+      for (let q = 0; q < homePageContents.length; q++) {
+        contentsObj[homePageContents[q]["field"]] = homePageContents[q]["value"];
+      }
+
+      let founderSection = {
+        title: contentsObj["therapist_founder_title"] || "A Note from Our Founder",
+        quote: contentsObj["therapist_founder_quote"] || "I founded BeauDeluxe because Dubai deserved home massage service that felt as reliable as a good hotel spa. I do not practice myself. My job is to find the best therapists in this city, treat them well, and keep the quality bar high. Every person on this page is someone I would trust with my own family.",
+        name: contentsObj["therapist_founder_name"] || "El Hassan Elfadli",
+        role: contentsObj["therapist_founder_role"] || "Founder, BeauDeluxe.",
+        image: contentsObj["therapist_founder_image"] ? `${siteUrl}/uploads/homepagecontents/${contentsObj["therapist_founder_image"]}` : null
+      };
+
+      let specializationCards = [];
+      try {
+        if (contentsObj["therapist_specialization_cards"]) {
+          specializationCards = JSON.parse(contentsObj["therapist_specialization_cards"]);
+        } else {
+          specializationCards = [
+            { id: 0, title: 'Swedish Massage Specialists', description: 'Therapists certified and experienced in all five classical Swedish techniques (effleurage, petrissage, tapotement, friction, vibration) : Sofia Martins', link_text: 'Book via swedish massage at home.' },
+            { id: 1, title: 'Deep Tissue Specialists', description: 'Therapists trained in myofascial release, trigger point therapy, cross-fiber friction, and stripping techniques for chronic muscle tension work: Elena Petrova', link_text: 'Book via deep tissue massage at home.' },
+            { id: 2, title: 'Prenatal and Postnatal Specialists', description: 'Therapists with specific pregnancy massage certification and supervised prenatal training, familiar with side-lying positioning and safe technique adaptation: Fatima Al Mansoori', link_text: 'Details on Pregnancy Massage page.' },
+            { id: 3, title: 'Sports and Deep Recovery Specialists', description: 'Therapists with sports massage certification for pre-event preparation, post-event recovery, and chronic athletic injury support: Aisha Khan', link_text: 'Details on Sports Massage page.' },
+            { id: 4, title: 'Female Therapists', description: 'Female certified therapists available by request and by default for women\'s bookings: Maria Gonzalez', link_text: 'Details on massage service for women .' }
+          ];
+        }
+      } catch (e) {
+        console.error("Error parsing therapist_specialization_cards:", e);
+      }
+
+      let specializationSection = {
+        title: contentsObj["therapist_specialization_title"] || "Our Therapists by Specialization",
+        description: contentsObj["therapist_specialization_description"] || "Different massage types require different training. Below is the team's specialization map.",
+        cards: specializationCards
+      };
+
+      const Therapist = models.therapist || require("../../models").therapist;
+      const therapistsList = await Therapist.findAll({
+        where: { status: 1 },
+        order: [["order_number", "ASC"], ["id", "DESC"]]
+      });
+
+      const formattedTherapists = therapistsList.map(item => {
+        const specializationsArray = (item.specializations || '')
+          .split(/,|\n/)
+          .map(s => s.trim())
+          .filter(Boolean);
+
+        const certificationsArray = (item.certifications || '')
+          .split('\n')
+          .map(c => c.trim())
+          .filter(Boolean);
+
+        return {
+          id: item.id,
+          name: item.name,
+          designation: item.designation,
+          experience: item.experience,
+          image: item.image ? `${siteUrl}/uploads/therapist/${item.image}` : null,
+          altTag: item.altTag || item.name,
+          specializations: specializationsArray,
+          certifications: certificationsArray,
+          order_number: item.order_number
+        };
+      });
+
+      const response = {
+        founderSection,
+        specializationSection,
+        teams: formattedTherapists
       };
 
       cache.put(cacheKey, response);

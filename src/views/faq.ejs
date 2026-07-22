@@ -30,6 +30,18 @@
                                 <form action="/faq_post" method="post">
                                     <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
                                     <div class="form-group">
+                                        <label class="label" for="category">Category *</label>
+                                        <select class="form-control" id="category" name="category" required>
+                                            <option value="About" <%- row && row.category == 'About' ? 'selected' : '' %>>About</option>
+                                            <option value="Booking & Scheduling" <%- row && row.category == 'Booking & Scheduling' ? 'selected' : '' %>>Booking & Scheduling</option>
+                                            <option value="Pricing & Payment" <%- row && row.category == 'Pricing & Payment' ? 'selected' : '' %>>Pricing & Payment</option>
+                                            <option value="Therapist & Team" <%- row && row.category == 'Therapist & Team' ? 'selected' : '' %>>Therapist & Team</option>
+                                            <option value="Service Type" <%- row && row.category == 'Service Type' ? 'selected' : '' %>>Service Type</option>
+                                            <option value="Safety & Hygenic" <%- row && row.category == 'Safety & Hygenic' ? 'selected' : '' %>>Safety & Hygenic</option>
+                                            <option value="During the Session" <%- row && row.category == 'During the Session' ? 'selected' : '' %>>During the Session</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="label" for="question">Question *</label>
                                         <textarea type="text" class="form-control" id="question" name="question"><%- row ? row.question : '' %></textarea>
                                     </div>
@@ -73,6 +85,10 @@
                             <tbody>
                                 
                                 <tr>
+                                    <th style="width: 15%">Category</th>
+                                    <td><%- row.category %></td>
+                                </tr>
+                                <tr>
                                     <th style="width: 15%">Question</th>
                                     <td><%- row.question %></td>
                                 </tr>
@@ -113,6 +129,7 @@
                             <thead>
                                 <tr>
                                     <th style = "width:5%">#</th>
+                                    <th>Category</th>
                                     <th>Question</th>
                                     <th>Answer</th>
                                     <th style = "width:10%">Created At</th>
@@ -124,6 +141,7 @@
                                 <% rows.forEach(function(data, index) { %>
                                 <tr>
                                     <td><%- index + 1 %></td>
+                                    <td><%- data.category %></td>
                                     <td><%- data.question %></td>
                                     <td><%- data.answer%></td>
                                     <td><%- new Date(data.updatedAt).toLocaleString('en-GB', {dateStyle: "short", timeStyle: "short", hour12: true}) %></td>

@@ -137,17 +137,17 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     let getId = req.query.id;
-    
+
     await SubServicePrice.destroy({ where: { subservice_id: getId } });
     await SubService.destroy({ where: { id: getId } });
-  
+
     await req.flash("success", "Sub Service deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
   } catch (error) {
     console.error(`Error occurred on route ${req.originalUrl}:`, error);
     await req.flash("error", "Something went wrong, please try again.");
     res.redirect(siteUrl + "/" + pageUrl);
-   
+
   }
 };
 
@@ -230,6 +230,7 @@ module.exports = {
 
   getCategory: async function (req, res) {
     try {
+      console.log(req.body.subservice_id, "subservice_id")
       const row = await Category.findAll({
         where: { type: req.body.type },
         include: [
@@ -240,6 +241,7 @@ module.exports = {
           },
         ],
       });
+      // console.log(row)
       res.json(row);
     } catch (error) {
       console.error(`Error occurred on route ${req.originalUrl}:`, error);

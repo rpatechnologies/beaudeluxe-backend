@@ -79,6 +79,44 @@
                     </ul>
                 </li>
                 <li
+                    class="<%- page == 'about_story' || page == 'about_mission' || page == 'about_numbers' || page == 'about_team' || page == 'about_contact' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-id"></i> Manage About Page
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+                        class="<%- page == 'about_story' || page == 'about_mission' || page == 'about_numbers' || page == 'about_team' || page == 'about_contact' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/about_story"
+                                class="<%- page == 'about_story' ? 'mm-active' : ''  %>"> <i class="metismenu-icon"></i>
+                                Our Story</a></li>
+                        <li><a href="<%= siteUrl %>/about_mission"
+                                class="<%- page == 'about_mission' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> Our Mission</a></li>
+                        <li><a href="<%= siteUrl %>/about_numbers"
+                                class="<%- page == 'about_numbers' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> By The Numbers</a></li>
+                        <li><a href="<%= siteUrl %>/about_team" class="<%- page == 'about_team' ? 'mm-active' : ''  %>">
+                                <i class="metismenu-icon"></i> Meet Our Team</a></li>
+                        <li><a href="<%= siteUrl %>/about_contact"
+                                class="<%- page == 'about_contact' ? 'mm-active' : ''  %>"> <i
+                                    class="metismenu-icon"></i> About Contact</a></li>
+                    </ul>
+                </li>
+                <li class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-users"></i> Manage Our Therapists
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-show' : '' %>">
+                        <li><a href="<%= siteUrl %>/our-teams" class="<%- page == 'our_teams' ? 'mm-active' : '' %>"> <i
+                                    class="metismenu-icon"></i> Our Teams Roster</a></li>
+                        <li><a href="<%= siteUrl %>/therapist_founder"
+                                class="<%- page == 'therapist_founder' ? 'mm-active' : '' %>"> <i
+                                    class="metismenu-icon"></i> Note from Founder</a></li>
+                        <li><a href="<%= siteUrl %>/therapist_specialization" class="<%- page == 'therapist_specialization' ? 'mm-active' : '' %>"> <i class="metismenu-icon"></i> Specializations</a></li>
+                    </ul>
+                </li>
+                <li
                     class="<%- page == 'menu' || page == 'banner' || page == 'cms'|| page == 'faq' || page == 'why_us' || page == 'location' || page == 'testimonials' || page == 'home_page_contents' || page == 'meta_contents' || page == 'about' || page == 'what_we_stand_for_content' || page == 'page_content' || page == 'form_content' ? 'mm-active' : '' %>">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-plugin"></i> Manage Resources
