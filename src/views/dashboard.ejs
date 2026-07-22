@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+				<%- include('layouts/flash'); %> 
+				<div class="row">
+					<div class="col-md-12 col-xl-4">
+						<div class="card mb-3 widget-content bg-night-fade">
+							<div class="widget-content-wrapper text-white">
+								<div class="widget-content-left">
+									<div class="widget-heading">Total Services</div>
+								</div>
+								<div class="widget-content-right">
+									<div class="widget-numbers text-white"><span><%- dash.serviceCount %></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-xl-4">
+						<div class="card mb-3 widget-content bg-night-fade">
+							<div class="widget-content-wrapper text-white">
+								<div class="widget-content-left">
+									<div class="widget-heading">Total Enquiries</div>
+								</div>
+								<div class="widget-content-right">
+									<div class="widget-numbers text-white"><span><%- dash.contactCount %></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-xl-12">
+						<div class="main-card mb-3 card">
+							<div class="card-header-tab card-header">
+								<div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="header-icon lnr-dice mr-3 text-muted opacity-6"></i>Recent Contact Enquiries</div>
+							</div>
+							<div class="card-body">
+								<div class="bootstrap-table bootstrap4">
+									<div class="fixed-table-container" style="padding-bottom: 0px;">
+										<div class="fixed-table-body">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th><div class="th-inner">#</div></th>
+														<th><div class="th-inner">Name</div></th>
+														<th><div class="th-inner">Phone Number</div></th>
+														<th><div class="th-inner">Email</div></th>
+														<th><div class="th-inner">Date</div></th>
+														<th><div class="th-inner">Total Amount</div></th>
+														<th><div class="th-inner">Created At</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<% rows.forEach(function(data, index) { %>
+													<tr>
+														<td><%- index + 1 %></td>
+														<td><%- data.name %></td>
+														<td><%- data.phone_number %></td>
+														<td><%- data.email_address %></td>
+														<td><%- data.date %></td>
+														<td><%- data.amount %></td>
+														<td><%- new Date(data.createdAt).toLocaleString('en-GB', { hour12: false }) %></td>
+													</tr>
+													<% }); %>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>

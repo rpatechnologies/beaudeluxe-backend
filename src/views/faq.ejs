@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= metaTitle %></title>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+                <% if(action=='add' || action=='edit') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/faq_post" method="post">
+                                    <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
+                                    <div class="form-group">
+                                        <label class="label" for="question">Question *</label>
+                                        <textarea type="text" class="form-control" id="question" name="question"><%- row ? row.question : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="answer">Answer *</label>
+                                        <textarea type="text" class="form-control joeditor" id="answer" name="answer" rows="4" cols="50"><%- row ? row.answer : '' %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="slug">Slug *</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" value="<%- row ? row.slug : '' %>" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="show_on_homepage">Show on Homepage </label>
+                                        <select class="form-control" id="show_on_homepage" name="show_on_homepage"required>
+                                            <option value="0" <%- row && row.show_on_homepage == 0 ? 'selected' : '' %>>No</option>
+                                            <option value="1" <%- row && row.show_on_homepage == 1 ? 'selected' : '' %>>Yes</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="status">Status </label>
+                                        <select class="form-control" id="status" name="status"required>
+                                            <option value="1" <%- row && row.status == 1 ? 'selected' : '' %>>Active</option>
+                                            <option value="0" <%- row && row.status == 0 ? 'selected' : '' %>>Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>    
+                <% } else if(action=='view') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table class="mb-0 table table-bordered">
+                            <tbody>
+                                
+                                <tr>
+                                    <th style="width: 15%">Question</th>
+                                    <td><%- row.question %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Answer</th>
+                                    <td><%- row.answer %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Created At</th>
+                                    <td><%- new Date(row.updatedAt).toLocaleString('en-GB', {dateStyle: "short", timeStyle: "short", hour12: true}) %></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 15%">Status</th>
+                                    <td>
+                                        <% if(row.status == 1) { %>
+                                            <div class="mb-2 mr-2 badge badge-success">Active</div>
+                                        <% } else { %>
+                                            <div class="mb-2 mr-2 badge badge-secondary">Inactive</div>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <a href="<%- siteUrl+'/'+pageUrl %>" class="btn btn-secondary btn-icon" style="color: white;"><i class="pe-7s-back btn-icon-wrapper"> </i>Back</a>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%- include('layouts/flash'); %>
+                        <a href="<%- siteUrl +'/'+ page %>?action=add" class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New Record</a>
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style = "width:5%">#</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th style = "width:10%">Created At</th>
+                                    <th style = "width:5%">Status</th>
+                                    <th style = "width:10%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% rows.forEach(function(data, index) { %>
+                                <tr>
+                                    <td><%- index + 1 %></td>
+                                    <td><%- data.question %></td>
+                                    <td><%- data.answer%></td>
+                                    <td><%- new Date(data.updatedAt).toLocaleString('en-GB', {dateStyle: "short", timeStyle: "short", hour12: true}) %></td>
+                                    <td>
+                                        <% if(data.status == 1) { %>
+                                            <div class="mb-2 mr-2 badge badge-success">Active</div>
+                                        <% } else { %>
+                                            <div class="mb-2 mr-2 badge badge-secondary">Inactive</div>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>" class="btn btn-danger btn-xs deleteAction" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+                <% } %>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>

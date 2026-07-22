@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+						</div>
+					</div>
+				</div>
+                <% if(action=='add' || action=='edit') { %>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/time_slot_post" method="POST">
+                                    <input type="hidden" name="id" value="<%= row ? row.id : '' %>">
+                                    <div class="form-group">
+                                      <label>Title</label>
+                                      <input type="text" id="title" name="title" class="form-control" value="<%= row ? row.title : '' %>" required>
+                                     
+
+                                  </div>
+                                    <div class="form-group">
+                                        <label>From Date</label>
+                                        <input type="date" id="start_date" name="start_date" class="form-control" value="<%= row ? row.start_date : '' %>" required>
+                                        <!-- <input type="hidden" id="start_date" name="start_date"  value="<%= row ? row.start_date : '' %>" > -->
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>To Date</label>
+                                        <input type="date" id="end_date" name="end_date" class="form-control" value="<%= row ? row.end_date : '' %>" required>
+                                        <!-- <input type="hidden" id="end_date" name="end_date"  value="<%= row ? row.end_date : '' %>" onchange="updateHiddenDate(this.value)"> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary mb-3" onclick="generateDateSlots()">
+                                        Generate Daily Slots
+                                    </button>
+                                    <hr/>
+                                    <!-- Container for generated date slots -->
+                                    <div id="dates_container"></div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select name="status" class="form-control" required>
+                                            <option value="1" <%= row && row.status === 1 ? 'selected' : '' %>>Active</option>
+                                            <option value="0" <%= row && row.status === 0 ? 'selected' : '' %>>Inactive</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <%= row ? 'Update' : 'Save' %>
+                                    </button>
+                                    <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>    
+                <% } else if(action=='view') { %>
+                  <div class="main-card mb-3 card">
+                      <div class="card">
+                          <div class="card-body">
+                              <table class="table table-bordered">
+                                  <thead>
+                                      <tr>
+                                          <th colspan="2"><h3 class="card-title"><%= title %></h3></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <th>Start Date</th>
+                                          <td><%= timeSlot.start_date %></td>
+                                      </tr>
+                                      <tr>
+                                          <th>End Date</th>
+                                          <td><%= timeSlot.end_date %></td>
+                                      </tr>
+                                      <tr>
+                                          <th>Status</th>
+                                          <td><%= timeSlot.status === 1 ? 'Active' : 'Inactive' %></td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                  
+                              <h4>Time Slots</h4>
+                              <% if (Object.keys(groupedTimeSlots).length > 0) { %>
+                                  <% for (const date in groupedTimeSlots) { %>
+                                      <div class="mb-4">
+                                          <h5><strong>Date:</strong> <%= date %></h5>
+                                          <table class="table table-bordered">
+                                              <thead>
+                                                  <tr>
+                                                      <th>Start Time</th>
+                                                      <th>End Time</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <% groupedTimeSlots[date].forEach(slot => { %>
+                                                      <tr>
+                                                          <td><%= slot.start_time %></td>
+                                                          <td><%= slot.end_time %></td>
+                                                      </tr>
+                                                  <% }) %>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  <% } %>
+                              <% } else { %>
+                                  <p>No time slots found.</p>
+                              <% } %>
+                          </div>
+                      </div>
+                  </div>
+                <% } else { %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%- include('layouts/flash'); %>
+                        <a href="<%- siteUrl +'/'+ page %>?action=add" class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New Record</a>
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S.N</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% rows.forEach((data, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= data.title %></td>
+                                    <td><%= data.status === 1 ? 'Active' : 'Inactive' %></td>
+                                    <td>
+                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><span style=" color: rgb(0, 0, 0);"><i class="fa fa-eye" title="View"></i></span></a>
+                                        <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><span style=" color: red;"><i class="fa fa-trash" title="Delete"></i></span></a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>                    
+                    </div>
+                </div>
+                <% } %>
+			           </div>
+        <%- include('layouts/footer'); %>
+      </div>
+    </div>
+  </div>
+  <div class="app-drawer-overlay d-none animated fadeIn"></div>
+  <%- include('layouts/script'); %>
+  <script>
+    // Default time slots
+    let timeSlotsData = [];
+    const defaultTimeSlots = [
+    { from: "08:00", to: "09:30" },
+    { from: "09:30", to: "11:00" },
+    { from: "11:30", to: "13:00" },
+    { from: "13:00", to: "14:30" },
+    { from: "14:30", to: "16:00" },
+    { from: "16:00", to: "17:30" },
+    { from: "17:30", to: "19:00" },
+    { from: "19:00", to: "20:30" },
+    { from: "20:30", to: "22:00" },
+    { from: "22:00", to: "23:30" },
+    { from: "23:30", to: "01:00" },
+    
+    ];
+  
+    // Generate date slots
+    function generateDateSlots() {
+      const dateFrom = document.getElementById('start_date').value;
+      const dateTo = document.getElementById('end_date').value;
+  
+      if (!dateFrom || !dateTo) {
+        alert("Please select both From Date and To Date");
+        return;
+      }
+  
+      const start = new Date(dateFrom);
+      const end = new Date(dateTo);
+  
+      if (start > end) {
+        alert("From Date cannot be greater than To Date");
+        return;
+      }
+  
+      const datesContainer = document.getElementById('dates_container');
+      datesContainer.innerHTML = "";
+      timeSlotsData = [];
+  
+      let currentDate = new Date(start);
+      while (currentDate <= end) {
+        const yyyyMmDd = currentDate.toISOString().split('T')[0];
+        createDateCard(yyyyMmDd, defaultTimeSlots);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+  
+    // Create a date card
+    function createDateCard(dateString, timeSlots) {
+      const datesContainer = document.getElementById('dates_container');
+      const dateCardTemplate = `
+        <div class="card my-3" data-date="${dateString}">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="date-title">${dateString}</span>
+            <div>
+              <button type="button" class="btn btn-danger btn-sm remove-date-btn" onclick="removeDateCard(this)">
+                Remove Date
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            ${timeSlots.map(ts => `
+              <div class="row align-items-center mb-2 slot-row">
+                <div class="col-sm-5">
+                  <input type="time" name="slots[${dateString}][from][]" class="form-control slot-from" value="${ts.from}" required />
+                </div>
+                <div class="col-sm-5">
+                  <input type="time" name="slots[${dateString}][to][]" class="form-control slot-to" value="${ts.to}" required />
+                </div>
+                <div class="col-sm-2 text-right">
+                  <button type="button" class="btn btn-danger" onclick="removeTimeSlot(this)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      datesContainer.insertAdjacentHTML('beforeend', dateCardTemplate);
+    }
+  
+    // Remove a time slot row
+    function removeTimeSlot(button) {
+      const row = button.closest('.slot-row');
+      row.remove();
+    }
+  
+    // Remove a date card
+    function removeDateCard(button) {
+      const card = button.closest('.card');
+      card.remove();
+    }
+  </script>
+  <script>
+    function updateHiddenDate(value) {
+        document.getElementById('hidden_start_date').value = value;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %></div>
+						</div>
+						<div class="page-title-actions">
+							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+								<i class="fa fa-star"></i>
+							</button> -->
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <%- include('layouts/flash'); %>
+                                <form action="/profile-post" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="label" for="name">Full Name *</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%- data.name %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="email">Email *</label>
+                                        <input type="text" class="form-control" id="email" name="email" value="<%- data.email %>" disabled required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="contact_number">Phone Number *</label>
+                                        <input type="text" class="form-control" id="contact_number" name="contact_number" value="<%- data.contact_number %>" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label" for="avatar">Avatar</label>
+                                        <input type="file" class="form-control" id="avatar" name="avatar"/>
+                                        <input type="hidden" class="form-control" id="avatar_old" name="avatar_old" value="<%- data.avatar %>"/>
+                                        <img class="img-thumbnail" src="<%- siteUrl +'/uploads/admin/'+ data.avatar %>"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+</body>
+</html>
