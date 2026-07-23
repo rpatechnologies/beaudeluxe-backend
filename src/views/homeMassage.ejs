@@ -37,73 +37,73 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_description">Intro
+                                                        <label class="label" for="home_massage_intro">Intro
                                                             Description</label>
-                                                        <textarea class="form-control" id="home_massage_description"
-                                                            name="home_massage_description"
-                                                            rows="3"><%- data.home_massage_description || '' %></textarea>
+                                                        <textarea class="form-control" id="home_massage_intro"
+                                                            name="home_massage_intro"
+                                                            rows="3"><%- data.home_massage_intro || '' %></textarea>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_image_one">Image One
+                                                        <label class="label" for="home_massage_image_1">Image One
                                                             (Main Image)</label>
                                                         <input type="file" class="form-control"
-                                                            id="home_massage_image_one" name="home_massage_image_one" />
-                                                        <input type="hidden" id="home_massage_image_one_old"
-                                                            name="home_massage_image_one_old"
-                                                            value="<%- data.home_massage_image_one || '' %>" />
-                                                        <% if(data && data.home_massage_image_one) { %>
+                                                            id="home_massage_image_1" name="home_massage_image_1" />
+                                                        <input type="hidden" id="home_massage_image_1_old"
+                                                            name="home_massage_image_1_old"
+                                                            value="<%- data.home_massage_image_1 || '' %>" />
+                                                        <% if(data && data.home_massage_image_1) { %>
                                                             <br><a
-                                                                href="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_one %>"
+                                                                href="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_1 %>"
                                                                 target="_blank">
                                                                 <img class="img-thumbnail" style="max-height: 150px;"
-                                                                    src="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_one %>" />
+                                                                    src="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_1 %>" />
                                                             </a>
                                                             <% } %>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_image_one_alt_tag">Image
+                                                        <label class="label" for="home_massage_image_1_alt_tag">Image
                                                             One Alt Tag</label>
                                                         <input type="text" class="form-control"
-                                                            id="home_massage_image_one_alt_tag"
-                                                            name="home_massage_image_one_alt_tag"
-                                                            value="<%- data.home_massage_image_one_alt_tag || '' %>" />
+                                                            id="home_massage_image_1_alt_tag"
+                                                            name="home_massage_image_1_alt_tag"
+                                                            value="<%- data.home_massage_image_1_alt_tag || '' %>" />
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_image_two">Image Two
+                                                        <label class="label" for="home_massage_image_2">Image Two
                                                             (Overlapping Image)</label>
                                                         <input type="file" class="form-control"
-                                                            id="home_massage_image_two" name="home_massage_image_two" />
-                                                        <input type="hidden" id="home_massage_image_two_old"
-                                                            name="home_massage_image_two_old"
-                                                            value="<%- data.home_massage_image_two || '' %>" />
-                                                        <% if(data && data.home_massage_image_two) { %>
+                                                            id="home_massage_image_2" name="home_massage_image_2" />
+                                                        <input type="hidden" id="home_massage_image_2_old"
+                                                            name="home_massage_image_2_old"
+                                                            value="<%- data.home_massage_image_2 || '' %>" />
+                                                        <% if(data && data.home_massage_image_2) { %>
                                                             <br><a
-                                                                href="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_two %>"
+                                                                href="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_2 %>"
                                                                 target="_blank">
                                                                 <img class="img-thumbnail" style="max-height: 150px;"
-                                                                    src="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_two %>" />
+                                                                    src="<%- siteUrl +'/uploads/homepagecontents/'+ data.home_massage_image_2 %>" />
                                                             </a>
                                                             <% } %>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_image_two_alt_tag">Image
+                                                        <label class="label" for="home_massage_image_2_alt_tag">Image
                                                             Two Alt Tag</label>
                                                         <input type="text" class="form-control"
-                                                            id="home_massage_image_two_alt_tag"
-                                                            name="home_massage_image_two_alt_tag"
-                                                            value="<%- data.home_massage_image_two_alt_tag || '' %>" />
+                                                            id="home_massage_image_2_alt_tag"
+                                                            name="home_massage_image_2_alt_tag"
+                                                            value="<%- data.home_massage_image_2_alt_tag || '' %>" />
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="label" for="home_massage_right_p1">Right Paragraph
+                                                        <label class="label" for="home_massage_right_paras">Right Paragraphs
                                                         </label>
                                                         <textarea class="form-control joeditor"
-                                                            id="home_massage_right_p1" name="home_massage_right_p1"
-                                                            rows="3"><%- data.home_massage_right_p1 || '' %></textarea>
+                                                            id="home_massage_right_paras" name="home_massage_right_paras"
+                                                            rows="3"><%- data.home_massage_right_paras || '' %></textarea>
                                                     </div>
 
                                                     <!-- <div class="form-group">

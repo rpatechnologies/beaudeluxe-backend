@@ -183,7 +183,6 @@ module.exports = {
       duration,
       price,
       status,
-      gender,
     } = req.body;
 
     const formData = {
@@ -192,7 +191,6 @@ module.exports = {
       description: description,
       type: category,
       status: status,
-      gender: gender || 'Both',
     };
     let lastId = id;
 
@@ -205,75 +203,26 @@ module.exports = {
       await req.flash("success", "SubService created successfully.");
     }
 
-    // Fetch all existing price records for this subservice
-    const existingPrices = await SubServicePrice.findAll({ where: { subservice_id: lastId } });
-
-    // Track which database price record IDs were updated/created
-    const handledIds = [];
-
+    await SubServicePrice.destroy({ where: { subservice_id: lastId } });
     if (Array.isArray(duration)) {
-      for (let i = 0; i < duration.length; i++) {
-        const submittedPrice = (price[i] || "").trim();
-        const submittedTitle = duration[i];
-        const submittedCategoryId = category_id ? category_id[i] : null;
-
-        // Try to match existing record by category_id or title fallback
-        const matched = existingPrices.find(p => 
-          (p.category_id && submittedCategoryId && p.category_id == submittedCategoryId) ||
-          (p.title && submittedTitle && p.title.toLowerCase().trim() === submittedTitle.toLowerCase().trim())
-        );
-
-        if (matched) {
-          await SubServicePrice.update({
-            price: submittedPrice,
-            category_id: submittedCategoryId || matched.category_id,
-            title: submittedTitle
-          }, { where: { id: matched.id } });
-          handledIds.push(matched.id);
-        } else if (submittedPrice !== "") {
-          const newPrice = await SubServicePrice.create({
-            subservice_id: lastId,
-            category_id: submittedCategoryId,
-            title: submittedTitle,
-            price: submittedPrice,
-          });
-          handledIds.push(newPrice.id);
+      if (duration && duration.length > 0) {
+        for (let i = 0; i < duration.length; i++) {
+          if (price[i].trim() !== "") {
+            await SubServicePrice.create({
+              subservice_id: lastId,
+              category_id: category_id[i],
+              title: duration[i],
+              price: price[i],
+            });
+          }
         }
       }
-    } else if (duration) {
-      const submittedPrice = (price || "").trim();
-      const matched = existingPrices.find(p => 
-        p.title && p.title.toLowerCase().trim() === duration.toLowerCase().trim()
-      );
-
-      if (matched) {
-        await SubServicePrice.update({
-          price: submittedPrice,
-          category_id: category_id || matched.category_id,
-          title: duration
-        }, { where: { id: matched.id } });
-        handledIds.push(matched.id);
-      } else if (submittedPrice !== "") {
-        const newPrice = await SubServicePrice.create({
-          subservice_id: lastId,
-          category_id: category_id,
-          title: duration,
-          price: submittedPrice,
-        });
-        handledIds.push(newPrice.id);
-      }
-    }
-
-    // Clean up/delete any old price records that were NOT submitted/handled
-    for (const oldPrice of existingPrices) {
-      if (!handledIds.includes(oldPrice.id)) {
-        try {
-          await SubServicePrice.destroy({ where: { id: oldPrice.id } });
-        } catch (destroyErr) {
-          // If referenced by booking (foreign key error), set price to empty string instead of crashing!
-          await SubServicePrice.update({ price: "" }, { where: { id: oldPrice.id } });
-        }
-      }
+    } else {
+      await SubServicePrice.create({
+        subservice_id: lastId,
+        title: duration,
+        price: price,
+      });
     }
 
     res.redirect(siteUrl + "/" + pageUrl);
@@ -281,32 +230,17 @@ module.exports = {
 
   getCategory: async function (req, res) {
     try {
-      console.log(req.body.subservice_id, "subservice_id");
-      const categories = await Category.findAll({
-        where: { type: req.body.type }
+      const row = await Category.findAll({
+        where: { type: req.body.type },
+        include: [
+          {
+            model: SubServicePrice,
+            where: { subservice_id: req.body.subservice_id },
+            required: false,
+          },
+        ],
       });
-
-      const prices = await SubServicePrice.findAll({
-        where: { subservice_id: req.body.subservice_id }
-      });
-
-      const result = categories.map(cat => {
-        const matchedPrice = prices.find(p => 
-          (p.category_id && p.category_id === cat.id) || 
-          (p.title && p.title.toLowerCase().trim() === cat.title.toLowerCase().trim())
-        );
-        return {
-          id: cat.id,
-          type: cat.type,
-          title: cat.title,
-          status: cat.status,
-          createdAt: cat.createdAt,
-          updatedAt: cat.updatedAt,
-          subservice_prices: matchedPrice ? [matchedPrice] : []
-        };
-      });
-
-      res.json(result);
+      res.json(row);
     } catch (error) {
       console.error(`Error occurred on route ${req.originalUrl}:`, error);
       return res

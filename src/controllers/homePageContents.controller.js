@@ -129,7 +129,7 @@ module.exports = {
             { name: "home_massage_image_2", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
-            const { home_massage_title, home_massage_intro, home_massage_right_paras, home_massage_image_1_old, home_massage_image_2_old } = req.body;
+            const { home_massage_title, home_massage_intro, home_massage_right_paras, home_massage_image_1_old, home_massage_image_2_old, home_massage_image_1_alt_tag, home_massage_image_2_alt_tag } = req.body;
             const home_massage_image_1 = req.files && req.files.home_massage_image_1 ? req.files.home_massage_image_1[0].filename : home_massage_image_1_old;
             const home_massage_image_2 = req.files && req.files.home_massage_image_2 ? req.files.home_massage_image_2[0].filename : home_massage_image_2_old;
 
@@ -139,11 +139,19 @@ module.exports = {
             request.push({ key: "home_massage_right_paras", value: home_massage_right_paras });
             request.push({ key: "home_massage_image_1", value: home_massage_image_1 });
             request.push({ key: "home_massage_image_2", value: home_massage_image_2 });
+            request.push({ key: "home_massage_image_1_alt_tag", value: home_massage_image_1_alt_tag });
+            request.push({ key: "home_massage_image_2_alt_tag", value: home_massage_image_2_alt_tag });
 
             for (let i = 0; i < request.length; i++) {
                 const data = request[i];
                 const dataObj = { value: data.value };
-                await HomePageContents.update(dataObj, { where: { field: data.key } });
+                const [record, created] = await HomePageContents.findOrCreate({
+                    where: { field: data.key },
+                    defaults: dataObj
+                });
+                if (!created) {
+                    await record.update(dataObj);
+                }
             }
 
             cache.clear();
@@ -206,13 +214,14 @@ module.exports = {
             { name: "services_offered_main_image", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
-            const { services_offered_title, services_offered_intro, services_offered_main_image_old, services_offered_qa1_title, services_offered_qa1_content, services_offered_qa2_title, services_offered_qa2_content } = req.body;
+            const { services_offered_title, services_offered_intro, services_offered_main_image_old, services_offered_main_image_alt_tag, services_offered_qa1_title, services_offered_qa1_content, services_offered_qa2_title, services_offered_qa2_content } = req.body;
             const services_offered_main_image = req.files && req.files.services_offered_main_image ? req.files.services_offered_main_image[0].filename : services_offered_main_image_old;
 
             let request = [];
             request.push({ key: "services_offered_title", value: services_offered_title });
             request.push({ key: "services_offered_intro", value: services_offered_intro });
             request.push({ key: "services_offered_main_image", value: services_offered_main_image });
+            request.push({ key: "services_offered_main_image_alt_tag", value: services_offered_main_image_alt_tag });
             request.push({ key: "services_offered_qa1_title", value: services_offered_qa1_title });
             request.push({ key: "services_offered_qa1_content", value: services_offered_qa1_content });
             request.push({ key: "services_offered_qa2_title", value: services_offered_qa2_title });
@@ -221,7 +230,13 @@ module.exports = {
             for (let i = 0; i < request.length; i++) {
                 const data = request[i];
                 const dataObj = { value: data.value };
-                await HomePageContents.update(dataObj, { where: { field: data.key } });
+                const [record, created] = await HomePageContents.findOrCreate({
+                    where: { field: data.key },
+                    defaults: dataObj
+                });
+                if (!created) {
+                    await record.update(dataObj);
+                }
             }
 
             cache.clear();
