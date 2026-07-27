@@ -37,7 +37,7 @@ module.exports = {
       const { id } = req.params;
 
       const SubServicePrices = await SubServicePrice.findAll({
-        attributes: ["id", "title", "price"],
+        attributes: ["id", "title", "price", "gender"],
         where: { price: { [Op.gt]: 0 } },
         include: [
           {
@@ -175,8 +175,8 @@ module.exports = {
 
       const reqGender = req.body.gender || req.query.gender;
       let subServiceWhere = { status: 1 };
-      if (reqGender) {
-        subServiceWhere.gender = reqGender;
+      if (reqGender && reqGender !== "Both") {
+        subServiceWhere.gender = { [Op.in]: [reqGender, "Both"] };
       }
 
       const subService = await SubServices.findAll({
@@ -191,9 +191,16 @@ module.exports = {
           },
           {
             model: SubServicePrice,
-            attributes: ["subservice_id", "title", "price"],
+            attributes: ["subservice_id", "title", "price", "gender"],
             where: {
               price: { [Op.ne]: "" },
+              ...(reqGender && reqGender !== "Both" ? {
+                [Op.or]: [
+                  { gender: reqGender },
+                  { gender: null },
+                  { gender: "Both" }
+                ]
+              } : {})
             },
             separate: true,
             order: [["title", "ASC"]],

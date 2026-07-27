@@ -863,11 +863,11 @@ module.exports = {
       } catch (e) {
         console.error("Error parsing massage_types_cards:", e);
       }
-      let massageTypesSection = {
-        title: homePageContentsObj["massage_types_title"] || null,
-        description: homePageContentsObj["massage_types_description"] || null,
-        cards: massageTypesCards
-      };
+      // let massageTypesSection = {
+      //   title: homePageContentsObj["massage_types_title"] || null,
+      //   description: homePageContentsObj["massage_types_description"] || null,
+      //   cards: massageTypesCards
+      // };
 
       // 5. Health Benefits Section
       let healthBenefitsCards = [];
@@ -994,7 +994,7 @@ module.exports = {
         homeMassageSection,
         whyChooseSection,
         servicesOfferedSection,
-        massageTypesSection,
+        // massageTypesSection,
         healthBenefitsSection,
         safetyPrivacySection,
         bookingStepsSection,

@@ -52,9 +52,9 @@
                         <li><a href="<%= siteUrl %>/services_offered"
                                 class="<%- page == 'services_offered' ? 'mm-active' : ''  %>"> <i
                                     class="metismenu-icon"></i> Services Offered</a></li>
-                        <li><a href="<%= siteUrl %>/massage_types"
+                        <!-- <li><a href="<%= siteUrl %>/massage_types"
                                 class="<%- page == 'massage_types' ? 'mm-active' : ''  %>"> <i
-                                    class="metismenu-icon"></i> Massage Types</a></li>
+                                    class="metismenu-icon"></i> Massage Types</a></li> -->
                         <li><a href="<%= siteUrl %>/health_benefits"
                                 class="<%- page == 'health_benefits' ? 'mm-active' : ''  %>"> <i
                                     class="metismenu-icon"></i> Health Benefits</a></li>
@@ -102,18 +102,22 @@
                                     class="metismenu-icon"></i> About Contact</a></li>
                     </ul>
                 </li>
-                <li class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-active' : '' %>">
+                <li
+                    class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-active' : '' %>">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-users"></i> Manage Our Therapists
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                    <ul class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-show' : '' %>">
+                    <ul
+                        class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-show' : '' %>">
                         <li><a href="<%= siteUrl %>/our-teams" class="<%- page == 'our_teams' ? 'mm-active' : '' %>"> <i
                                     class="metismenu-icon"></i> Our Teams Roster</a></li>
                         <li><a href="<%= siteUrl %>/therapist_founder"
                                 class="<%- page == 'therapist_founder' ? 'mm-active' : '' %>"> <i
                                     class="metismenu-icon"></i> Note from Founder</a></li>
-                        <li><a href="<%= siteUrl %>/therapist_specialization" class="<%- page == 'therapist_specialization' ? 'mm-active' : '' %>"> <i class="metismenu-icon"></i> Specializations</a></li>
+                        <li><a href="<%= siteUrl %>/therapist_specialization"
+                                class="<%- page == 'therapist_specialization' ? 'mm-active' : '' %>"> <i
+                                    class="metismenu-icon"></i> Specializations</a></li>
                     </ul>
                 </li>
                 <li

@@ -18,6 +18,11 @@ module.exports = (sequelize, Sequelize) => {
         price: {
             type: Sequelize.TEXT
         },
+        gender: {
+            type: Sequelize.STRING,
+            allowNull: true,
+            defaultValue: null
+        },
     }, 
     {
         timestamps: true

@@ -154,11 +154,13 @@
                                                                         0) { %>
                                                                         <tr>
                                                                             <th>Category</th>
+                                                                            <th>Gender</th>
                                                                             <th>Price</th>
                                                                         </tr>
                                                                         <% for(let element of subservice_price) { %>
                                                                             <tr>
                                                                                 <td><%- element.title %></td>
+                                                                                <td><%- element.gender || 'Both' %></td>
                                                                                 <td><%- element.price %></td>
                                                                             </tr>
                                                                             <% } %>
@@ -287,8 +289,13 @@
     <%- include('layouts/script'); %>
         <script>
             $(document).ready(function () {
-                $('#category').change(function () {
-                    var category = $(this).val();
+                function loadCategoriesAndPrices() {
+                    var category = $('#category').val();
+                    var gender = $('#gender').val();
+                    if (!category) {
+                        $('#pricediv').hide();
+                        return;
+                    }
                     $.ajax({
                         type: 'post',
                         url: 'sub_service/get_categories',
@@ -298,27 +305,68 @@
                         },
                         success: function (response) {
                             var types = response;
-                            console.log("types", types);
                             $('#showdata').empty();
                             $('#pricediv').show();
-                            console.log(types, 'types');
+                            
+                            var headHtml = '<tr><th style="width: 40%;">Duration/Type</th>';
+                            if (gender === 'Both') {
+                                headHtml += '<th style="width: 30%;">Price for Men</th><th style="width: 30%;">Price for Women</th>';
+                            } else if (gender === 'Men') {
+                                headHtml += '<th style="width: 60%;">Price for Men</th>';
+                            } else {
+                                headHtml += '<th style="width: 60%;">Price for Women</th>';
+                            }
+                            headHtml += '</tr>';
+                            $('#durationTable thead').html(headHtml);
 
                             $.each(types, function (index, item) {
-                                $('#showdata').append(`
-                         <tr>
-                            <td>
-                                <input type="hidden" name="category_id" value="${item.id}"/>
-                                <input type="text" class="form-control" name="duration" value="${item.title}"  readonly/>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="price" placeholder="Enter price" value="${item?.subservice_prices?.[0]?.price || ''}"    />
-                            </td>
-                        </tr>
-                        `);
-                            })
+                                var priceMen = '';
+                                var priceWomen = '';
+                                if (item.subservice_prices && item.subservice_prices.length > 0) {
+                                    $.each(item.subservice_prices, function(i, sp) {
+                                        if (sp.gender === 'Men') {
+                                            priceMen = sp.price;
+                                        } else if (sp.gender === 'Women') {
+                                            priceWomen = sp.price;
+                                        } else {
+                                            priceMen = sp.price;
+                                            priceWomen = sp.price;
+                                        }
+                                    });
+                                }
+
+                                var rowHtml = `<tr>
+                                    <td>
+                                        <input type="hidden" name="category_id" value="${item.id}"/>
+                                        <input type="text" class="form-control" name="duration" value="${item.title}" readonly/>
+                                    </td>`;
+                                if (gender === 'Both') {
+                                    rowHtml += `<td>
+                                        <input type="text" class="form-control" name="price_men" placeholder="Enter price for Men" value="${priceMen}"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="price_women" placeholder="Enter price for Women" value="${priceWomen}"/>
+                                    </td>`;
+                                } else if (gender === 'Men') {
+                                    rowHtml += `<td>
+                                        <input type="text" class="form-control" name="price_men" placeholder="Enter price for Men" value="${priceMen}"/>
+                                        <input type="hidden" name="price_women" value=""/>
+                                    </td>`;
+                                } else {
+                                    rowHtml += `<td>
+                                        <input type="hidden" name="price_men" value=""/>
+                                        <input type="text" class="form-control" name="price_women" placeholder="Enter price for Women" value="${priceWomen}"/>
+                                    </td>`;
+                                }
+                                rowHtml += `</tr>`;
+                                $('#showdata').append(rowHtml);
+                            });
                         }
-                    })
-                }).change().trigger()
+                    });
+                }
+
+                $('#category, #gender').change(loadCategoriesAndPrices);
+                loadCategoriesAndPrices();
             })
         </script>
 </body>
