@@ -60,10 +60,15 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="gender">Target Gender *</label>
-                                                            <select class="form-control" id="gender" name="gender" required>
-                                                                <option value="Both" <%- row && (!row.gender || row.gender=='Both') ? 'selected' : '' %>>Both (Men & Women)</option>
-                                                                <option value="Men" <%- row && row.gender=='Men' ? 'selected' : '' %>>Services for Men</option>
-                                                                <option value="Women" <%- row && row.gender=='Women' ? 'selected' : '' %>>Services for Women</option>
+                                                            <select class="form-control" id="gender" name="gender"
+                                                                required>
+                                                                <option value="Both" <%- row && (!row.gender ||
+                                                                    row.gender=='Both' ) ? 'selected' : '' %>>Both (Men
+                                                                    & Women)</option>
+                                                                <option value="Men" <%- row && row.gender=='Men'
+                                                                    ? 'selected' : '' %>>Services for Men</option>
+                                                                <option value="Women" <%- row && row.gender=='Women'
+                                                                    ? 'selected' : '' %>>Services for Women</option>
                                                             </select>
                                                         </div>
                                                         <div id="pricediv" class="mb-3 card" style="display: none;">
@@ -307,7 +312,7 @@
                             var types = response;
                             $('#showdata').empty();
                             $('#pricediv').show();
-                            
+
                             var headHtml = '<tr><th style="width: 40%;">Duration/Type</th>';
                             if (gender === 'Both') {
                                 headHtml += '<th style="width: 30%;">Price for Men</th><th style="width: 30%;">Price for Women</th>';
@@ -323,7 +328,7 @@
                                 var priceMen = '';
                                 var priceWomen = '';
                                 if (item.subservice_prices && item.subservice_prices.length > 0) {
-                                    $.each(item.subservice_prices, function(i, sp) {
+                                    $.each(item.subservice_prices, function (i, sp) {
                                         if (sp.gender === 'Men') {
                                             priceMen = sp.price;
                                         } else if (sp.gender === 'Women') {
