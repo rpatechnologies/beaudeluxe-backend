@@ -28,6 +28,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --ext js,ejs index.js",
+    "start": "node index.js",    
     "test": "test"
   },
   "author": "RPA",
