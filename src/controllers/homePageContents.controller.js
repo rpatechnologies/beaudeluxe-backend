@@ -454,11 +454,11 @@ module.exports = {
         uploadMiddleware(req, res, async () => {
             const { booking_steps_title, booking_steps_description } = req.body;
 
-            const cardIndices = [].concat(req.body.card_index || []);
-            const cardNumbers = [].concat(req.body.card_number || []);
-            const cardTitles = [].concat(req.body.card_title || []);
-            const cardDescriptions = [].concat(req.body.card_description || []);
-            const cardOldImages = [].concat(req.body.card_image_old || []);
+            const cardIndices = [].concat(req.body.card_index || req.body['card_index[]'] || []);
+            const cardNumbers = [].concat(req.body.card_number || req.body['card_number[]'] || []);
+            const cardTitles = [].concat(req.body.card_title || req.body['card_title[]'] || []);
+            const cardDescriptions = [].concat(req.body.card_description || req.body['card_description[]'] || []);
+            const cardOldImages = [].concat(req.body.card_image_old || req.body['card_image_old[]'] || []);
 
             let cardsArray = [];
             for (let i = 0; i < cardIndices.length; i++) {
@@ -526,9 +526,9 @@ module.exports = {
     areasCoveredPost: async function (req, res) {
         const { areas_covered_title, areas_covered_description } = req.body;
 
-        const cardIndices = [].concat(req.body.card_index || []);
-        const cardTitles = [].concat(req.body.card_title || []);
-        const cardDescriptions = [].concat(req.body.card_description || []);
+        const cardIndices = [].concat(req.body.card_index || req.body['card_index[]'] || []);
+        const cardTitles = [].concat(req.body.card_title || req.body['card_title[]'] || []);
+        const cardDescriptions = [].concat(req.body.card_description || req.body['card_description[]'] || []);
 
         let cardsArray = [];
         for (let i = 0; i < cardIndices.length; i++) {

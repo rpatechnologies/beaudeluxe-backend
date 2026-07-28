@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('layouts/meta'); %>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+	<%- include('layouts/header'); %>
+	<div class="app-main">
+		<%- include('layouts/sidebar'); %>
+		<div class="app-main__outer">
+			<div class="app-main__inner">
+				<div class="app-page-title">
+					<div class="page-title-wrapper">
+						<div class="page-title-heading">
+							<div><%- title %> Settings</div>
+						</div>
+					</div>
+				</div>
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <%- include('layouts/flash'); %>
+                                <form action="/female_massage_therapist_post" method="post">
+                                    
+                                    <!-- MODULE 1: Women Massage Cost -->
+                                    <div class="card mb-4">
+                                        <div class="card-header bg-primary text-white">
+                                            1. Massage for Women Cost Settings
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="label font-weight-bold" for="women_massage_cost_title">Cost Section Title</label>
+                                                <input type="text" class="form-control" id="women_massage_cost_title" name="women_massage_cost_title" value="<%- data.women_massage_cost_title || '' %>" required/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="label font-weight-bold" for="women_massage_cost_description">Cost Section Description</label>
+                                                <textarea class="form-control" id="women_massage_cost_description" name="women_massage_cost_description" rows="3"><%- data.women_massage_cost_description || '' %></textarea>
+                                            </div>
+
+                                            <h5 class="mt-4 mb-3 font-weight-bold">Pricing Table Rows</h5>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Service Name</th>
+                                                        <th style="width: 25%;">60 Min Price</th>
+                                                        <th style="width: 25%;">90 Min Price</th>
+                                                        <th style="width: 10%;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="cost-rows-container">
+                                                    <% 
+                                                        let costRows = [];
+                                                        try {
+                                                            costRows = JSON.parse(data.women_massage_cost_rows || '[]');
+                                                        } catch (e) {
+                                                            costRows = [];
+                                                        }
+                                                        costRows.forEach(function(row, idx) { 
+                                                    %>
+                                                        <tr class="cost-row-item">
+                                                            <td>
+                                                                <input type="text" class="form-control" name="cost_service[]" value="<%= row.service %>" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" name="cost_price_60[]" value="<%= row.price_60 %>">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control" name="cost_price_90[]" value="<%= row.price_90 %>">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button type="button" class="btn btn-danger btn-sm remove-cost-row-btn"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="btn btn-success btn-sm mb-3" id="add-cost-row-btn"><i class="fa fa-plus"></i> Add Row</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- MODULE 2: Women Areas Covered -->
+                                    <div class="card mb-4">
+                                        <div class="card-header bg-primary text-white">
+                                            2. Areas Covered for Women's Massage
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="label font-weight-bold" for="women_areas_covered_title">Areas Section Title</label>
+                                                <input type="text" class="form-control" id="women_areas_covered_title" name="women_areas_covered_title" value="<%- data.women_areas_covered_title || '' %>" required/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="label font-weight-bold" for="women_areas_covered_description">Areas Section Description</label>
+                                                <textarea class="form-control" id="women_areas_covered_description" name="women_areas_covered_description" rows="3"><%- data.women_areas_covered_description || '' %></textarea>
+                                            </div>
+
+                                            <h5 class="mt-4 mb-3 font-weight-bold">Coverage Area Cards</h5>
+                                            <div id="cards-container">
+                                                <% 
+                                                    let cards = [];
+                                                    try {
+                                                        cards = JSON.parse(data.women_areas_covered_cards || '[]');
+                                                    } catch (e) {
+                                                        cards = [];
+                                                    }
+                                                    cards.forEach(function(card, idx) { 
+                                                %>
+                                                    <div class="card mb-3 card-item" data-index="<%= idx %>" style="border: 1px solid rgba(0,0,0,.125);">
+                                                        <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                                            <span>Card: <strong class="card-title-label"><%= card.title || 'New Card' %></strong></span>
+                                                            <button type="button" class="btn btn-danger btn-sm remove-card-btn">Remove Card</button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <input type="hidden" name="card_index[]" value="<%= idx %>">
+                                                            
+                                                            <div class="form-group">
+                                                                <label class="label">Area Group Title (e.g. Beach communities)</label>
+                                                                <input type="text" class="form-control card-title-input" name="card_title[]" value="<%= card.title %>" required>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <label class="label">Sub-Areas (e.g. JBR, Palm Jumeirah, Umm Suqeim)</label>
+                                                                <textarea class="form-control" name="card_description[]" rows="3" required><%= card.description %></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-sm mb-3" id="add-card-btn"><i class="fa fa-plus"></i> Add Card</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg px-5">Save Settings</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<%- include('layouts/footer'); %>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<%- include('layouts/script'); %>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // --- Cost Rows Logic ---
+    let costContainer = document.getElementById("cost-rows-container");
+    let addCostRowBtn = document.getElementById("add-cost-row-btn");
+
+    addCostRowBtn.addEventListener("click", function() {
+        let rowHtml = `
+            <tr class="cost-row-item">
+                <td>
+                    <input type="text" class="form-control" name="cost_service[]" placeholder="e.g. Swedish massage" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="cost_price_60[]" placeholder="e.g. AED 450">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="cost_price_90[]" placeholder="e.g. AED 600">
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-danger btn-sm remove-cost-row-btn"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+        `;
+        costContainer.insertAdjacentHTML('beforeend', rowHtml);
+    });
+
+    costContainer.addEventListener("click", function(e) {
+        let removeBtn = e.target.closest(".remove-cost-row-btn");
+        if (removeBtn) {
+            let row = removeBtn.closest(".cost-row-item");
+            if (row) {
+                row.remove();
+            }
+        }
+    });
+
+    // --- Areas Covered Cards Logic ---
+    let cardsContainer = document.getElementById("cards-container");
+    let addCardBtn = document.getElementById("add-card-btn");
+    
+    let nextIndex = 0;
+    document.querySelectorAll(".card-item").forEach(item => {
+        let idx = parseInt(item.getAttribute("data-index"));
+        if (idx >= nextIndex) {
+            nextIndex = idx + 1;
+        }
+    });
+
+    cardsContainer.addEventListener("click", function(e) {
+        if (e.target.classList.contains("remove-card-btn")) {
+            if (confirm("Are you sure you want to remove this card?")) {
+                let cardItem = e.target.closest(".card-item");
+                if (cardItem) {
+                    cardItem.remove();
+                }
+            }
+        }
+    });
+
+    cardsContainer.addEventListener("input", function(e) {
+        if (e.target.classList.contains("card-title-input")) {
+            let cardItem = e.target.closest(".card-item");
+            let label = cardItem.querySelector(".card-title-label");
+            if (label) {
+                label.textContent = e.target.value || "New Card";
+            }
+        }
+    });
+
+    addCardBtn.addEventListener("click", function() {
+        let cardHtml = `
+            <div class="card mb-3 card-item" data-index="${nextIndex}" style="border: 1px solid rgba(0,0,0,.125);">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <span>Card: <strong class="card-title-label">New Card</strong></span>
+                    <button type="button" class="btn btn-danger btn-sm remove-card-btn">Remove Card</button>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="card_index[]" value="${nextIndex}">
+                    
+                    <div class="form-group">
+                        <label class="label">Area Group Title</label>
+                        <input type="text" class="form-control card-title-input" name="card_title[]" placeholder="Enter area group title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="label">Sub-Areas</label>
+                        <textarea class="form-control" name="card_description[]" rows="3" placeholder="Enter sub-areas" required></textarea>
+                    </div>
+                </div>
+            </div>
+        `;
+        cardsContainer.insertAdjacentHTML('beforeend', cardHtml);
+        nextIndex++;
+    });
+});
+</script>
+</body>
+</html>

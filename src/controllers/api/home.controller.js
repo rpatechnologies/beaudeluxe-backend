@@ -688,8 +688,7 @@ module.exports = {
     }
   },
   clearHomeCache: async function (req, res) {
-    const cacheKey = "home_content_cache";
-    cache.del(cacheKey);
+    cache.clear();
     res.send("Cache cleared!");
   },
 
@@ -895,18 +894,18 @@ module.exports = {
           });
 
           // Use subservice image if uploaded, fallback to matched static card image
-          const imageUrl = subService.image 
+          const imageUrl = subService.image
             ? `${siteUrl}/uploads/sub_service/${subService.image}`
             : (matchedCard && matchedCard.image ? `${siteUrl}/uploads/homepagecontents/${matchedCard.image}` : null);
 
           // Use subservice description if uploaded, fallback to matched card description
-          const description = subService.description && subService.description.trim() !== "" 
-            ? subService.description 
+          const description = subService.description && subService.description.trim() !== ""
+            ? subService.description
             : (matchedCard && matchedCard.description ? matchedCard.description : "");
 
           // Use subservice altTag if uploaded, fallback to matched card title or subservice title
-          const altTag = subService.altTag && subService.altTag.trim() !== "" 
-            ? subService.altTag 
+          const altTag = subService.altTag && subService.altTag.trim() !== ""
+            ? subService.altTag
             : (matchedCard && matchedCard.title ? matchedCard.title : (subService.title || ""));
 
           return {
@@ -1063,6 +1062,152 @@ module.exports = {
         areasCoveredSection,
         massageLegalSection,
         getStartedSection
+      };
+
+      cache.put(cacheKey, response);
+
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: response,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: error.message,
+      });
+    }
+  },
+
+  getFemaleMassageSections: async function (req, res) {
+    const cacheKey = "female_massage_sections_cache";
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      return res.status(200).json({
+        status: true,
+        message: "Data fetched successfully.",
+        data: cachedData,
+      });
+    }
+
+    try {
+      const homePageContents = await HomePageContents.findAll({
+        attributes: ["id", "field", "value"],
+      });
+      let homePageContentsObj = {};
+      for (let q = 0; q < homePageContents.length; q++) {
+        homePageContentsObj[homePageContents[q]["field"]] =
+          homePageContents[q]["value"];
+      }
+
+      // 1. Women Massage Cost Section
+      let womenMassageCostRows = [];
+      try {
+        if (homePageContentsObj["women_massage_cost_rows"]) {
+          womenMassageCostRows = JSON.parse(homePageContentsObj["women_massage_cost_rows"]);
+        }
+      } catch (e) {
+        console.error("Error parsing women_massage_cost_rows:", e);
+      }
+      let womenMassageCostSection = {
+        title: homePageContentsObj["women_massage_cost_title"] || null,
+        description: homePageContentsObj["women_massage_cost_description"] || null,
+        rows: womenMassageCostRows
+      };
+
+      // 2. Women Areas Covered Section
+      let womenAreasCoveredCards = [];
+      try {
+        if (homePageContentsObj["women_areas_covered_cards"]) {
+          womenAreasCoveredCards = JSON.parse(homePageContentsObj["women_areas_covered_cards"]);
+        }
+      } catch (e) {
+        console.error("Error parsing women_areas_covered_cards:", e);
+      }
+      let womenAreasCoveredSection = {
+        title: homePageContentsObj["women_areas_covered_title"] || null,
+        description: homePageContentsObj["women_areas_covered_description"] || null,
+        cards: womenAreasCoveredCards
+      };
+
+      // 3. Women Subservices Section
+      let staticCards = [];
+      if (homePageContentsObj["massage_types_cards"]) {
+        try {
+          staticCards = JSON.parse(homePageContentsObj["massage_types_cards"]);
+        } catch (e) {
+          console.error("Error parsing massage_types_cards:", e);
+        }
+      }
+
+      const subServicesList = await SubServices.findAll({
+        where: { status: 1, gender: { [Op.in]: ["Women"] } },
+        order: [['order_no', 'ASC']],
+        attributes: [
+          "id",
+          "service_id",
+          "title",
+          "description",
+          "slug",
+          "order_no",
+          "gender",
+          "type",
+          "image",
+          "altTag",
+        ],
+        include: [{
+          model: Service,
+          attributes: ["slug"]
+        }]
+      });
+
+      const womenSubServices = subServicesList.map(subService => {
+        const matchedCard = staticCards.find(card => {
+          if (!card.title || !subService.title) return false;
+          const t1 = card.title.trim().toLowerCase();
+          const t2 = subService.title.trim().toLowerCase();
+          if (t1 === t2) return true;
+          if (t1.includes(t2) || t2.includes(t1)) return true;
+          const firstWord1 = t1.split(/[\s(&]/)[0];
+          const firstWord2 = t2.split(/[\s(&]/)[0];
+          if (firstWord1 && firstWord2 && firstWord1 === firstWord2 && firstWord1.length > 3) return true;
+          return false;
+        });
+
+        // Use subservice image if uploaded, fallback to matched static card image
+        const imageUrl = subService.image
+          ? `${siteUrl}/uploads/sub_service/${subService.image}`
+          : (matchedCard && matchedCard.image ? `${siteUrl}/uploads/homepagecontents/${matchedCard.image}` : null);
+
+        // Use subservice description if uploaded, fallback to matched card description
+        const description = subService.description && subService.description.trim() !== ""
+          ? subService.description
+          : (matchedCard && matchedCard.description ? matchedCard.description : "");
+
+        // Use subservice altTag if uploaded, fallback to matched card title or subservice title
+        const altTag = subService.altTag && subService.altTag.trim() !== ""
+          ? subService.altTag
+          : (matchedCard && matchedCard.title ? matchedCard.title : (subService.title || ""));
+
+        return {
+          id: subService.id,
+          title: subService.title || "",
+          image: imageUrl,
+          altTag: altTag,
+          description: description,
+          slug: subService.slug || (subService.service ? subService.service.slug : ""),
+          service_id: subService.service_id,
+          type: subService.type,
+          gender: subService.gender
+        };
+      });
+
+      const response = {
+        womenMassageCostSection,
+        womenAreasCoveredSection,
+        womenSubServices
       };
 
       cache.put(cacheKey, response);

@@ -28,6 +28,7 @@ router.get('/site_info', homeController.info);
 router.get('/get_faq', homeController.faq);
 router.get('/home_content', homeController.home);
 router.get('/get_home_page_sections', homeController.getHomePageSections);
+router.get('/get_female_massage_sections', homeController.getFemaleMassageSections);
 
 // About Page
 router.post('/about_content', homeController.aboutUsPost);

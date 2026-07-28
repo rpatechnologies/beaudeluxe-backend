@@ -26,6 +26,7 @@ const auth = require("../middlewares/auth");
 const testimonialsController = require('../controllers/testimonials.controller');
 const metaContentsController = require('../controllers/metaContents.controller');
 const categoryController = require('../controllers/category.controller');
+const femaleMassageController = require('../controllers/femaleMassage.controller');
 
 router.get('/', authController.login);
 router.post('/authenticate', authController.authenticate);
@@ -109,6 +110,9 @@ router.post('/email_template_post', auth, emailTemplateController.store);
 
 router.get('/banner', auth, bannerController.index);
 router.post('/banner_post', auth, bannerController.store);
+
+router.get('/female_massage_therapist', auth, femaleMassageController.index);
+router.post('/female_massage_therapist_post', auth, femaleMassageController.store);
 
 router.get('/cms', auth, cmsController.index);
 router.post('/cms_post', auth, cmsController.store);
