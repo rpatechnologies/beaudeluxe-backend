@@ -162,33 +162,114 @@ module.exports = {
 
     whyChoose: async function (req, res) {
         const data = await homePageContentsData();
+        if (data && data.why_choose_cards) {
+            try {
+                const cards = JSON.parse(data.why_choose_cards);
+                if (Array.isArray(cards)) {
+                    if (cards[0]) {
+                        data.why_choose_card_one_title = cards[0].title;
+                        data.why_choose_card_one_description = cards[0].description;
+                        data.why_choose_card_one_icon = cards[0].icon;
+                    }
+                    if (cards[1]) {
+                        data.why_choose_card_two_title = cards[1].title;
+                        data.why_choose_card_two_description = cards[1].description;
+                        data.why_choose_card_two_icon = cards[1].icon;
+                    }
+                    if (cards[2]) {
+                        data.why_choose_card_three_title = cards[2].title;
+                        data.why_choose_card_three_description = cards[2].description;
+                        data.why_choose_card_three_icon = cards[2].icon;
+                    }
+                    if (cards[3]) {
+                        data.why_choose_card_four_title = cards[3].title;
+                        data.why_choose_card_four_description = cards[3].description;
+                        data.why_choose_card_four_icon = cards[3].icon;
+                    }
+                }
+            } catch (err) {
+                console.error("Error parsing why_choose_cards: ", err);
+            }
+        }
         res.render("whyChoose", { metaTitle: siteName + " - Why Choose", title: "Why Choose", page: "why_choose", data: data });
     },
 
     whyChoosePost: async function (req, res) {
-        const { why_choose_title, why_choose_description, card_title, card_description, card_icon } = req.body;
+        const upload = multer().none();
+        upload(req, res, async (err) => {
+            if (err) {
+                console.error("Error parsing form data: ", err);
+                return res.status(500).send("Error parsing form data");
+            }
 
-        const cardsArray = [
-            { title: card_title[0] || "", description: card_description[0] || "", icon: card_icon[0] || "" },
-            { title: card_title[1] || "", description: card_description[1] || "", icon: card_icon[1] || "" },
-            { title: card_title[2] || "", description: card_description[2] || "", icon: card_icon[2] || "" },
-            { title: card_title[3] || "", description: card_description[3] || "", icon: card_icon[3] || "" }
-        ];
+            const {
+                why_choose_title,
+                why_choose_description,
+                why_choose_card_one_title,
+                why_choose_card_one_description,
+                why_choose_card_one_icon,
+                why_choose_card_two_title,
+                why_choose_card_two_description,
+                why_choose_card_two_icon,
+                why_choose_card_three_title,
+                why_choose_card_three_description,
+                why_choose_card_three_icon,
+                why_choose_card_four_title,
+                why_choose_card_four_description,
+                why_choose_card_four_icon,
+                card_title,
+                card_description,
+                card_icon
+            } = req.body;
 
-        let request = [];
-        request.push({ key: "why_choose_title", value: why_choose_title });
-        request.push({ key: "why_choose_description", value: why_choose_description });
-        request.push({ key: "why_choose_cards", value: JSON.stringify(cardsArray) });
+            const titles = card_title || [];
+            const descriptions = card_description || [];
+            const icons = card_icon || [];
 
-        for (let i = 0; i < request.length; i++) {
-            const data = request[i];
-            const dataObj = { value: data.value };
-            await HomePageContents.update(dataObj, { where: { field: data.key } });
-        }
+            const cardsArray = [
+                {
+                    title: why_choose_card_one_title || titles[0] || "",
+                    description: why_choose_card_one_description || descriptions[0] || "",
+                    icon: why_choose_card_one_icon || icons[0] || ""
+                },
+                {
+                    title: why_choose_card_two_title || titles[1] || "",
+                    description: why_choose_card_two_description || descriptions[1] || "",
+                    icon: why_choose_card_two_icon || icons[1] || ""
+                },
+                {
+                    title: why_choose_card_three_title || titles[2] || "",
+                    description: why_choose_card_three_description || descriptions[2] || "",
+                    icon: why_choose_card_three_icon || icons[2] || ""
+                },
+                {
+                    title: why_choose_card_four_title || titles[3] || "",
+                    description: why_choose_card_four_description || descriptions[3] || "",
+                    icon: why_choose_card_four_icon || icons[3] || ""
+                }
+            ];
 
-        cache.clear();
-        await req.flash("success", "Why Choose updated successfully.");
-        res.redirect(siteUrl + "/why_choose");
+            let request = [];
+            request.push({ key: "why_choose_title", value: why_choose_title });
+            request.push({ key: "why_choose_description", value: why_choose_description });
+            request.push({ key: "why_choose_cards", value: JSON.stringify(cardsArray) });
+
+            for (let i = 0; i < request.length; i++) {
+                const data = request[i];
+                const dataObj = { value: data.value };
+                const [record, created] = await HomePageContents.findOrCreate({
+                    where: { field: data.key },
+                    defaults: dataObj
+                });
+                if (!created) {
+                    await record.update(dataObj);
+                }
+            }
+
+            cache.clear();
+            await req.flash("success", "Why Choose updated successfully.");
+            res.redirect(siteUrl + "/why_choose");
+        });
     },
 
     servicesOffered: async function (req, res) {
