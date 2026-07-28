@@ -34,6 +34,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: "Both"
+        },
+        image: {
+            type: Sequelize.STRING
+        },
+        altTag: {
+            type: Sequelize.STRING
         }
     }, 
     {

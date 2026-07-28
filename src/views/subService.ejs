@@ -31,9 +31,10 @@
                                             <div class="col-md-2"></div>
                                             <div class="col-md-8">
                                                 <%- include('layouts/flash'); %>
-                                                    <form action="/sub_service_post" method="post">
-                                                        <input type="hidden" name="id" id="subservice_id"
-                                                            value="<%- row ? row.id : '' %>">
+                                                    <form action="/sub_service_post" method="post" enctype="multipart/form-data">
+                                                         <input type="hidden" name="id" id="subservice_id"
+                                                             value="<%- row ? row.id : '' %>">
+                                                         <input type="hidden" name="image_old" value="<%- row ? row.image : '' %>">
                                                         <div class="form-group">
                                                             <label class="label" for="page_id">Service *</label>
                                                             <select class="form-control" id="service_id"
@@ -94,6 +95,17 @@
                                                             <label class="label" for="title">Title *</label>
                                                             <input type="text" class="form-control" id="title"
                                                                 name="title" value="<%- row ? row.title : '' %>" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="image">Image</label>
+                                                            <input type="file" class="form-control-file" id="image" name="image">
+                                                            <% if (row && row.image) { %>
+                                                                <img src="<%- siteUrl + '/uploads/sub_service/' + row.image %>" alt="Current Image" style="max-width: 150px; margin-top: 10px;" />
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="altTag">Alt Tag</label>
+                                                            <input type="text" class="form-control" id="altTag" name="altTag" value="<%- row ? row.altTag : '' %>" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="description">Description*</label>
@@ -185,6 +197,22 @@
                                                         <td><%- row.description %></td>
                                                     </tr>
                                                     <tr>
+                                                        <th style="width: 15%">Image</th>
+                                                        <td>
+                                                            <% if (row.image) { %>
+                                                                <a href="<%- siteUrl + '/uploads/sub_service/' + row.image %>" target="_blank">
+                                                                    <img src="<%- siteUrl + '/uploads/sub_service/' + row.image %>" alt="SubService Image" style="max-width: 150px;" />
+                                                                </a>
+                                                            <% } else { %>
+                                                                No image uploaded
+                                                            <% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Alt Tag</th>
+                                                        <td><%- row.altTag %></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="width: 15%">Created At</th>
                                                         <td><%- new Date(row.updatedAt).toLocaleString('en-GB',
                                                                 {dateStyle: "short" , timeStyle: "short" , hour12:
@@ -226,6 +254,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="width:5%">#</th>
+                                                            <th>Image</th>
                                                             <th>Title</th>
                                                             <th>Service</th>
                                                             <th>Gender</th>
@@ -238,16 +267,18 @@
                                                         <% rows.forEach(function(data, index) { %>
                                                             <tr>
                                                                 <td><%- index + 1 %></td>
+                                                                <td>
+                                                                    <% if (data.image) { %>
+                                                                        <a href="<%- siteUrl +'/uploads/sub_service/'+ data.image %>" target="_blank">
+                                                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/sub_service/'+ data.image %>" alt="" style="max-height: 50px; max-width: 50px;" />
+                                                                        </a>
+                                                                    <% } else { %>
+                                                                        No image
+                                                                    <% } %>
+                                                                </td>
                                                                 <td><%- data.title %></td>
                                                                 <td><%- data.service?.title%></td>
                                                                 <td><%- data.gender || 'Both' %></td>
-                                                                <!-- <td>
-                                        <a href="<%- siteUrl +'/uploads/sub_service/'+ data.image %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/sub_service/'+ data.image %>" alt=""/>
-                                        </a>
-                                    </td> -->
-
-
                                                                 <td><%- new Date(data.updatedAt).toLocaleString('en-GB',
                                                                         {dateStyle: "short" , timeStyle: "short" ,
                                                                         hour12: true}) %></td>
