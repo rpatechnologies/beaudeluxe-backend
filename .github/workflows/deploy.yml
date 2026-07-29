@@ -17,13 +17,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.9.0"
-          cache: "npm"
+          cache: npm
 
       - name: Install Dependencies
         run: npm ci
-
-      - name: Build Project
-        run: npm run build
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.2.0
@@ -36,7 +33,6 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            nvm install 20.9.0
             nvm use 20.9.0
 
             cd /var/www/html/beaudeluxe-staging
@@ -46,8 +42,6 @@ jobs:
             git reset --hard origin/musi-dev
 
             npm ci --omit=dev
-
-            npm run build
 
             pm2 restart 2 --update-env
             pm2 save
