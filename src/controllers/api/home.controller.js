@@ -791,7 +791,8 @@ module.exports = {
   },
 
   getHomePageSections: async function (req, res) {
-    const cacheKey = "home_page_sections_cache";
+    const faqType = req.query.faq_type || req.query.type || req.query.category || "";
+    const cacheKey = `home_page_sections_cache_${faqType}`;
     const cachedData = cache.get(cacheKey);
 
     if (cachedData) {
@@ -1050,6 +1051,83 @@ module.exports = {
         image: homePageContentsObj["get_started_image"] ? `${siteUrl}/uploads/homepagecontents/${homePageContentsObj["get_started_image"]}` : null
       };
 
+      // 12. Faqs Section
+      let faqWhereClause = { status: 1 };
+      if (faqType) {
+        faqWhereClause.category = faqType;
+      } else {
+        faqWhereClause.show_on_homepage = 1;
+      }
+
+      const faqs = await Faq.findAll({
+        where: faqWhereClause,
+        order: [["id", "ASC"]],
+        attributes: ["id", "question", "answer", "slug", "category", "status"],
+      });
+
+      const arrayfaqs = [];
+      for (let k = 0; k < faqs.length; k++) {
+        const faqItem = faqs[k];
+        const objFaq = {
+          id: faqItem.id,
+          question: faqItem.question,
+          answer: faqItem.answer,
+          slug: faqItem.slug,
+          category: faqItem.category || "About",
+          status: faqItem.status,
+        };
+        arrayfaqs.push(objFaq);
+      }
+
+      let faqsSection = {
+        title: homePageContentsObj["screen_faq_title"] || null,
+        shadowTitle: homePageContentsObj["screen_faq_shadow_title"] || null,
+        faq: arrayfaqs
+      };
+
+      // 13. Testimonials Section
+      const testimonials = await Testimonials.findAll({
+        where: { status: 1 },
+        attributes: [
+          "id",
+          "name",
+          "country",
+          "flag",
+          "rating",
+          "description",
+          "photo",
+          "altTag",
+          "status",
+          "publishedAt",
+          "slug",
+        ],
+        order: [["publishedAt", "DESC"]],
+      });
+      let arrayTestimonials = [];
+      for (let i = 0; i < testimonials.length; i++) {
+        const itemTestimonials = testimonials[i];
+        const objTestimonials = {
+          id: itemTestimonials.id,
+          name: itemTestimonials.name,
+          country: itemTestimonials.country,
+          flag: itemTestimonials.flag,
+          rating: itemTestimonials.rating,
+          description: itemTestimonials.description,
+          photo: `${siteUrl}/uploads/testimonials/${itemTestimonials.photo}`,
+          altTag: itemTestimonials.altTag,
+          slug: itemTestimonials.slug,
+          status: itemTestimonials.status,
+          publishedAt: itemTestimonials.publishedAt,
+        };
+        arrayTestimonials.push(objTestimonials);
+      }
+
+      let testimonialsSection = {
+        title: homePageContentsObj["screen_three_title"] || null,
+        shadowTitle: homePageContentsObj["screen_three_shadow_title"] || null,
+        testimonials: arrayTestimonials,
+      };
+
       const response = {
         homeMassageSection,
         whyChooseSection,
@@ -1061,7 +1139,9 @@ module.exports = {
         massageCostSection,
         areasCoveredSection,
         massageLegalSection,
-        getStartedSection
+        getStartedSection,
+        testimonials: testimonialsSection,
+        faqs: faqsSection
       };
 
       cache.put(cacheKey, response);
