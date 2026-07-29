@@ -1357,21 +1357,24 @@ module.exports = {
       // 4. Team Section
       let teamMembers = [];
       try {
-        if (contentsObj["about_team_members"]) {
-          const parsedMembers = JSON.parse(contentsObj["about_team_members"]);
-          teamMembers = parsedMembers.map(m => ({
-            id: m.id,
-            name: m.name || "",
-            role: m.role || "",
-            image: m.image ? `${siteUrl}/uploads/homepagecontents/${m.image}` : null
-          }));
-        }
+        const Therapist = models.therapist || require("../../models").therapist;
+        const therapistsList = await Therapist.findAll({
+          where: { status: 1 },
+          order: [["order_number", "ASC"], ["id", "DESC"]]
+        });
+
+        teamMembers = therapistsList.map(item => ({
+          id: item.id,
+          name: item.name,
+          role: item.designation || "",
+          image: item.image ? `${siteUrl}/uploads/therapist/${item.image}` : null
+        }));
       } catch (e) {
-        console.error("Error parsing about_team_members:", e);
+        console.error("Error fetching therapists for about page:", e);
       }
       let teamSection = {
-        title: contentsObj["about_team_title"] || null,
-        description: contentsObj["about_team_description"] || null,
+        // title: contentsObj["about_team_title"] || null,
+        // description: contentsObj["about_team_description"] || null,
         members: teamMembers
       };
 
