@@ -1,136 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<%- include('layouts/meta'); %>
+    <%- include('layouts/meta'); %>
 </head>
+
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-	<%- include('layouts/header'); %>
-	<div class="app-main">
-		<%- include('layouts/sidebar'); %>
-		<div class="app-main__outer">
-			<div class="app-main__inner">
-				<div class="app-page-title">
-					<div class="page-title-wrapper">
-						<div class="page-title-heading">
-							<div><%- title %></div>
-						</div>
-						<div class="page-title-actions">
-						</div>
-					</div>
-				</div>
-                <div class="main-card mb-3 card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <%- include('layouts/flash'); %>
-                                <form action="/safety_privacy_post" method="post" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label class="label" for="safety_privacy_title">Section Title</label>
-                                        <input type="text" class="form-control" id="safety_privacy_title" name="safety_privacy_title" value="<%- data.safety_privacy_title || '' %>"/>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="label" for="safety_privacy_description">Section Description</label>
-                                        <textarea class="form-control joeditor" id="safety_privacy_description" name="safety_privacy_description" rows="5"><%- data.safety_privacy_description || '' %></textarea>
+                                    <div class="page-title-actions">
                                     </div>
-
-                                    <h4 class="mt-4 mb-3">Safety & Privacy Cards</h4>
-                                    
-                                    <div id="cards-container">
-                                        <% 
-                                            let cards = [];
-                                            try {
-                                                cards = JSON.parse(data.safety_privacy_cards || '[]');
-                                            } catch (e) {
-                                                cards = [];
-                                            }
-                                            cards.forEach(function(card, idx) { 
-                                        %>
-                                            <div class="card mb-3 card-item" data-index="<%= idx %>">
-                                                <div class="card-header d-flex justify-content-between align-items-center">
-                                                    <span>Card: <%= card.title %></span>
-                                                    <button type="button" class="btn btn-danger btn-sm remove-card-btn">Remove Card</button>
-                                                </div>
-                                                <div class="card-body">
-                                                    <input type="hidden" name="card_index[]" value="<%= idx %>">
-                                                    <input type="hidden" name="card_image_old[]" value="<%= card.image %>">
-                                                    
-                                                    <div class="form-group">
-                                                        <label class="label">Title</label>
-                                                        <input type="text" class="form-control" name="card_title[]" value="<%= card.title %>" required>
-                                                    </div>
-                                                    
-                                                    <div class="form-group">
-                                                        <label class="label">Image</label>
-                                                        <input type="file" class="form-control" name="card_image_<%= idx %>">
-                                                        <% if(card.image) { %>
-                                                            <br><a href="<%= siteUrl %>/uploads/homepagecontents/<%= card.image %>" target="_blank">
-                                                                <img class="img-thumbnail" style="max-height: 100px;" src="<%= siteUrl %>/uploads/homepagecontents/<%= card.image %>"/>
-                                                            </a>
-                                                        <% } %>
-                                                    </div>
-                                                    
-                                                    <div class="form-group">
-                                                        <label class="label">Description</label>
-                                                        <textarea class="form-control" name="card_description[]" rows="3" required><%= card.description %></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <% }) %>
-                                    </div>
-
-                                    <div class="form-group mb-4">
-                                        <button type="button" class="btn btn-success" id="add-card-btn"><i class="fa fa-plus"></i> Add Card</button>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg">Update Section</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/safety_privacy_post" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label class="label" for="safety_privacy_title">Section
+                                                            Title</label>
+                                                        <input type="text" class="form-control"
+                                                            id="safety_privacy_title" name="safety_privacy_title"
+                                                            value="<%- data.safety_privacy_title || '' %>" />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="label" for="safety_privacy_description">Section
+                                                            Description</label>
+                                                        <textarea class="form-control joeditor"
+                                                            id="safety_privacy_description"
+                                                            name="safety_privacy_description"
+                                                            rows="5"><%- data.safety_privacy_description || '' %></textarea>
+                                                    </div>
+
+                                                    <h4 class="mt-4 mb-3">Safety & Privacy Cards</h4>
+
+                                                    <div id="cards-container">
+                                                        <% let cards=[]; try {
+                                                            cards=JSON.parse(data.safety_privacy_cards || '[]' ); }
+                                                            catch (e) { cards=[]; } cards.forEach(function(card, idx) {
+                                                            %>
+                                                            <div class="card mb-3 card-item" data-index="<%= idx %>">
+                                                                <div
+                                                                    class="card-header d-flex justify-content-between align-items-center">
+                                                                    <span>Card: <%= card.title %></span>
+                                                                    <button type="button"
+                                                                        class="btn btn-danger btn-sm remove-card-btn">Remove
+                                                                        Card</button>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <input type="hidden" name="card_index[]"
+                                                                        value="<%= idx %>">
+                                                                    <input type="hidden" name="card_image_old[]"
+                                                                        value="<%= card.image %>">
+
+                                                                    <div class="form-group">
+                                                                        <label class="label">Title</label>
+                                                                        <input type="text" class="form-control"
+                                                                            name="card_title[]"
+                                                                            value="<%= card.title %>" required>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="label">Image</label>
+                                                                        <input type="file" class="form-control"
+                                                                            name="card_image_<%= idx %>">
+                                                                        <% if(card.image) { %>
+                                                                            <br><a
+                                                                                href="<%= siteUrl %>/uploads/homepagecontents/<%= card.image %>"
+                                                                                target="_blank">
+                                                                                <img class="img-thumbnail"
+                                                                                    style="max-height: 100px;"
+                                                                                    src="<%= siteUrl %>/uploads/homepagecontents/<%= card.image %>" />
+                                                                            </a>
+                                                                            <% } %>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="label">Description</label>
+                                                                        <textarea class="form-control joeditor"
+                                                                            name="card_description[]" rows="3"
+                                                                            required><%= card.description %></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% }) %>
+                                                    </div>
+
+                                                    <div class="form-group mb-4">
+                                                        <button type="button" class="btn btn-success"
+                                                            id="add-card-btn"><i class="fa fa-plus"></i> Add
+                                                            Card</button>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary btn-lg">Update
+                                                            Section</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <%- include('layouts/footer'); %>
                     </div>
-                </div>
-			</div>
-			<%- include('layouts/footer'); %>
-		</div>
-	</div>
-</div>
-<div class="app-drawer-overlay d-none animated fadeIn"></div>
-<%- include('layouts/script'); %>
+            </div>
+    </div>
+    <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <%- include('layouts/script'); %>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let container = document.getElementById("cards-container");
-    let addBtn = document.getElementById("add-card-btn");
-    
-    // Find next unique index
-    let nextIndex = 0;
-    document.querySelectorAll(".card-item").forEach(item => {
-        let idx = parseInt(item.getAttribute("data-index"));
-        if (idx >= nextIndex) {
-            nextIndex = idx + 1;
-        }
-    });
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let container = document.getElementById("cards-container");
+                let addBtn = document.getElementById("add-card-btn");
 
-    // Remove card delegation
-    container.addEventListener("click", function(e) {
-        if (e.target.classList.contains("remove-card-btn")) {
-            if (confirm("Are you sure you want to remove this card?")) {
-                let cardItem = e.target.closest(".card-item");
-                if (cardItem) {
-                    cardItem.remove();
-                }
-            }
-        }
-    });
+                // Find next unique index
+                let nextIndex = 0;
+                document.querySelectorAll(".card-item").forEach(item => {
+                    let idx = parseInt(item.getAttribute("data-index"));
+                    if (idx >= nextIndex) {
+                        nextIndex = idx + 1;
+                    }
+                });
 
-    // Add card logic
-    addBtn.addEventListener("click", function() {
-        let cardHtml = `
+                // Remove card delegation
+                container.addEventListener("click", function (e) {
+                    if (e.target.classList.contains("remove-card-btn")) {
+                        if (confirm("Are you sure you want to remove this card?")) {
+                            let cardItem = e.target.closest(".card-item");
+                            if (cardItem) {
+                                cardItem.remove();
+                            }
+                        }
+                    }
+                });
+
+                // Add card logic
+                addBtn.addEventListener("click", function () {
+                    let cardHtml = `
             <div class="card mb-3 card-item" data-index="${nextIndex}">
                 <div class="card-header d-flex justify-content-between align-items-center bg-light">
                     <span>New Card</span>
@@ -152,16 +174,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     
                     <div class="form-group">
                         <label class="label">Description</label>
-                        <textarea class="form-control" name="card_description[]" rows="3" placeholder="Enter card description" required></textarea>
+                        <textarea class="form-control joeditor" name="card_description[]" rows="3" placeholder="Enter card description" required></textarea>
                     </div>
                 </div>
             </div>
         `;
-        
-        container.insertAdjacentHTML('beforeend', cardHtml);
-        nextIndex++;
-    });
-});
-</script>
+
+                    container.insertAdjacentHTML('beforeend', cardHtml);
+                    nextIndex++;
+                });
+            });
+        </script>
 </body>
+
 </html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('layouts/meta'); %>
 </head>
+
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
         <%- include('layouts/header'); %>
@@ -25,14 +27,16 @@
                                             <%- include('layouts/flash'); %>
                                                 <form action="/about_contact_post" method="post">
                                                     <div class="form-group">
-                                                        <label class="label" for="about_contact_title">Section Main Title *</label>
+                                                        <label class="label" for="about_contact_title">Section Main
+                                                            Title *</label>
                                                         <input type="text" class="form-control" id="about_contact_title"
                                                             name="about_contact_title"
                                                             value="<%- data.about_contact_title || 'Contact BeauDeluxe' %>"
                                                             required />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="label" for="about_contact_description">Section Description *</label>
+                                                        <label class="label" for="about_contact_description">Section
+                                                            Description *</label>
                                                         <textarea class="form-control joeditor"
                                                             id="about_contact_description"
                                                             name="about_contact_description"
@@ -40,50 +44,72 @@
                                                     </div>
 
                                                     <div class="mb-3 card">
-                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                        <div
+                                                            class="card-header d-flex justify-content-between align-items-center">
                                                             <span>Contact Cards List</span>
-                                                            <button type="button" class="btn btn-primary btn-sm" onclick="appendContactCardRow()"><i class="fa fa-plus"></i> Add Card</button>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                onclick="appendContactCardRow()"><i
+                                                                    class="fa fa-plus"></i> Add Card</button>
                                                         </div>
                                                         <div class="card-body">
                                                             <div id="contactCardsContainer">
-                                                                <% 
-                                                                let contactCards = [];
-                                                                try {
-                                                                    if (data.about_contact_cards) {
-                                                                        contactCards = JSON.parse(data.about_contact_cards);
-                                                                    }
-                                                                } catch(e) {}
-                                                                if (!contactCards || contactCards.length === 0) {
-                                                                    contactCards = [
-                                                                        { id: 0, title: data.about_contact_card1_title || 'Book a Home Massage Session', description: data.about_contact_card1_desc || 'Fastest path is WhatsApp or beaudeluxe.com. Same-day bookings accepted subject to therapist availability.' },
-                                                                        { id: 1, title: data.about_contact_card2_title || 'Business and Partnership Inquiries', description: data.about_contact_card2_desc || 'For corporate wellness programs, hotel partnerships, and bulk packages.' },
-                                                                        { id: 2, title: data.about_contact_card3_title || 'Media and Press', description: data.about_contact_card3_desc || 'Media kit and press inquiries.' }
-                                                                    ];
-                                                                }
-                                                                contactCards.forEach(function(card, index) { 
-                                                                    let idx = card.id !== undefined ? card.id : index;
-                                                                %>
+                                                                <% let contactCards=[]; try { if
+                                                                    (data.about_contact_cards) {
+                                                                    contactCards=JSON.parse(data.about_contact_cards); }
+                                                                    } catch(e) {} if (!contactCards ||
+                                                                    contactCards.length===0) { contactCards=[ { id: 0,
+                                                                    title: data.about_contact_card1_title
+                                                                    || 'Book a Home Massage Session' , description:
+                                                                    data.about_contact_card1_desc
+                                                                    || 'Fastest path is WhatsApp or beaudeluxe.com. Same-day bookings accepted subject to therapist availability.'
+                                                                    }, { id: 1, title: data.about_contact_card2_title
+                                                                    || 'Business and Partnership Inquiries' ,
+                                                                    description: data.about_contact_card2_desc
+                                                                    || 'For corporate wellness programs, hotel partnerships, and bulk packages.'
+                                                                    }, { id: 2, title: data.about_contact_card3_title
+                                                                    || 'Media and Press' , description:
+                                                                    data.about_contact_card3_desc
+                                                                    || 'Media kit and press inquiries.' } ]; }
+                                                                    contactCards.forEach(function(card, index) { let
+                                                                    idx=card.id !==undefined ? card.id : index; %>
                                                                     <div class="card mb-3 border p-3 contact-card-item">
-                                                                        <input type="hidden" name="card_index" value="<%- idx %>" />
+                                                                        <input type="hidden" name="card_index"
+                                                                            value="<%- idx %>" />
                                                                         <div class="form-group">
-                                                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                                                <label class="label font-weight-bold mb-0">Card Title *</label>
-                                                                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteContactCardRow(this)"><i class="fa fa-trash"></i> Delete Card</button>
+                                                                            <div
+                                                                                class="d-flex justify-content-between align-items-center mb-2">
+                                                                                <label
+                                                                                    class="label font-weight-bold mb-0">Card
+                                                                                    Title *</label>
+                                                                                <button type="button"
+                                                                                    class="btn btn-danger btn-sm"
+                                                                                    onclick="deleteContactCardRow(this)"><i
+                                                                                        class="fa fa-trash"></i> Delete
+                                                                                    Card</button>
                                                                             </div>
-                                                                            <input type="text" class="form-control" name="card_title" value="<%- card.title || '' %>" placeholder="e.g. Book a Home Massage Session" required />
+                                                                            <input type="text" class="form-control"
+                                                                                name="card_title"
+                                                                                value="<%- card.title || '' %>"
+                                                                                placeholder="e.g. Book a Home Massage Session"
+                                                                                required />
                                                                         </div>
                                                                         <div class="form-group mb-0">
-                                                                            <label class="label">Card Description *</label>
-                                                                            <textarea class="form-control" name="card_desc" rows="3" placeholder="Description details..." required><%- card.description || '' %></textarea>
+                                                                            <label class="label">Card Description
+                                                                                *</label>
+                                                                            <textarea class="form-control joeditor"
+                                                                                name="card_desc" rows="3"
+                                                                                placeholder="Description details..."
+                                                                                required><%- card.description || '' %></textarea>
                                                                         </div>
                                                                     </div>
-                                                                <% }); %>
+                                                                    <% }); %>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group mt-3">
-                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            Changes</button>
                                                     </div>
                                                 </form>
                                         </div>
@@ -98,12 +124,12 @@
     </div>
     <%- include('layouts/script'); %>
 
-    <script>
-        let cardCounter = 100;
-        function appendContactCardRow() {
-            cardCounter++;
-            const container = document.getElementById("contactCardsContainer");
-            const cardHtml = `
+        <script>
+            let cardCounter = 100;
+            function appendContactCardRow() {
+                cardCounter++;
+                const container = document.getElementById("contactCardsContainer");
+                const cardHtml = `
                 <div class="card mb-3 border p-3 contact-card-item">
                     <input type="hidden" name="card_index" value="${cardCounter}" />
                     <div class="form-group">
@@ -115,21 +141,22 @@
                     </div>
                     <div class="form-group mb-0">
                         <label class="label">Card Description *</label>
-                        <textarea class="form-control" name="card_desc" rows="3" placeholder="Description details..." required></textarea>
+                        <textarea class="form-control joeditor" name="card_desc" rows="3" placeholder="Description details..." required></textarea>
                     </div>
                 </div>
             `;
-            container.insertAdjacentHTML('beforeend', cardHtml);
-        }
-
-        function deleteContactCardRow(btn) {
-            const items = document.querySelectorAll(".contact-card-item");
-            if (items.length > 1) {
-                btn.closest(".contact-card-item").remove();
-            } else {
-                alert("At least one contact card is required.");
+                container.insertAdjacentHTML('beforeend', cardHtml);
             }
-        }
-    </script>
+
+            function deleteContactCardRow(btn) {
+                const items = document.querySelectorAll(".contact-card-item");
+                if (items.length > 1) {
+                    btn.closest(".contact-card-item").remove();
+                } else {
+                    alert("At least one contact card is required.");
+                }
+            }
+        </script>
 </body>
+
 </html>
