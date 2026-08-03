@@ -311,7 +311,7 @@ module.exports = {
           "phone_label",
           "email_label",
           "location_label",
-          "message_label", 
+          "message_label",
           "alt_tag",
         ],
       });
@@ -336,6 +336,7 @@ module.exports = {
         name,
         email,
         phone_no,
+        gender,
         services,
         location,
         address,
@@ -343,47 +344,49 @@ module.exports = {
         slot,
       } = req.body;
 
-            await body('name', 'Name is required.').notEmpty().run(req);
-            await body('email', 'Email is required.').notEmpty().isEmail().withMessage('Please enter valid email.').run(req);
-            // await body('services', 'Service is required.').notEmpty().run(req);
-            await body('phone_no', 'Phone number is required.').notEmpty().isNumeric().withMessage('Please enter valid phone number.').run(req);
-            await body('location', 'Location is required.').notEmpty().run(req);
-            await body('address',  'Address is required.').notEmpty().run(req);
-            await body('date',    'Date is required.').notEmpty().run(req);
-            await body('slot',    'Slot is required.').notEmpty().run(req);
-            await body("services", "Service is required.")
-            .notEmpty()
-            .isArray({ min: 1 }).withMessage("Service is required.")
-            .custom((services) => {
-              for (let i = 0; i < services.length; i++) {
-                const serviceObj = services[i];
-                if (!serviceObj.service || !serviceObj.sub_service) {
-                  throw new Error("Service and Subservice are required.");
-                }
-              }
-              return true;
-            })
-            .run(req);
-          
-        
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-              return res.status(422).json({ status: false, message: errors.array()[0].msg });
+      await body('name', 'Name is required.').notEmpty().run(req);
+      await body('email', 'Email is required.').notEmpty().isEmail().withMessage('Please enter valid email.').run(req);
+      await body('gender', 'Gender is required.').notEmpty().run(req);
+      // await body('services', 'Service is required.').notEmpty().run(req);
+      await body('phone_no', 'Phone number is required.').notEmpty().isNumeric().withMessage('Please enter valid phone number.').run(req);
+      await body('location', 'Location is required.').notEmpty().run(req);
+      await body('address', 'Address is required.').notEmpty().run(req);
+      await body('date', 'Date is required.').notEmpty().run(req);
+      await body('slot', 'Slot is required.').notEmpty().run(req);
+      await body("services", "Service is required.")
+        .notEmpty()
+        .isArray({ min: 1 }).withMessage("Service is required.")
+        .custom((services) => {
+          for (let i = 0; i < services.length; i++) {
+            const serviceObj = services[i];
+            if (!serviceObj.service || !serviceObj.sub_service) {
+              throw new Error("Service and Subservice are required.");
             }
+          }
+          return true;
+        })
+        .run(req);
 
-      const row = await TimeSlotValues.findOne({ where : {id: slot}, attributes : ['start_time', 'end_time']});
-      const slotvalue = row?.start_time +"-"+ row.end_time;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ status: false, message: errors.array()[0].msg });
+      }
+
+      const row = await TimeSlotValues.findOne({ where: { id: slot }, attributes: ['start_time', 'end_time'] });
+      const slotvalue = row?.start_time + "-" + row.end_time;
       const formdata = {
         name: name,
         email_address: email,
         phone_number: phone_no,
+        gender: gender,
         location: location,
-        address:address,
+        address: address,
         date: date,
         slot: slotvalue,
       };
 
-      
+
       const formRecord = await formAppointment.create(formdata);
       id = formRecord.id ?? null;
 
@@ -404,62 +407,86 @@ module.exports = {
         </thead>
      <tbody>`;
 
-     let amount = 0
+      let amount = 0
 
       for (let service of services) {
         const subServicePrice = await SubServicePrice.findByPk(
           service.sub_service
         );
 
+        if (!subServicePrice) {
+          return res.status(400).json({
+            status: false,
+            message: `Selected sub-service price ID ${service.sub_service} is invalid or not found.`,
+          });
+        }
+
         const subService = await SubServices.findByPk(
           subServicePrice.subservice_id
         );
         const serviceDetail = await Service.findByPk(service.service);
 
-        if (subServicePrice) { 
-          amount += parseFloat(subServicePrice.price);
-         
-          await FormServices.create({
-            form_id: id,
-            service_id: service.service,
-            subservice_id: subService.id,
-            subservice_price_id: service.sub_service,
-            service_title: serviceDetail.title,
-            sub_service_title: subService.title,
-            sub_service_price_title: subServicePrice.title,
-            sub_service_price: subServicePrice.price,
+        if (!subService) {
+          return res.status(400).json({
+            status: false,
+            message: `Sub-service not found for price ID ${service.sub_service}.`,
           });
+        }
 
-          subservicePriceHTML += `<tr>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${serviceDetail.title}</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${subService.title}</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${subServicePrice.price} AED</td>
-                </tr>`;
-       }
-    } 
-     subservicePriceHTML += `</tbody></table>`;
+        if (!serviceDetail) {
+          return res.status(400).json({
+            status: false,
+            message: `Service with ID ${service.service} not found.`,
+          });
+        }
+
+        amount += parseFloat(subServicePrice.price || 0);
+
+        await FormServices.create({
+          form_id: id,
+          service_id: service.service,
+          subservice_id: subService.id,
+          subservice_price_id: service.sub_service,
+          service_title: serviceDetail.title,
+          sub_service_title: subService.title,
+          sub_service_price_title: subServicePrice.title,
+          sub_service_price: subServicePrice.price,
+        });
+
+        subservicePriceHTML += `<tr>
+                  <td style="padding: 10px; border: 1px solid #ddd;">${serviceDetail.title}</td>
+                  <td style="padding: 10px; border: 1px solid #ddd;">${subService.title}</td>
+                  <td style="padding: 10px; border: 1px solid #ddd;">${subServicePrice.price} AED</td>
+              </tr>`;
+      }
+      subservicePriceHTML += `</tbody></table>`;
       const object = {
         name,
         email,
         phone_no,
+        gender,
         location,
         services,
-        total_amount : amount+" AED",
+        total_amount: amount + " AED",
         address,
         date,
-        time: slot, 
-        service:subservicePriceHTML
-      }; 
-      
+        time: slot,
+        service: subservicePriceHTML
+      };
+
       await formAppointment.update({ amount }, { where: { id: id } });
       await sendEmail(email, "CONTACT_ENQ_USER", null, object);
-      await sendEmail("info@beaudeluxe.com", "CONTACT_ENQ_ADMIN", null, object);
+      // await sendEmail("info@beaudeluxe.com", "CONTACT_ENQ_ADMIN", null, object);
       return res.status(200).json({
         status: true,
         message: "Form Submitted successfully.",
       });
     } catch (error) {
       console.log(error);
+      return res.status(500).json({
+        status: false,
+        message: "Internal server error.",
+      });
     }
   },
 };

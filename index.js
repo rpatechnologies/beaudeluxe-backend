@@ -95,6 +95,13 @@ db.sequelize.sync()
 				console.error("SubServices gender schema sync error:", e);
 			}
 		}
+		try {
+			await db.sequelize.query("ALTER TABLE form_appointments ADD COLUMN gender VARCHAR(255);");
+		} catch (e) {
+			if (e.original && e.original.errno !== 1060) {
+				console.error("form_appointments schema sync error:", e);
+			}
+		}
 		app.listen(port, () => {
 			console.log(`Server is Up and Running at Port - ${port}\nVisit it on http://127.0.0.1:${port}/ or http://localhost:${port}/`);
 		})

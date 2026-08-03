@@ -180,7 +180,7 @@ module.exports = {
       }
 
       const subService = await SubServices.findAll({
-        attributes: ["id", "slug", "title", "description", "order_no", "type", "gender"],
+        attributes: ["id", "slug", "title", "image", "description", "order_no", "type", "gender"],
         where: subServiceWhere,
         order: [["order_no", "ASC"]],
         include: [
@@ -208,13 +208,21 @@ module.exports = {
         ],
       });
 
+      const subServicesFormatted = subService.map(item => {
+        const plainItem = item.toJSON();
+        if (plainItem.image) {
+          plainItem.image = `${siteUrl}/uploads/sub_service/${plainItem.image}`;
+        }
+        return plainItem;
+      });
+
       return res.status(200).json({
         status: true,
         data: {
-          services: subService,
+          services: subServicesFormatted,
           banner: bannerData
         },
-        title: subService[0]?.service?.title ?? null,
+        title: subServicesFormatted[0]?.service?.title ?? null,
         shadow_title: 'Service',
         message: "Data fetched successfully.",
       });

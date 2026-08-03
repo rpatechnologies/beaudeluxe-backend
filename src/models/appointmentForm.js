@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
         amount: {
             type: Sequelize.FLOAT
         },
+        gender: {
+            type: Sequelize.STRING
+        },
     }, 
     {
         timestamps: true

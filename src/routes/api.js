@@ -38,7 +38,7 @@ router.get('/get_therapists', homeController.therapists);
 
 // Service Page
 router.post('/get_all_services', serviceController.getServiceList);
-router.post('/get_service_detail', serviceController.servicePost);
+router.get('/get_service_detail', serviceController.servicePost);
 router.get('/service_list', serviceController.serviceGet);
 router.get('/get_subservices/:id', serviceController.getSubService);
 router.get('/get_categories', serviceController.get_categories);
