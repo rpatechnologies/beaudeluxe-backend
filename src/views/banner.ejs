@@ -33,7 +33,7 @@
                                     <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
                                     <div class="form-group">
                                         <label class="label" for="page_id">Page *</label>
-                                        <select class="form-control" id="page_id" name="page_id"required disabled>
+                                        <select class="form-control" id="page_id" name="page_id" required>
                                             <option value="">Select</option>
                                             <% pages.forEach(function(page, index) { %>
                                             <option value="<%- page.id %>" <%- row && row.page_id == page.id ? 'selected' : '' %>><%- page.name %></option>

@@ -363,8 +363,10 @@ module.exports = {
     try {
       const { slug } = req.body;
 
-      var cms = await Cms.findOne({ where: { slug: slug } });
-      cms["image"] = `${siteUrl}/uploads/cms/${cms["image"]}`;
+      var cms = slug ? await Cms.findOne({ where: { slug: slug } }) : null;
+      if (cms && cms.image) {
+        cms["image"] = `${siteUrl}/uploads/cms/${cms["image"]}`;
+      }
 
       return res.status(200).json({
         status: true,
@@ -374,35 +376,51 @@ module.exports = {
     } catch (error) {
       console.log(error);
       console.log("Error While implementing Home");
+      return res.status(500).json({
+        status: false,
+        message: error.message || "Error While implementing Home",
+      });
     }
   },
 
   cmsContent: async function (req, res) {
     try {
-      const { slug } = req.body;
+      const { slug } = req.query;
 
-      var cms = await Cms.findOne({ where: { slug: slug } });
-      var page = await Page.findOne({ where: { slug: slug } });
-      var banner = await Banner.findOne({ where: { page_id: page["id"] } });
-      // cms['image'] = `${siteUrl}/uploads/cms/${cms['image']}`;
-      // banner['image'] = `${siteUrl}/uploads/banners/${banner.image}`;
-      // banner['image_mob'] = `${siteUrl}/uploads/banners/${banner.image_mob}`;
-      var cmsData = {
-        ...cms["dataValues"],
-        image: `${siteUrl}/uploads/banners/${banner.image}`,
-        mob_image: `${siteUrl}/uploads/banners/${banner.image_mob}`,
-      };
+      var cms = slug ? await Cms.findOne({ where: { slug: slug } }) : null;
+      if (cms && cms.image) {
+        cms.image = `${siteUrl}/uploads/cms/${cms.image}`;
+      }
+
+      var page = slug ? await Page.findOne({ where: { slug: slug } }) : null;
+      var banner = null;
+      if (page && page.id) {
+        banner = await Banner.findOne({ where: { page_id: page.id } });
+      }
+      console.log(banner, 34443);
+
+      var cmsData = null;
+      if (cms) {
+        cmsData = {
+          ...cms.dataValues,
+          image: banner && banner.image ? `${siteUrl}/uploads/banners/${banner.image}` : cms.image,
+          mob_image: banner && banner.image_mob ? `${siteUrl}/uploads/banners/${banner.image_mob}` : null,
+        };
+      }
 
       return res.status(200).json({
         status: true,
         message: "Data fetched successfully.",
         data: cmsData,
-        cms: cms,
-        banner: banner,
+        // banner: banner,
       });
     } catch (error) {
       console.log(error);
       console.log("Error While implementing Cms Content");
+      return res.status(500).json({
+        status: false,
+        message: error.message || "Error While implementing Cms Content",
+      });
     }
   },
 
@@ -432,9 +450,9 @@ module.exports = {
 
   banner: async function (req, res) {
     try {
-      const { page_id } = req.body;
+      const { page_id } = req.query;
 
-      const banner = await Banner.findOne({
+      const banner = page_id ? await Banner.findOne({
         where: { status: 1, page_id: page_id },
         attributes: [
           "id",
@@ -444,25 +462,29 @@ module.exports = {
           "image_mob",
           "altTagImageMob",
         ],
-      });
-      const response = {
+      }) : null;
+
+      const response = banner ? {
         id: banner.id,
         title: banner.title,
-        // arrow_title: banner.arrow_title,
-        image: `${siteUrl}/uploads/banners/${banner.image}`,
+        image: banner.image ? `${siteUrl}/uploads/banners/${banner.image}` : null,
         altTagImage: banner.altTagImage,
-        mob_image: `${siteUrl}/uploads/banners/${banner.image_mob}`,
+        mob_image: banner.image_mob ? `${siteUrl}/uploads/banners/${banner.image_mob}` : null,
         altTagImageMob: banner.altTagImageMob,
-      };
+      } : null;
 
       return res.status(200).json({
         status: true,
-        message: "Data fetched successfully.",
+        message: banner ? "Data fetched successfully." : "No banner found.",
         data: response,
       });
     } catch (error) {
       console.log(error);
-      console.log("Error While implementing Home");
+      console.log("Error While implementing Banner");
+      return res.status(500).json({
+        status: false,
+        message: error.message || "Error While implementing Banner",
+      });
     }
   },
 

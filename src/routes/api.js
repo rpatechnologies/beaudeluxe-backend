@@ -12,8 +12,8 @@ router.get('/get_menu', homeController.getMenu);
 
 // Common | Sections
 // router.post('/cms', homeController.cms); // CMS
-router.post('/cms_content', homeController.cmsContent); // CMS Content
-router.post('/get_banner', homeController.banner); // Banner
+router.get('/cms_content', homeController.cmsContent); // CMS Content
+router.get('/get_banner', homeController.banner); // Banner
 router.post('/meta_contents', homeController.metaContents); // Meta Contents
 router.get('/sitemap', homeController.sitemap); // Sitemap
 
