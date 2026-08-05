@@ -5,6 +5,30 @@ const { Op } = require("sequelize");
 const Testimonials   = models.testimonials;
 const Banner         = models.banner;
 const Page           = models.page;
+const MetaContents   = models.metaContents;
+
+const fetchMeta = async (slugs) => {
+  try {
+    const slugList = Array.isArray(slugs) ? slugs : [slugs];
+    const meta = await MetaContents.findOne({
+      where: {
+        slug: { [Op.in]: slugList }
+      },
+      attributes: ["id", "metaTitle", "metaDescription", "metaKeywords", "h1", "h2", "slug"]
+    });
+    if (meta) {
+      return meta.toJSON();
+    }
+    const defaultMeta = await MetaContents.findOne({
+      where: { slug: "home" },
+      attributes: ["id", "metaTitle", "metaDescription", "metaKeywords", "h1", "h2", "slug"]
+    });
+    return defaultMeta ? defaultMeta.toJSON() : null;
+  } catch (err) {
+    console.error("Error fetching meta content:", err);
+    return null;
+  }
+};
 
 module.exports = {
 	testimonials: async function (req, res) {
@@ -54,6 +78,8 @@ module.exports = {
 				console.error("Error fetching testimonials banner:", err);
 			}
 
+			const meta = await fetchMeta(["testimonials", "testimonial", "/testimonials"]);
+
 			const testimonials = await Testimonials.findAll({
 				where: {status: 1}, 
                 attributes: ['id', 'name', 'country', 'rating', 'description', 'photo', 'altTag', 'status', 'publishedAt'],
@@ -78,6 +104,7 @@ module.exports = {
 			}
           
 			const response = {
+				meta: meta,
 				banner: banner,
 				testimonials: list
 			};

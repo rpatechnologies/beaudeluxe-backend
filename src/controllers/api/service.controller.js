@@ -13,8 +13,46 @@ const Category = models.category;
 const MainServiceSettings = models.serviceSettings;
 const Banner = models.banner;
 const Cms = models.cms;
-const WhyNiccs = models.why_us;
 const Page = models.page;
+const MetaContents = models.metaContents;
+
+const fetchMeta = async (slugs) => {
+  try {
+    const slugList = Array.isArray(slugs) ? slugs : [slugs];
+    let candidates = [];
+    slugList.forEach(s => {
+      if (!s) return;
+      const str = s.toString().trim();
+      candidates.push(str);
+      if (!str.startsWith("services/")) {
+        candidates.push(`services/${str}`);
+      }
+      if (!str.startsWith("/")) {
+        candidates.push(`/${str}`);
+      }
+      if (!str.startsWith("/services/")) {
+        candidates.push(`/services/${str}`);
+      }
+      candidates.push(str.replace(/^services\//, ""));
+      candidates.push(str.replace(/^\/+/, ""));
+    });
+    candidates = Array.from(new Set(candidates)).filter(Boolean);
+
+    const meta = await MetaContents.findOne({
+      where: {
+        slug: { [Op.in]: candidates }
+      },
+      attributes: ["id", "metaTitle", "metaDescription", "metaKeywords", "h1", "h2", "slug"]
+    });
+    if (meta) {
+      return meta.toJSON();
+    }
+    return null;
+  } catch (err) {
+    console.error("Error fetching meta content:", err);
+    return null;
+  }
+};
 
 module.exports = {
   serviceGet: async function (req, res) {
@@ -216,13 +254,27 @@ module.exports = {
         return plainItem;
       });
 
+      let metaData = await fetchMeta([`services/${slug}`, slug]);
+      if (!metaData && mainService) {
+        metaData = {
+          id: mainService.id,
+          metaTitle: mainService.meta_title || mainService.title || null,
+          metaDescription: mainService.meta_description || mainService.description || mainService.short_description || null,
+          metaKeywords: mainService.meta_keywords || null,
+          h1: mainService.heading || mainService.title || "",
+          h2: mainService.details_heading || "",
+          slug: `services/${slug}`
+        };
+      }
+
       return res.status(200).json({
         status: true,
         data: {
           services: subServicesFormatted,
-          banner: bannerData
+          banner: bannerData,
+          meta: metaData
         },
-        title: subServicesFormatted[0]?.service?.title ?? null,
+        title: subServicesFormatted[0]?.service?.title ?? mainService?.title ?? null,
         shadow_title: 'Service',
         message: "Data fetched successfully.",
       });

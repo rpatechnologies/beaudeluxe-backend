@@ -27,6 +27,50 @@ const {
   sendMultipleEmail,
 } = require("../../services/email.service");
 
+const fetchMeta = async (slugs) => {
+  try {
+    const slugList = Array.isArray(slugs) ? slugs : [slugs];
+    let candidates = [];
+    slugList.forEach(s => {
+      if (!s) return;
+      const str = s.toString().trim();
+      candidates.push(str);
+      candidates.push(str.replace(/-/g, " "));
+      candidates.push(str.replace(/\s+/g, "-"));
+      if (!str.startsWith("services/")) {
+        candidates.push(`services/${str}`);
+      }
+      if (!str.startsWith("/")) {
+        candidates.push(`/${str}`);
+      }
+      if (!str.startsWith("/services/")) {
+        candidates.push(`/services/${str}`);
+      }
+      candidates.push(str.replace(/^services\//, ""));
+      candidates.push(str.replace(/^\/+/, ""));
+    });
+    candidates = Array.from(new Set(candidates)).filter(Boolean);
+
+    const meta = await MetaContents.findOne({
+      where: {
+        slug: { [Op.in]: candidates }
+      },
+      attributes: ["id", "metaTitle", "metaDescription", "metaKeywords", "h1", "h2", "slug"]
+    });
+    if (meta) {
+      return meta.toJSON();
+    }
+    const defaultMeta = await MetaContents.findOne({
+      where: { slug: "home" },
+      attributes: ["id", "metaTitle", "metaDescription", "metaKeywords", "h1", "h2", "slug"]
+    });
+    return defaultMeta ? defaultMeta.toJSON() : null;
+  } catch (err) {
+    console.error("Error fetching meta content:", err);
+    return null;
+  }
+};
+
 module.exports = {
   home: async function (req, res) {
     const cacheKey = "home_content_cache";
@@ -555,11 +599,14 @@ module.exports = {
         category: item.category || "About"
       }));
 
+      const meta = await fetchMeta(["faq", "faqs", "/faq"]);
+
       if (selectedCategory) {
         return res.status(200).json({
           status: true,
           message: "Data fetched successfully.",
           data: {
+            meta: meta,
             banner: banner,
             list: faqList
           }
@@ -599,6 +646,7 @@ module.exports = {
         status: true,
         message: "Data fetched successfully.",
         data: {
+          meta: meta,
           banner: banner,
           categories: categoriesOrder,
           grouped: grouped,
@@ -1250,7 +1298,10 @@ module.exports = {
         testimonials: arrayTestimonials,
       };
 
+      const meta = await fetchMeta(["home", "home-page", "/"]);
+
       const response = {
+        meta,
         banner,
         homeMassageSection,
         whyChooseSection,
@@ -1407,7 +1458,10 @@ module.exports = {
         };
       });
 
+      const meta = await fetchMeta(["female-massage-therapist", "female-massage", "female-massage-therapists"]);
+
       const response = {
+        meta,
         womenMassageCostSection,
         womenAreasCoveredSection,
         womenSubServices
@@ -1574,7 +1628,10 @@ module.exports = {
         cards: contactCards
       };
 
+      const meta = await fetchMeta(["about-us", "about", "/about-us"]);
+
       const response = {
+        meta,
         banner,
         storySection,
         missionSection,
@@ -1834,7 +1891,10 @@ module.exports = {
         };
       });
 
+      const meta = await fetchMeta(["our-therapists", "therapists", "therapist", "our-teams"]);
+
       const response = {
+        meta,
         banner,
         founderSection,
         specializationSection,
