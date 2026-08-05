@@ -15,6 +15,7 @@ const Banner = models.banner;
 const Cms = models.cms;
 const Page = models.page;
 const MetaContents = models.metaContents;
+const Faq = models.faq;
 
 const fetchMeta = async (slugs) => {
   try {
@@ -115,17 +116,56 @@ module.exports = {
         where: { status: 1, slug: slug },
         attributes: ['id', 'title', 'shadow_title', 'description', 'image', 'alt_tag', 'slug']
       });
-      const serviceFaqs = await ServiceFaqs.findAll({
-        where: { show_in_main: 1 },
-        order: [['order_no', 'ASC']]
-      });
+      let faqList = [];
+      if (Faq) {
+        faqList = await Faq.findAll({
+          where: {
+            status: 1,
+            category: { [Op.like]: "%Service%" }
+          },
+          order: [["id", "ASC"]],
+          attributes: ["id", "question", "answer", "slug", "category", "status"]
+        });
+
+        if (!faqList || faqList.length === 0) {
+          faqList = await Faq.findAll({
+            where: { status: 1 },
+            order: [["id", "ASC"]],
+            attributes: ["id", "question", "answer", "slug", "category", "status"]
+          });
+        }
+      }
+
+      if (!faqList || faqList.length === 0) {
+        const rawServiceFaqs = await ServiceFaqs.findAll({
+          order: [["id", "ASC"]]
+        });
+        faqList = rawServiceFaqs.map(f => ({
+          id: f.id,
+          question: f.question,
+          answer: f.answer,
+          slug: f.slug || "",
+          category: "Service Type",
+          status: 1
+        }));
+      }
+
+      const formattedFaqs = faqList.map(item => ({
+        id: item.id,
+        question: item.question,
+        answer: item.answer,
+        slug: item.slug || "",
+        category: item.category || "Service Type",
+        status: item.status
+      }));
+
       const faqTitle = await MainServiceSettings.findOne({
         where: { serviceTitleId: 6 }
       });
       const serviceTitle = await MainServiceSettings.findOne({
         where: { serviceTitleId: 5 }
       });
-      // let arrayCms = {};
+      let arrayCms = null;
       for (let q = 0; q < cmsList.length; q++) {
         const itemBanner = cmsList[q];
         arrayCms = {
@@ -163,24 +203,32 @@ module.exports = {
       }
 
       const servicesDict = {
-        title: serviceTitle['title'],
-        shadow_title: serviceTitle['shadow_title'],
+        title: serviceTitle?.title || "Services",
+        shadow_title: serviceTitle?.shadow_title || "Services",
         services: serviceList,
       };
 
       const faqDict = {
-        title: faqTitle['title'],
-        shadowTitle: faqTitle['shadow_title'],
-        faqs: serviceFaqs,
-      }
+        title: faqTitle?.title || "FAQs",
+        shadowTitle: faqTitle?.shadow_title || "FAQs",
+        faqs: formattedFaqs,
+      };
+
+      const metaData = await fetchMeta(["services", "get_all_services", "service"]);
 
       return res.status(200).json({
         status: true,
         message: "Data fetched successfully.",
         banner: arrayBanners,
-        // cms:arrayCms,
+        meta: metaData,
         faqs: faqDict,
         services: servicesDict,
+        data: {
+          banner: arrayBanners,
+          meta: metaData,
+          faqs: faqDict,
+          services: servicesDict
+        }
       });
     } catch (error) {
       console.log(error);

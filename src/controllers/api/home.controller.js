@@ -470,7 +470,7 @@ module.exports = {
 
   metaContents: async function (req, res) {
     try {
-      const { slug } = req.body;
+      const { slug } = req.query;
       // const pageData = await Page.findOne({where: {slug: slug}});
 
       let metaContents = await MetaContents.findOne({

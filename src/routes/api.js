@@ -14,7 +14,7 @@ router.get('/get_menu', homeController.getMenu);
 // router.post('/cms', homeController.cms); // CMS
 router.get('/cms_content', homeController.cmsContent); // CMS Content
 router.get('/get_banner', homeController.banner); // Banner
-router.post('/meta_contents', homeController.metaContents); // Meta Contents
+router.get('/meta_contents', homeController.metaContents); // Meta Contents
 router.get('/sitemap', homeController.sitemap); // Sitemap
 
 router.post('/submit_contact', contactController.contact);
@@ -37,7 +37,7 @@ router.get('/get_our_teams', homeController.getOurTeams);
 router.get('/get_therapists', homeController.therapists);
 
 // Service Page
-router.post('/get_all_services', serviceController.getServiceList);
+router.get('/get_all_services', serviceController.getServiceList);
 router.get('/get_service_detail', serviceController.servicePost);
 router.get('/service_list', serviceController.serviceGet);
 router.get('/get_subservices/:id', serviceController.getSubService);
