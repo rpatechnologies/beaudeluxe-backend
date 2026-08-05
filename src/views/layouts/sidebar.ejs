@@ -103,13 +103,13 @@
                     </ul>
                 </li>
                 <li
-                    class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' || page == 'female_massage_therapist' ? 'mm-active' : '' %>">
+                    class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-active' : '' %>">
                     <a href="#">
                         <i class="metismenu-icon pe-7s-users"></i> Manage Our Therapists
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul
-                        class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' || page == 'female_massage_therapist' ? 'mm-show' : '' %>">
+                        class="<%- page == 'our_teams' || page == 'therapist_founder' || page == 'therapist_specialization' ? 'mm-show' : '' %>">
                         <li><a href="<%= siteUrl %>/our-teams" class="<%- page == 'our_teams' ? 'mm-active' : '' %>"> <i
                                     class="metismenu-icon"></i> Our Teams</a></li>
                         <li><a href="<%= siteUrl %>/therapist_founder"
@@ -118,9 +118,22 @@
                         <li><a href="<%= siteUrl %>/therapist_specialization"
                                 class="<%- page == 'therapist_specialization' ? 'mm-active' : '' %>"> <i
                                     class="metismenu-icon"></i> Specializations</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="<%- page == 'female_massage_therapist' || page == 'type_of_women_massage' ? 'mm-active' : '' %>">
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-id"></i> Female Massage
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+                        class="<%- page == 'female_massage_therapist' || page == 'type_of_women_massage' ? 'mm-show' : '' %>">
                         <li><a href="<%= siteUrl %>/female_massage_therapist"
                                 class="<%- page == 'female_massage_therapist' ? 'mm-active' : '' %>"> <i
-                                    class="metismenu-icon"></i> Female Massage</a></li>
+                                    class="metismenu-icon"></i> Female Massage Cost</a></li>
+                        <li><a href="<%= siteUrl %>/type_of_women_massage"
+                                class="<%- page == 'type_of_women_massage' ? 'mm-active' : '' %>"> <i
+                                    class="metismenu-icon"></i> Type of Women Massage</a></li>
                     </ul>
                 </li>
                 <li

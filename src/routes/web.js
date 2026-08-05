@@ -114,6 +114,9 @@ router.post('/banner_post', auth, bannerController.store);
 router.get('/female_massage_therapist', auth, femaleMassageController.index);
 router.post('/female_massage_therapist_post', auth, femaleMassageController.store);
 
+router.get('/type_of_women_massage', auth, femaleMassageController.typeOfWomenMassageIndex);
+router.post('/type_of_women_massage_post', auth, femaleMassageController.typeOfWomenMassageStore);
+
 router.get('/cms', auth, cmsController.index);
 router.post('/cms_post', auth, cmsController.store);
 

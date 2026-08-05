@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layouts/meta'); %>
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %> Settings</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-card mb-3 card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <%- include('layouts/flash'); %>
+                                                <form action="/type_of_women_massage_post" method="post"
+                                                    enctype="multipart/form-data">
+
+                                                    <div class="card mb-4">
+                                                        <div class="card-header bg-primary text-white">
+                                                            Type of Women Massage Settings
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label class="label font-weight-bold"
+                                                                    for="women_massage_types_title">Section Main
+                                                                    Title</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="women_massage_types_title"
+                                                                    name="women_massage_types_title"
+                                                                    value="<%- data.women_massage_types_title || 'What types of Massage do we Offer for Women at Home?' %>"
+                                                                    required />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="label font-weight-bold"
+                                                                    for="women_massage_types_description">Section
+                                                                    Description</label>
+                                                                <textarea class="form-control joeditor"
+                                                                    id="women_massage_types_description"
+                                                                    name="women_massage_types_description"
+                                                                    rows="3"><%- data.women_massage_types_description || 'We offer professional massage types for women at home, covering relaxation, pain relief, sports recovery, and prenatal care. Every home massage session is customizable to your preferences and health goals.' %></textarea>
+                                                            </div>
+
+                                                            <h5 class="mt-4 mb-3 font-weight-bold">Women Massage Types
+                                                                Cards</h5>
+
+                                                            <div id="types-cards-container">
+                                                                <%
+                                                                let cards = [];
+                                                                try {
+                                                                    cards = JSON.parse(data.women_massage_types_cards || '[]');
+                                                                } catch(e) {
+                                                                    cards = [];
+                                                                }
+                                                                if (!cards || cards.length === 0) {
+                                                                     cards = [
+                                                                        { id: 1, title: "What Is Swedish Massage at Home?", description: "Swedish massage at home is characterized by gentle strokes, kneading, and rhythmic tapping, making it ideal for relaxation.", slug: "swedish-massage" },
+                                                                        { id: 2, title: "What Is Sports Massage at Home?", description: "Sports massage at home is a targeted therapy for active women and athletes. Our massage therapist focuses on muscle recovery.", slug: "sports-massage" },
+                                                                        { id: 3, title: "What Is Thai Massage at Home?", description: "Thai massage at home combines pressure and stretching techniques, performed on a mat.", slug: "thai-massage" },
+                                                                        { id: 4, title: "What Is Aromatherapy Massage at Home?", description: "Aromatherapy massage for home massage sessions combines Swedish-style strokes with therapeutic essential oils.", slug: "aromatherapy-massage" },
+                                                                        { id: 5, title: "What Is Deep Tissue Massage at Home?", description: "Deep tissue massage at home focuses on relieving chronic muscle tension and pain by applying firmer pressure.", slug: "deep-tissue-massage" },
+                                                                        { id: 6, title: "What Is Couples Massage at Home?", description: "Couples massage at home is a dual session, allowing two people to enjoy a relaxing massage together.", slug: "couples-massage" },
+                                                                        { id: 7, title: "What Is Prenatal Massage at Home?", description: "Prenatal massage at home provides gentle relief and relaxation tailored for expectant mothers.", slug: "prenatal-massage" },
+                                                                        { id: 8, title: "What Is Postnatal Massage at Home?", description: "Postnatal massage helps new mothers restore energy, reduce soreness, and support recovery after childbirth.", slug: "postnatal-massage" },
+                                                                        { id: 9, title: "What Is Hot Stone Massage at Home?", description: "Hot stone massage uses heated stones placed along key body points to melt away tension.", slug: "hot-stone-massage" },
+                                                                        { id: 10, title: "What Is Reflexology and Foot Massage at Home?", description: "Reflexology and foot massage for home massage clients targets pressure points on the feet that correspond to organs...", slug: "reflexology-and-foot-massage" },
+                                                                        { id: 11, title: "What Is Relaxation Massage at Home?", description: "Relaxation massage at home is a gentle body massage focused on stress relief and mental calm.", slug: "relaxation-massage" },
+                                                                        { id: 12, title: "What Is Chair Massage at Home?", description: "Chair massage at home is a seated, clothed massage for the neck, shoulders, back, and arms.", slug: "chair-massage" },
+                                                                        { id: 13, title: "What Is Lymphatic Drainage Massage at Home?", description: "Lymphatic drainage as a home massage service stimulates the lymphatic system to remove toxins, reduce swelling...", slug: "lymphatic-drainage-massage" }
+                                                                    ];
+                                                                }
+                                                                %>
+                                                                <% cards.forEach(function(card, idx) { %>
+                                                                    <div class="card mb-3 type-card-item">
+                                                                        <div
+                                                                            class="card-header bg-light d-flex justify-content-between align-items-center">
+                                                                            <span>Card #<%= idx + 1 %>: <strong
+                                                                                        class="card-title-preview">
+                                                                                        <%= card.title %>
+                                                                                    </strong></span>
+                                                                            <button type="button"
+                                                                                class="btn btn-danger btn-sm remove-card-btn"><i
+                                                                                    class="fa fa-trash"></i>
+                                                                                Delete</button>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <input type="hidden" name="card_index[]"
+                                                                                value="<%= card.id || (idx + 1) %>">
+                                                                            <input type="hidden" name="card_old_image[]"
+                                                                                value="<%= card.image || '' %>">
+
+                                                                            <div class="form-row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label class="font-weight-bold">Card
+                                                                                        Title *</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control card-title-input"
+                                                                                        name="card_title[]"
+                                                                                        value="<%= card.title %>"
+                                                                                        required>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label class="font-weight-bold">Slug
+                                                                                        / Link</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        name="card_slug[]"
+                                                                                        value="<%= card.slug || '' %>"
+                                                                                        placeholder="e.g. swedish-massage">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label class="font-weight-bold">Card
+                                                                                        Image</label>
+                                                                                    <input type="file"
+                                                                                        class="form-control-file"
+                                                                                        name="card_image_<%= idx %>">
+                                                                                    <% if (card.image) { %>
+                                                                                        <div class="mt-2">
+                                                                                            <img src="<%= siteUrl %>/uploads/homepagecontents/<%= card.image %>"
+                                                                                                class="img-thumbnail"
+                                                                                                style="max-height: 80px;">
+                                                                                        </div>
+                                                                                        <% } %>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label class="font-weight-bold">Alt
+                                                                                        Tag</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        name="card_alt_tag[]"
+                                                                                        value="<%= card.altTag || card.alt_tag || '' %>">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group mb-0">
+                                                                                <label class="font-weight-bold">Card
+                                                                                    Description</label>
+                                                                                <textarea class="form-control"
+                                                                                    name="card_description[]"
+                                                                                    rows="2"><%= card.description %></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <% }); %>
+                                                            </div>
+
+                                                            <button type="button" class="btn btn-success btn-sm mb-4"
+                                                                id="add-card-btn">
+                                                                <i class="fa fa-plus"></i> Add Card
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group text-center">
+                                                        <button type="submit" class="btn btn-primary btn-lg px-5">Save
+                                                            Changes</button>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%- include('layouts/footer'); %>
+                    </div>
+            </div>
+    </div>
+    <%- include('layouts/script'); %>
+
+        <script>
+            $(document.body).on('click', '.remove-card-btn', function () {
+                if ($('.type-card-item').length > 1) {
+                    $(this).closest('.type-card-item').remove();
+                } else {
+                    alert('At least one card is required.');
+                }
+            });
+
+            $('#add-card-btn').on('click', function () {
+                const count = $('.type-card-item').length;
+                const idx = count;
+                const cardHtml = `
+                <div class="card mb-3 type-card-item">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <span>Card #${count + 1}: <strong class="card-title-preview">New Card</strong></span>
+                        <button type="button" class="btn btn-danger btn-sm remove-card-btn"><i class="fa fa-trash"></i> Delete</button>
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" name="card_index[]" value="${count + 1}">
+                        <input type="hidden" name="card_old_image[]" value="">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Card Title *</label>
+                                <input type="text" class="form-control card-title-input" name="card_title[]" value="" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Slug / Link</label>
+                                <input type="text" class="form-control" name="card_slug[]" value="" placeholder="e.g. swedish-massage">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Card Image</label>
+                                <input type="file" class="form-control-file" name="card_image_${idx}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Alt Tag</label>
+                                <input type="text" class="form-control" name="card_alt_tag[]" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label class="font-weight-bold">Card Description</label>
+                            <textarea class="form-control" name="card_description[]" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+                $('#types-cards-container').append(cardHtml);
+            });
+
+            $(document.body).on('input', '.card-title-input', function () {
+                $(this).closest('.type-card-item').find('.card-title-preview').text($(this).val() || 'New Card');
+            });
+        </script>
+</body>
+
+</html>

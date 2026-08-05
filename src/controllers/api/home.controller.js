@@ -1386,77 +1386,29 @@ module.exports = {
         cards: womenAreasCoveredCards
       };
 
-      // 3. Women Subservices Section
-      let staticCards = [];
-      if (homePageContentsObj["massage_types_cards"]) {
-        try {
-          staticCards = JSON.parse(homePageContentsObj["massage_types_cards"]);
-        } catch (e) {
-          console.error("Error parsing massage_types_cards:", e);
+      // 3. Type of Women Massage Section
+      let womenMassageTypesCards = [];
+      try {
+        if (homePageContentsObj["women_massage_types_cards"]) {
+          const rawCards = JSON.parse(homePageContentsObj["women_massage_types_cards"]);
+          womenMassageTypesCards = rawCards.map((card, idx) => ({
+            id: card.id || (idx + 1),
+            title: card.title || "",
+            image: card.image ? (card.image.startsWith("http") ? card.image : `${siteUrl}/uploads/homepagecontents/${card.image}`) : null,
+            altTag: card.altTag || card.alt_tag || card.title || "",
+            description: card.description || "",
+            slug: card.slug || ""
+          }));
         }
+      } catch (e) {
+        console.error("Error parsing women_massage_types_cards:", e);
       }
 
-      const subServicesList = await SubServices.findAll({
-        where: { status: 1, gender: { [Op.in]: ["Women"] } },
-        order: [['order_no', 'ASC']],
-        attributes: [
-          "id",
-          "service_id",
-          "title",
-          "description",
-          "slug",
-          "order_no",
-          "gender",
-          "type",
-          "image",
-          "altTag",
-        ],
-        include: [{
-          model: Service,
-          attributes: ["slug"]
-        }]
-      });
-
-      const womenSubServices = subServicesList.map(subService => {
-        const matchedCard = staticCards.find(card => {
-          if (!card.title || !subService.title) return false;
-          const t1 = card.title.trim().toLowerCase();
-          const t2 = subService.title.trim().toLowerCase();
-          if (t1 === t2) return true;
-          if (t1.includes(t2) || t2.includes(t1)) return true;
-          const firstWord1 = t1.split(/[\s(&]/)[0];
-          const firstWord2 = t2.split(/[\s(&]/)[0];
-          if (firstWord1 && firstWord2 && firstWord1 === firstWord2 && firstWord1.length > 3) return true;
-          return false;
-        });
-
-        // Use subservice image if uploaded, fallback to matched static card image
-        const imageUrl = subService.image
-          ? `${siteUrl}/uploads/sub_service/${subService.image}`
-          : (matchedCard && matchedCard.image ? `${siteUrl}/uploads/homepagecontents/${matchedCard.image}` : null);
-
-        // Use subservice description if uploaded, fallback to matched card description
-        const description = subService.description && subService.description.trim() !== ""
-          ? subService.description
-          : (matchedCard && matchedCard.description ? matchedCard.description : "");
-
-        // Use subservice altTag if uploaded, fallback to matched card title or subservice title
-        const altTag = subService.altTag && subService.altTag.trim() !== ""
-          ? subService.altTag
-          : (matchedCard && matchedCard.title ? matchedCard.title : (subService.title || ""));
-
-        return {
-          id: subService.id,
-          title: subService.title || "",
-          image: imageUrl,
-          altTag: altTag,
-          description: description,
-          slug: subService.slug || (subService.service ? subService.service.slug : ""),
-          service_id: subService.service_id,
-          type: subService.type,
-          gender: subService.gender
-        };
-      });
+      let typesOfWomenMassageSection = {
+        title: homePageContentsObj["women_massage_types_title"] || "What types of Massage do we Offer for Women at Home?",
+        description: homePageContentsObj["women_massage_types_description"] || "We offer professional massage types for women at home, covering relaxation, pain relief, sports recovery, and prenatal care.",
+        cards: womenMassageTypesCards
+      };
 
       const meta = await fetchMeta(["female-massage-therapist", "female-massage", "female-massage-therapists"]);
 
@@ -1464,7 +1416,7 @@ module.exports = {
         meta,
         womenMassageCostSection,
         womenAreasCoveredSection,
-        womenSubServices
+        typesOfWomenMassage: typesOfWomenMassageSection
       };
 
       cache.put(cacheKey, response);
