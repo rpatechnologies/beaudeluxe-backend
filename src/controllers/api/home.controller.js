@@ -496,23 +496,73 @@ module.exports = {
         whereClause.category = selectedCategory;
       }
 
+      let banner = null;
+      try {
+        const faqPage = await Page.findOne({
+          where: {
+            [Op.or]: [
+              { name: { [Op.like]: "%FAQ%" } },
+              { slug: "faq" },
+              { slug: "faqs" }
+            ]
+          }
+        });
+
+        let bannerWhere = { status: 1 };
+        if (faqPage) {
+          bannerWhere.page_id = faqPage.id;
+        }
+
+        const bannerRecord = await Banner.findOne({
+          where: bannerWhere,
+          include: [
+            {
+              model: Page,
+              required: false
+            }
+          ],
+          order: [["id", "DESC"]]
+        });
+
+        if (bannerRecord) {
+          banner = {
+            id: bannerRecord.id,
+            page_id: bannerRecord.page_id,
+            page_name: bannerRecord.page ? bannerRecord.page.name : null,
+            title: bannerRecord.title,
+            image: bannerRecord.image ? `${siteUrl}/uploads/banners/${bannerRecord.image}` : null,
+            altTagImage: bannerRecord.altTagImage || null,
+            mob_image: bannerRecord.image_mob ? `${siteUrl}/uploads/banners/${bannerRecord.image_mob}` : null,
+            altTagImageMob: bannerRecord.altTagImageMob || null,
+            description: bannerRecord.description || null,
+          };
+        }
+      } catch (err) {
+        console.error("Error fetching FAQ banner:", err);
+      }
+
       const rows = await Faq.findAll({
         where: whereClause,
         order: [["id", "ASC"]],
         attributes: ["id", "question", "answer", "slug", "category"],
       });
 
+      const faqList = rows.map(item => ({
+        id: item.id,
+        question: item.question,
+        answer: item.answer,
+        slug: item.slug,
+        category: item.category || "About"
+      }));
+
       if (selectedCategory) {
         return res.status(200).json({
           status: true,
           message: "Data fetched successfully.",
-          data: rows.map(item => ({
-            id: item.id,
-            question: item.question,
-            answer: item.answer,
-            slug: item.slug,
-            category: item.category || "About"
-          }))
+          data: {
+            banner: banner,
+            list: faqList
+          }
         });
       }
 
@@ -549,15 +599,10 @@ module.exports = {
         status: true,
         message: "Data fetched successfully.",
         data: {
+          banner: banner,
           categories: categoriesOrder,
           grouped: grouped,
-          list: rows.map(item => ({
-            id: item.id,
-            question: item.question,
-            answer: item.answer,
-            slug: item.slug,
-            category: item.category || "About"
-          }))
+          list: faqList
         },
       });
     } catch (error) {
@@ -833,6 +878,61 @@ module.exports = {
       for (let q = 0; q < homePageContents.length; q++) {
         homePageContentsObj[homePageContents[q]["field"]] =
           homePageContents[q]["value"];
+      }
+
+      // 0. Banner Section
+      let banner = null;
+      try {
+        const homePage = await Page.findOne({
+          where: {
+            [Op.or]: [
+              { name: { [Op.like]: "%Home%" } },
+              { slug: "home" },
+              { slug: "home-page" }
+            ]
+          }
+        });
+
+        let bannerWhere = { status: 1 };
+        if (homePage) {
+          bannerWhere.page_id = homePage.id;
+        }
+
+        const bannerRecord = await Banner.findOne({
+          where: bannerWhere,
+          include: [
+            {
+              model: Page,
+              required: false
+            }
+          ],
+          order: [["id", "DESC"]]
+        });
+
+        if (bannerRecord) {
+          banner = {
+            id: bannerRecord.id,
+            page_id: bannerRecord.page_id,
+            page_name: bannerRecord.page ? bannerRecord.page.name : null,
+            title: bannerRecord.title,
+            image: bannerRecord.image ? `${siteUrl}/uploads/banners/${bannerRecord.image}` : null,
+            altTagImage: bannerRecord.altTagImage || null,
+            mob_image: bannerRecord.image_mob ? `${siteUrl}/uploads/banners/${bannerRecord.image_mob}` : null,
+            altTagImageMob: bannerRecord.altTagImageMob || null,
+            description: bannerRecord.description || null,
+            banner_screen_title: homePageContentsObj["banner_screen_title"] || null,
+            banner_screen_shadow_title: homePageContentsObj["banner_screen_shadow_title"] || null,
+            home_banner_video: homePageContentsObj["home_banner_video"] ? `${siteUrl}/uploads/homepagecontents/${homePageContentsObj["home_banner_video"]}` : null,
+          };
+        } else {
+          banner = {
+            title: homePageContentsObj["banner_screen_title"] || null,
+            sub_title: homePageContentsObj["banner_screen_shadow_title"] || null,
+            home_banner_video: homePageContentsObj["home_banner_video"] ? `${siteUrl}/uploads/homepagecontents/${homePageContentsObj["home_banner_video"]}` : null,
+          };
+        }
+      } catch (err) {
+        console.error("Error fetching home page banner:", err);
       }
 
       // 1. Home Massage Section
@@ -1151,6 +1251,7 @@ module.exports = {
       };
 
       const response = {
+        banner,
         homeMassageSection,
         whyChooseSection,
         servicesOfferedSection,
@@ -1349,6 +1450,52 @@ module.exports = {
         contentsObj[homePageContents[q]["field"]] = homePageContents[q]["value"];
       }
 
+      // 0. Banner Section
+      let banner = null;
+      try {
+        const aboutPage = await Page.findOne({
+          where: {
+            [Op.or]: [
+              { name: { [Op.like]: "%About%" } },
+              { slug: "about-us" },
+              { slug: "about" }
+            ]
+          }
+        });
+
+        let bannerWhere = { status: 1 };
+        if (aboutPage) {
+          bannerWhere.page_id = aboutPage.id;
+        }
+
+        const bannerRecord = await Banner.findOne({
+          where: bannerWhere,
+          include: [
+            {
+              model: Page,
+              required: false
+            }
+          ],
+          order: [["id", "DESC"]]
+        });
+
+        if (bannerRecord) {
+          banner = {
+            id: bannerRecord.id,
+            page_id: bannerRecord.page_id,
+            page_name: bannerRecord.page ? bannerRecord.page.name : null,
+            title: bannerRecord.title,
+            image: bannerRecord.image ? `${siteUrl}/uploads/banners/${bannerRecord.image}` : null,
+            altTagImage: bannerRecord.altTagImage || null,
+            mob_image: bannerRecord.image_mob ? `${siteUrl}/uploads/banners/${bannerRecord.image_mob}` : null,
+            altTagImageMob: bannerRecord.altTagImageMob || null,
+            description: bannerRecord.description || null,
+          };
+        }
+      } catch (err) {
+        console.error("Error fetching about page banner:", err);
+      }
+
       // 1. Story Section
       let storySection = {
         mainTitle: contentsObj["about_story_main_title"] || null,
@@ -1428,6 +1575,7 @@ module.exports = {
       };
 
       const response = {
+        banner,
         storySection,
         missionSection,
         numbersSection,
@@ -1576,6 +1724,55 @@ module.exports = {
         contentsObj[homePageContents[q]["field"]] = homePageContents[q]["value"];
       }
 
+      // 0. Banner Section
+      let banner = null;
+      try {
+        const therapistPage = await Page.findOne({
+          where: {
+            [Op.or]: [
+              { name: { [Op.like]: "%Therapist%" } },
+              { name: { [Op.like]: "%Team%" } },
+              { slug: "our-therapists" },
+              { slug: "therapists" },
+              { slug: "therapist" },
+              { slug: "our-teams" }
+            ]
+          }
+        });
+
+        let bannerWhere = { status: 1 };
+        if (therapistPage) {
+          bannerWhere.page_id = therapistPage.id;
+        }
+
+        const bannerRecord = await Banner.findOne({
+          where: bannerWhere,
+          include: [
+            {
+              model: Page,
+              required: false
+            }
+          ],
+          order: [["id", "DESC"]]
+        });
+
+        if (bannerRecord) {
+          banner = {
+            id: bannerRecord.id,
+            page_id: bannerRecord.page_id,
+            page_name: bannerRecord.page ? bannerRecord.page.name : null,
+            title: bannerRecord.title,
+            image: bannerRecord.image ? `${siteUrl}/uploads/banners/${bannerRecord.image}` : null,
+            altTagImage: bannerRecord.altTagImage || null,
+            mob_image: bannerRecord.image_mob ? `${siteUrl}/uploads/banners/${bannerRecord.image_mob}` : null,
+            altTagImageMob: bannerRecord.altTagImageMob || null,
+            description: bannerRecord.description || null,
+          };
+        }
+      } catch (err) {
+        console.error("Error fetching therapist banner:", err);
+      }
+
       let founderSection = {
         title: contentsObj["therapist_founder_title"] || "A Note from Our Founder",
         quote: contentsObj["therapist_founder_quote"] || "I founded BeauDeluxe because Dubai deserved home massage service that felt as reliable as a good hotel spa. I do not practice myself. My job is to find the best therapists in this city, treat them well, and keep the quality bar high. Every person on this page is someone I would trust with my own family.",
@@ -1638,6 +1835,7 @@ module.exports = {
       });
 
       const response = {
+        banner,
         founderSection,
         specializationSection,
         teams: formattedTherapists
