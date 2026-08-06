@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 var multer = require("multer");
+const cache = require("memory-cache");
 const models = require("../models");
 const Faq = models.faq;
 
@@ -64,6 +65,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId  = req.query.id;
     await Faq.destroy({ where: {id: getId}});
+    cache.clear();
     await req.flash("success", "Faq deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -119,6 +121,7 @@ module.exports = {
             await Faq.create(formData);
             await req.flash("success", "Faq created successfully.");
         }
+        cache.clear();
         res.redirect(siteUrl + "/" + pageUrl);
     },
 };

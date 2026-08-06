@@ -1222,11 +1222,12 @@ module.exports = {
       };
 
       // 12. Faqs Section
-      let faqWhereClause = { status: 1 };
+      let faqWhereClause = {
+        status: 1,
+        show_on_homepage: 1,
+      };
       if (faqType) {
         faqWhereClause.category = faqType;
-      } else {
-        faqWhereClause.show_on_homepage = 1;
       }
 
       const faqs = await Faq.findAll({
@@ -1580,6 +1581,24 @@ module.exports = {
         cards: contactCards
       };
 
+      let faqs = [];
+      try {
+        const faqRows = await Faq.findAll({
+          where: { status: 1, category: "About" },
+          order: [["id", "ASC"]],
+          attributes: ["id", "question", "answer", "slug", "category"],
+        });
+        faqs = faqRows.map(item => ({
+          id: item.id,
+          question: item.question,
+          answer: item.answer,
+          slug: item.slug || "",
+          category: item.category || "About"
+        }));
+      } catch (e) {
+        console.error("Error fetching FAQs for about page:", e);
+      }
+
       const meta = await fetchMeta(["about-us", "about", "/about-us"]);
 
       const response = {
@@ -1589,7 +1608,8 @@ module.exports = {
         missionSection,
         numbersSection,
         teamSection,
-        contactSection
+        contactSection,
+        faqs
       };
 
       cache.put(cacheKey, response);
