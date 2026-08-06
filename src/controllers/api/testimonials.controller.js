@@ -103,10 +103,38 @@ module.exports = {
 				list.push(object);
 			}
           
+			let faqs = [];
+			try {
+				const Faq = models.faq;
+				const faqRows = await Faq.findAll({
+					where: {
+						status: 1,
+						[Op.or]: [
+							{ category: "Testimonials" },
+							{ category: "testimonials" },
+							{ category: { [Op.like]: "%Testimonial%" } }
+						]
+					},
+					order: [["id", "ASC"]],
+					attributes: ["id", "question", "answer", "slug", "category", "status"],
+				});
+				faqs = faqRows.map(item => ({
+					id: item.id,
+					question: item.question,
+					answer: item.answer,
+					slug: item.slug || "",
+					category: item.category,
+					status: item.status
+				}));
+			} catch (e) {
+				console.error("Error fetching FAQs for testimonials page:", e);
+			}
+
 			const response = {
 				meta: meta,
 				banner: banner,
-				testimonials: list
+				testimonials: list,
+				faqs: faqs
 			};
 
             return res.status(200).json({

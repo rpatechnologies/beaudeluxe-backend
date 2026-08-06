@@ -1411,13 +1411,40 @@ module.exports = {
         cards: womenMassageTypesCards
       };
 
+      let faqs = [];
+      try {
+        const faqRows = await Faq.findAll({
+          where: {
+            status: 1,
+            [Op.or]: [
+              { category: "Female Massage" },
+              { category: "female massage" },
+              { category: { [Op.like]: "%Female Massage%" } }
+            ]
+          },
+          order: [["id", "ASC"]],
+          attributes: ["id", "question", "answer", "slug", "category", "status"],
+        });
+        faqs = faqRows.map(item => ({
+          id: item.id,
+          question: item.question,
+          answer: item.answer,
+          slug: item.slug || "",
+          category: item.category,
+          status: item.status
+        }));
+      } catch (e) {
+        console.error("Error fetching FAQs for female massage page:", e);
+      }
+
       const meta = await fetchMeta(["female-massage-therapist", "female-massage", "female-massage-therapists"]);
 
       const response = {
         meta,
         womenMassageCostSection,
         womenAreasCoveredSection,
-        typesOfWomenMassage: typesOfWomenMassageSection
+        typesOfWomenMassage: typesOfWomenMassageSection,
+        faqs
       };
 
       cache.put(cacheKey, response);
@@ -1863,6 +1890,33 @@ module.exports = {
         };
       });
 
+      let faqs = [];
+      try {
+        const faqRows = await Faq.findAll({
+          where: {
+            status: 1,
+            [Op.or]: [
+              { category: "Our Therapists" },
+              { category: "our therapists" },
+              { category: "Therapist & Team" },
+              { category: { [Op.like]: "%Therapist%" } }
+            ]
+          },
+          order: [["id", "ASC"]],
+          attributes: ["id", "question", "answer", "slug", "category", "status"],
+        });
+        faqs = faqRows.map(item => ({
+          id: item.id,
+          question: item.question,
+          answer: item.answer,
+          slug: item.slug || "",
+          category: item.category,
+          status: item.status
+        }));
+      } catch (e) {
+        console.error("Error fetching FAQs for therapists page:", e);
+      }
+
       const meta = await fetchMeta(["our-therapists", "therapists", "therapist", "our-teams"]);
 
       const response = {
@@ -1870,7 +1924,8 @@ module.exports = {
         banner,
         founderSection,
         specializationSection,
-        teams: formattedTherapists
+        teams: formattedTherapists,
+        faqs
       };
 
       cache.put(cacheKey, response);
