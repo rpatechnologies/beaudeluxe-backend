@@ -222,11 +222,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <%- include('layouts/flash'); %>
-                                                    <% if(pages.length>0) { %>
-                                                        <a href="<%- siteUrl +'/'+ page %>?action=add"
-                                                            class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i
-                                                                class="fa fa-plus"></i> Add New Record</a>
-                                                        <% } %>
+                                                    <a href="<%- siteUrl +'/'+ page %>?action=add"
+                                                        class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i
+                                                            class="fa fa-plus"></i> Add New Record</a>
                                             </div>
                                         </div>
                                         <div class="main-card mb-3 card">
@@ -238,13 +236,7 @@
                                                             <th width="5%">#</th>
                                                             <th>Page</th>
                                                             <th>Title</th>
-                                                            <!-- <th>Image</th> -->
-                                                            <!-- <th>Alt Tag Image</th> -->
-                                                            <!-- <th>Mobile Image</th> -->
-                                                            <!-- <th>Alt Tag Mobile Image</th> -->
                                                             <th>Description</th>
-                                                            <!-- <th>Order No</th> -->
-                                                            <!-- <th width="10%">Updated At</th> -->
                                                             <th width="5%">Status</th>
                                                             <th width="15%"
                                                                 style="text-align: center;vertical-align: middle;">
@@ -257,21 +249,7 @@
                                                                 <td><%- index + 1 %></td>
                                                                 <td><%- data.page ? data.page.name : '' %></td>
                                                                 <td><%- data.title %></td>
-                                                                <!-- <td>
-                                        <a href="<%- siteUrl +'/uploads/banners/'+ data.image %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/banners/'+ data.image %>"/>
-                                        </a>
-                                    </td> -->
-                                                                <!-- <td><%- data.altTagImage %></td> -->
-                                                                <!-- <td>
-                                        <a href="<%- siteUrl +'/uploads/banners/'+ data.image_mob %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/banners/'+ data.image_mob %>"/>
-                                        </a>
-                                    </td> -->
-                                                                <!-- <td><%- data.altTagImageMob %></td> -->
                                                                 <td><%- data.description %></td>
-                                                                <!-- <td><%- data.order_no %></td>
-                                    <td><%- new Date(data.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td> -->
                                                                 <td>
                                                                     <% if(data.status==1) { %>
                                                                         <div class="mb-2 mr-2 badge badge-success">
@@ -283,9 +261,6 @@
                                                                             <% } %>
                                                                 </td>
                                                                 <td style="text-align: center;vertical-align: middle;">
-                                                                    <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a> -->
-                                                                    <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a> -->
-                                                                    <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a> -->
                                                                     <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>"
                                                                         class="btn " data-toggle="tooltip"
                                                                         data-placement="top" title="View"
@@ -300,7 +275,13 @@
                                                                             style=" color: rgb(32, 108, 221);"><i
                                                                                 class="fa fa-pen"
                                                                                 title="Edit"></i></span></a>
-                                                                    <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><span style=" color: red;"><i class="fa fa-trash" title="Delete"></i></span></a> -->
+                                                                    <a href="<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>"
+                                                                        class="btn deleteAction" data-toggle="tooltip"
+                                                                        data-placement="top" title="Delete"
+                                                                        data-original-title="Delete"><span
+                                                                            style=" color: red;"><i
+                                                                                class="fa fa-trash"
+                                                                                title="Delete"></i></span></a>
                                                                 </td>
                                                             </tr>
                                                             <% }); %>

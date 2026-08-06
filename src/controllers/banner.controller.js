@@ -16,13 +16,7 @@ const metaTitle = siteName + " | Banner";
 const list = async (req, res) => {
 	var action = req.query.action;
 	var rows = await Banner.findAll({ where: {}, include: [pageModel], order: [['updatedAt', 'DESC']] });
-	var usedPages = [];
-	for (let k = 0; k < rows.length; k++) { usedPages.push(rows[k]['page_id']); }
-	usedPages = Array.from(new Set(usedPages));
-	const pages = await pageModel.findAll({
-		where: { id: { [Op.notIn]: usedPages } },
-	});
-	console.log()
+	const pages = await pageModel.findAll({ order: [['name', 'ASC']] });
 	res.render("banner", {
 		title: title + "s",
 		page: page,
@@ -36,14 +30,7 @@ const list = async (req, res) => {
 
 const add = async (req, res) => {
 	var action = req.query.action;
-	var banner = await Banner.findAll({ where: { status: 1 }, });
-	var usedPages = [];
-	for (let k = 0; k < banner.length; k++) { usedPages.push(banner[k]['page_id']); }
-	usedPages = Array.from(new Set(usedPages));
-	const pages = await pageModel.findAll({
-		where: { id: { [Op.notIn]: usedPages } },
-	});
-	// console.log(pages);
+	const pages = await pageModel.findAll({ order: [['name', 'ASC']] });
 	res.render("banner", {
 		title: "Add " + title,
 		page: page,
@@ -51,8 +38,7 @@ const add = async (req, res) => {
 		metaTitle: metaTitle,
 		action: action,
 		pages: pages,
-		usedPages: usedPages,
-		row: []
+		row: null
 	});
 };
 
