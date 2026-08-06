@@ -68,6 +68,18 @@ module.exports = (sequelize, Sequelize) => {
         },
         show_on_home: {
             type: Sequelize.INTEGER
+        },
+        card_tag: {
+            type: Sequelize.STRING
+        },
+        card_title: {
+            type: Sequelize.STRING
+        },
+        card_description: {
+            type: Sequelize.TEXT
+        },
+        card_image: {
+            type: Sequelize.STRING
         }
     }, 
     {

@@ -55,6 +55,34 @@ const fetchMeta = async (slugs) => {
   }
 };
 
+const defaultCards = {
+  "massage-body-scrub": {
+    tag: "RELAXATION THERAPY",
+    title: "RELAXATION THERAPY",
+    description: "Aromatherapy massage helped one client reduce stress and enjoy deeper, uninterrupted sleep after just three wellness sessions."
+  },
+  "facials": {
+    tag: "SKIN CARE",
+    title: "SKIN CARE",
+    description: "My skin has never felt so hydrated and bright. The anti-aging facial completely transformed my complexion in just one hour."
+  },
+  "waxing": {
+    tag: "HAIR REMOVAL",
+    title: "HAIR REMOVAL",
+    description: "The most painless waxing experience I've ever had. The therapist was incredibly professional and made me feel completely at ease."
+  },
+  "nails": {
+    tag: "MANICURE & PEDICURE",
+    title: "MANICURE & PEDICURE",
+    description: "Absolutely love my gel manicure! The attention to detail was amazing, and the polish lasted perfectly for over three weeks."
+  },
+  "hair": {
+    tag: "SALON SERVICES",
+    title: "SALON SERVICES",
+    description: "My stylist perfectly understood what I wanted. The blowout was flawless and gave my hair incredible volume and shine that lasted for days."
+  }
+};
+
 module.exports = {
   serviceGet: async function (req, res) {
     try {
@@ -194,12 +222,34 @@ module.exports = {
 
       let serviceList = [];
       for (let i = 0; i < services.length; i++) {
-        const item = services[i];
-        item["image"] = `${siteUrl}/uploads/service/${item.image}`;
-        item["logo"] = `${siteUrl}/uploads/service/${item.logo}`;
-        item["banner"] = `${siteUrl}/uploads/service/banners/${item.banner}`;
-        item["banner_mob"] = `${siteUrl}/uploads/service/banners/${item.banner_mob}`;
-        serviceList.push(item);
+        const rawItem = services[i];
+        const plainItem = rawItem.toJSON ? rawItem.toJSON() : { ...rawItem };
+        const fallbackCard = defaultCards[plainItem.slug] || {};
+
+        const cardTag = plainItem.card_tag || fallbackCard.tag || "";
+        const cardTitle = plainItem.card_title || fallbackCard.title || "";
+        const cardDesc = plainItem.card_description || fallbackCard.description || "";
+        const cardImg = plainItem.card_image
+          ? `${siteUrl}/uploads/service/${plainItem.card_image}`
+          : (plainItem.image ? `${siteUrl}/uploads/service/${plainItem.image}` : null);
+
+        plainItem.image = plainItem.image ? `${siteUrl}/uploads/service/${plainItem.image}` : null;
+        plainItem.logo = plainItem.logo ? `${siteUrl}/uploads/service/${plainItem.logo}` : null;
+        plainItem.banner = plainItem.banner ? `${siteUrl}/uploads/service/banners/${plainItem.banner}` : null;
+        plainItem.banner_mob = plainItem.banner_mob ? `${siteUrl}/uploads/service/banners/${plainItem.banner_mob}` : null;
+        plainItem.button = cardTag;
+        plainItem.card = {
+          title: cardTitle,
+          description: cardDesc,
+          image: cardImg
+        };
+
+        delete plainItem.card_tag;
+        delete plainItem.card_title;
+        delete plainItem.card_description;
+        delete plainItem.card_image;
+
+        serviceList.push(plainItem);
       }
 
       const servicesDict = {
@@ -219,10 +269,6 @@ module.exports = {
       return res.status(200).json({
         status: true,
         message: "Data fetched successfully.",
-        banner: arrayBanners,
-        meta: metaData,
-        faqs: faqDict,
-        services: servicesDict,
         data: {
           banner: arrayBanners,
           meta: metaData,
@@ -239,15 +285,44 @@ module.exports = {
     try {
       const { slug } = req.query;
 
+      const mainService = await Service.findOne({
+        where: { slug: slug, status: 1 }
+      });
+
+      let cardData = null;
+      let serviceData = null;
+      if (mainService) {
+        const plainService = mainService.toJSON();
+        const fallbackCard = defaultCards[plainService.slug] || {};
+        const cardTag = plainService.card_tag || fallbackCard.tag || "";
+        const cardTitle = plainService.card_title || fallbackCard.title || "";
+        const cardDesc = plainService.card_description || fallbackCard.description || "";
+        const cardImg = plainService.card_image
+          ? `${siteUrl}/uploads/service/${plainService.card_image}`
+          : (plainService.image ? `${siteUrl}/uploads/service/${plainService.image}` : null);
+        cardData = {
+          title: cardTitle,
+          description: cardDesc,
+          image: cardImg
+        };
+        plainService.button = cardTag;
+        plainService.card = cardData;
+        delete plainService.card_tag;
+        delete plainService.card_title;
+        delete plainService.card_description;
+        delete plainService.card_image;
+        serviceData = plainService;
+      }
+
       const page = await Page.findOne({
         where: { slug: slug },
         attributes: ["id"],
       });
 
-      const banners = await Banner.findOne({
+      const banners = page ? await Banner.findOne({
         where: { status: 1, page_id: page.id },
         attributes: ["id", "title", "description", "image", "image_mob"],
-      });
+      }) : null;
 
       let bannerData = null;
 
@@ -318,6 +393,8 @@ module.exports = {
       return res.status(200).json({
         status: true,
         data: {
+          service: serviceData,
+          card: cardData,
           services: subServicesFormatted,
           banner: bannerData,
           meta: metaData

@@ -1,97 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<%- include('layouts/meta'); %>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <%- include('layouts/meta'); %>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
+
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-	<%- include('layouts/header'); %>
-	<div class="app-main">
-		<%- include('layouts/sidebar'); %>
-		<div class="app-main__outer">
-			<div class="app-main__inner">
-				<div class="app-page-title">
-					<div class="page-title-wrapper">
-						<div class="page-title-heading">
-							<div><%- title %></div>
-						</div>
-						<div class="page-title-actions">
-							<!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('layouts/header'); %>
+            <div class="app-main">
+                <%- include('layouts/sidebar'); %>
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div><%- title %></div>
+                                    </div>
+                                    <div class="page-title-actions">
+                                        <!-- <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
 								<i class="fa fa-star"></i>
 							</button> -->
-						</div>
-					</div>
-				</div>
-                <% if(action=='add' || action=='edit') { %>
-                    <div class="main-card mb-3 card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-8">
-                                <%- include('layouts/flash'); %>
-                                
-                                <form action="/service_post" method="post" name="serviceForm" onsubmit="return textAreaRequired()" enctype="multipart/form-data">
-                                    <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
-                                    <div class="form-group">
-                                        <label class="label" for="title">Title *</label>
-                                        <input type="text" class="form-control" id="title" name="title" value="<%- row ? row.title : '' %>" required/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="label" for="description">Description *</label>
-                                        <input type="text" class="form-control" id="description" name="description" value="<%- row ? row.description : '' %>" required/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="order_number">Order Number *</label>
-                                        <input type="text" class="form-control" id="order_number" name="order_number" value="<%- row ? row.order_number : '' %>" required/>
-                                    </div>
-                                    <!-- <div class="form-group">
+                                </div>
+                            </div>
+                            <% if(action=='add' || action=='edit' ) { %>
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <%- include('layouts/flash'); %>
+
+                                                    <form action="/service_post" method="post" name="serviceForm"
+                                                        onsubmit="return textAreaRequired()"
+                                                        enctype="multipart/form-data">
+                                                        <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
+                                                        <div class="form-group">
+                                                            <label class="label" for="title">Title *</label>
+                                                            <input type="text" class="form-control" id="title"
+                                                                name="title" value="<%- row ? row.title : '' %>"
+                                                                required />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="description">Description *</label>
+                                                            <textarea class="form-control joeditor" id="description"
+                                                                name="description"
+                                                                required><%- row ? row.description : '' %></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="order_number">Order Number
+                                                                *</label>
+                                                            <input type="text" class="form-control" id="order_number"
+                                                                name="order_number"
+                                                                value="<%- row ? row.order_number : '' %>" required />
+                                                        </div>
+                                                        <!-- <div class="form-group">
                                         <label class="label" for="short_description">Short Description *</label>
                                         <textarea class="form-control" id="short_description" name="short_description" required><%- row.short_description %></textarea>
                                     </div> -->
-                                    <!-- <div class="form-group">
+                                                        <!-- <div class="form-group">
                                         <label class="label" for="heading">Shadow Title *</label>
                                         <input type="text" class="form-control" id="heading" name="heading" value="<%- row ? row.heading : '' %>" required/>
                                     </div> -->
-                                    <!-- <div class="form-group">
+                                                        <!-- <div class="form-group">
                                         <label class="label" for="description">Description *</label>
                                         <textarea class="form-control joeditor" id="description" name="description"><%- row ? row.description : '' %></textarea>
                                     </div> -->
-                                    <div class="form-group">
-                                        <label class="label" for="image">Image *</label>
-                                        <input type="file" class="form-control" id="image" name="image" <%- row && row.image ? '' : 'required' %>/>
-                                        <input type="hidden" id="image_old" name="image_old" value="<%- row ? row.image : '' %>"/>
-                                        <span class="help-block text-danger"><b>Recommend Size : 463 X 441 PX.</b></span><br>
-                                        <% if(row && row.image) { %>
-                                        <a href="<%- siteUrl +'/uploads/service/'+ row.image %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/service/'+ row.image %>"/>
-                                        </a>
-                                        <% } %>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="altTag">Alt Tag</label>
-                                        <input type="text" class="form-control" id="altTag" name="altTag" value="<%- row ? row.altTag : '' %>"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="logo">Logo *</label>
-                                        <input type="file" class="form-control" id="logo" name="logo" <%- row && row.logo ? '' : 'required' %>/>
-                                        <input type="hidden" id="logo_old" name="logo_old" value="<%- row ? row.logo : '' %>"/>
-                                        <span class="help-block text-danger"><b>Recommend Size : 446 X 446 PX.</b></span><br>
-                                        <% if(row && row.logo) { %>
-                                        <a href="<%- siteUrl +'/uploads/service/'+ row.logo %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/service/'+ row.logo %>"/>
-                                        </a>
-                                        <% } %>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="altTagLogo">Alt Tag Logo</label>
-                                        <input type="text" class="form-control" id="altTagLogo" name="altTagLogo" value="<%- row ? row.altTagLogo : '' %>"/>
-                                    </div>
-                                    <!-- <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label class="label" for="image">Image *</label>
+                                                            <input type="file" class="form-control" id="image"
+                                                                name="image" <%- row && row.image ? '' : 'required' %>/>
+                                                            <input type="hidden" id="image_old" name="image_old"
+                                                                value="<%- row ? row.image : '' %>" />
+                                                            <span class="help-block text-danger"><b>Recommend Size : 463
+                                                                    X 441 PX.</b></span><br>
+                                                            <% if(row && row.image) { %>
+                                                                <a href="<%- siteUrl +'/uploads/service/'+ row.image %>"
+                                                                    target="_blank">
+                                                                    <img class="img-thumbnail"
+                                                                        src="<%- siteUrl +'/uploads/service/'+ row.image %>" />
+                                                                </a>
+                                                                <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="altTag">Alt Tag</label>
+                                                            <input type="text" class="form-control" id="altTag"
+                                                                name="altTag" value="<%- row ? row.altTag : '' %>" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="logo">Logo *</label>
+                                                            <input type="file" class="form-control" id="logo"
+                                                                name="logo" <%- row && row.logo ? '' : 'required' %>/>
+                                                            <input type="hidden" id="logo_old" name="logo_old"
+                                                                value="<%- row ? row.logo : '' %>" />
+                                                            <span class="help-block text-danger"><b>Recommend Size : 446
+                                                                    X 446 PX.</b></span><br>
+                                                            <% if(row && row.logo) { %>
+                                                                <a href="<%- siteUrl +'/uploads/service/'+ row.logo %>"
+                                                                    target="_blank">
+                                                                    <img class="img-thumbnail"
+                                                                        src="<%- siteUrl +'/uploads/service/'+ row.logo %>" />
+                                                                </a>
+                                                                <% } %>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="altTagLogo">Alt Tag Logo</label>
+                                                            <input type="text" class="form-control" id="altTagLogo"
+                                                                name="altTagLogo"
+                                                                value="<%- row ? row.altTagLogo : '' %>" />
+                                                        </div>
+                                                        <div class="card mb-3">
+                                                            <div class="card-header">Service Card Details</div>
+                                                            <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <label class="label" for="card_tag">Card Tag /
+                                                                        Category Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="card_tag" name="card_tag"
+                                                                        value="<%- row ? (row.card_tag || '') : '' %>"
+                                                                        placeholder="e.g. RELAXATION THERAPY" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="label" for="card_title">Card
+                                                                        Title</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="card_title" name="card_title"
+                                                                        value="<%- row ? (row.card_title || '') : '' %>"
+                                                                        placeholder="e.g. RELAXATION THERAPY" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="label" for="card_description">Card
+                                                                        Quote / Description</label>
+                                                                    <textarea class="form-control joeditor"
+                                                                        id="card_description" name="card_description"
+                                                                        rows="3"><%- row ? (row.card_description || '') : '' %></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="label" for="card_image">Card
+                                                                        Image</label>
+                                                                    <input type="file" class="form-control"
+                                                                        id="card_image" name="card_image" />
+                                                                    <input type="hidden" id="card_image_old"
+                                                                        name="card_image_old"
+                                                                        value="<%- row ? (row.card_image || '') : '' %>" />
+                                                                    <% if(row && row.card_image) { %>
+                                                                        <br>
+                                                                        <a href="<%- siteUrl +'/uploads/service/'+ row.card_image %>"
+                                                                            target="_blank">
+                                                                            <img class="img-thumbnail"
+                                                                                style="max-height: 120px;"
+                                                                                src="<%- siteUrl +'/uploads/service/'+ row.card_image %>" />
+                                                                        </a>
+                                                                        <% } %>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="form-group">
                                         <label class="label" for="details_heading">Details Heading *</label>
                                         <input type="text" class="form-control" id="details_heading" name="details_heading" value="<%- row ? row.details_heading : '' %>" required/>
                                     </div> -->
-                                    <!-- <div class="mb-3 card">
+                                                        <!-- <div class="mb-3 card">
                                         <div class="card-header">List Of Images </div>
                                         <div class="card-body">
                                             <table class="mb-0 table table-bordered" id="datatable3">
@@ -121,7 +191,7 @@
                                         </div>
                                     </div> -->
 
-                                    <!-- <div class="mb-3 card">
+                                                        <!-- <div class="mb-3 card">
                                         <div class="card-header">
                                             FAQs *
                                             <div class="btn-actions-pane-right actions-icon-btn">
@@ -192,7 +262,7 @@
                                         </div>
                                     </div> -->
 
-                                    <!-- <div class="mb-3 card">
+                                                        <!-- <div class="mb-3 card">
                                         <div class="card-header">
                                             Sub Services *
                                             <div class="btn-actions-pane-right actions-icon-btn">
@@ -249,233 +319,294 @@
                                         </div>
                                     </div> -->
 
-                                    <!-- <div class="form-group">
+                                                        <!-- <div class="form-group">
                                         <label class="label" for="sub_services_description">Sub Services Description</label>
                                         <textarea class="form-control" id="sub_services_description" name="sub_services_description"><%- row.sub_services_description %></textarea>
                                     </div> -->
 
-                                    <div class="form-group">
-                                        <label class="label" for="meta_title">Meta Title</label>
-                                        <input type="text" class="form-control" id="meta_title" name="meta_title" value="<%- row.meta_title %>"/>
+                                                        <div class="form-group">
+                                                            <label class="label" for="meta_title">Meta Title</label>
+                                                            <input type="text" class="form-control" id="meta_title"
+                                                                name="meta_title" value="<%- row.meta_title %>" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="meta_description">Meta
+                                                                Description</label>
+                                                            <textarea class="form-control" id="meta_description"
+                                                                name="meta_description"><%- row.meta_description %></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="meta_keywords">Meta
+                                                                Keywords</label>
+                                                            <input type="text" class="form-control" id="meta_keywords"
+                                                                name="meta_keywords" value="<%- row.meta_keywords %>" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="show_in_menu">Show In Menu</label>
+                                                            <select class="form-control" id="show_in_menu"
+                                                                name="show_in_menu">
+                                                                <option value="0" <%- row && row.show_in_menu==0
+                                                                    ? 'selected' : '' %>>No</option>
+                                                                <option value="1" <%- row && row.show_in_menu==1
+                                                                    ? 'selected' : '' %>>Yes</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="show_on_home">Show On
+                                                                Homepage</label>
+                                                            <select class="form-control" id="show_on_home"
+                                                                name="show_on_home">
+                                                                <option value="0" <%- row && row.show_on_home==0
+                                                                    ? 'selected' : '' %>>No</option>
+                                                                <option value="1" <%- row && row.show_on_home==1
+                                                                    ? 'selected' : '' %>>Yes</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="status">Status *</label>
+                                                            <select class="form-control" id="status" name="status"
+                                                                required>
+                                                                <option value="1" <%- row && row.status==1 ? 'selected'
+                                                                    : '' %>>Active</option>
+                                                                <option value="0" <%- row && row.status==0 ? 'selected'
+                                                                    : '' %>>Inactive</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <a href="<%- siteUrl +'/'+ page %>"
+                                                                class="btn btn-secondary"
+                                                                style="color: white;">Cancel</a>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="label" for="meta_description">Meta Description</label>
-                                        <textarea class="form-control" id="meta_description" name="meta_description"><%- row.meta_description %></textarea>
+                                </div>
+                                <% } else if(action=='view' ) { %>
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <table class="mb-0 table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 15%">Title</th>
+                                                        <td><%- row.title %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Order Number</th>
+                                                        <td><%- row.order_number %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Image</th>
+                                                        <td>
+                                                            <a href="<%- siteUrl +'/uploads/service/'+ row.image %>"
+                                                                target="_blank">
+                                                                <img class="img-thumbnail"
+                                                                    src="<%- siteUrl +'/uploads/service/'+ row.image %>" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- altTag -->
+                                                    <tr>
+                                                        <th style="width: 15%">Alt Tag</th>
+                                                        <td><%- row.altTag %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Banner</th>
+                                                        <td>
+                                                            <a href="<%- siteUrl +'/uploads/service/banners/'+ row.banner %>"
+                                                                target="_blank">
+                                                                <img class="img-thumbnail"
+                                                                    src="<%- siteUrl +'/uploads/service/banners/'+ row.banner %>" />
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Banner Alt Tag</th>
+                                                        <td><%- row.altTagBanner %></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th style="width: 15%">Meta Title</th>
+                                                        <td><%- row.meta_title %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Meta Description</th>
+                                                        <td><%- row.meta_description %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Meta Keywords</th>
+                                                        <td><%- row.meta_keywords %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Show In Menu</th>
+                                                        <td>
+                                                            <% if(row.show_in_menu==1) { %>
+                                                                <img style="height: 20px;width: 20px;"
+                                                                    src="<%- siteUrl +'/img/success.png' %>" />
+                                                                <% } else { %>
+                                                                    <img style="height: 20px;width: 20px;"
+                                                                        src="<%- siteUrl +'/img/cross.png' %>" />
+                                                                    <% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Show On Homepage</th>
+                                                        <td>
+                                                            <% if(row.show_on_home==1) { %>
+                                                                <img style="height: 20px;width: 20px;"
+                                                                    src="<%- siteUrl +'/img/success.png' %>" />
+                                                                <% } else { %>
+                                                                    <img style="height: 20px;width: 20px;"
+                                                                        src="<%- siteUrl +'/img/cross.png' %>" />
+                                                                    <% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Updated At</th>
+                                                        <td><%- new Date(row.updatedAt).toLocaleString('en-GB', {
+                                                                hour12: false }) %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 15%">Status</th>
+                                                        <td>
+                                                            <% if(row.status==1) { %>
+                                                                <div class="mb-2 mr-2 badge badge-success">Active</div>
+                                                                <% } else { %>
+                                                                    <div class="mb-2 mr-2 badge badge-secondary">
+                                                                        Inactive</div>
+                                                                    <% } %>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                            <a href="<%- siteUrl+'/'+pageUrl %>" class="btn btn-secondary btn-icon"
+                                                style="color: white;"><i class="pe-7s-back btn-icon-wrapper">
+                                                </i>Back</a>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="label" for="meta_keywords">Meta Keywords</label>
-                                        <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="<%- row.meta_keywords %>"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="show_in_menu">Show In Menu</label>
-                                        <select class="form-control" id="show_in_menu" name="show_in_menu">
-                                            <option value="0" <%- row && row.show_in_menu == 0 ? 'selected' : '' %>>No</option>
-                                            <option value="1" <%- row && row.show_in_menu == 1 ? 'selected' : '' %>>Yes</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="show_on_home">Show On Homepage</label>
-                                        <select class="form-control" id="show_on_home" name="show_on_home">
-                                            <option value="0" <%- row && row.show_on_home == 0 ? 'selected' : '' %>>No</option>
-                                            <option value="1" <%- row && row.show_on_home == 1 ? 'selected' : '' %>>Yes</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="label" for="status">Status *</label>
-                                        <select class="form-control" id="status" name="status" required>
-                                            <option value="1" <%- row && row.status == 1 ? 'selected' : '' %>>Active</option>
-                                            <option value="0" <%- row && row.status == 0 ? 'selected' : '' %>>Inactive</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <a href="<%- siteUrl +'/'+ page %>" class="btn btn-secondary" style="color: white;">Cancel</a>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </div> 
-                            <div class="col-md-2"></div>
+                                    <% } else { %>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <%- include('layouts/flash'); %>
+                                                    <a href="<%- siteUrl +'/'+ page %>?action=add"
+                                                        class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i
+                                                            class="fa fa-plus"></i> Add New Record</a>
+                                            </div>
+                                        </div>
+                                        <div class="main-card mb-3 card">
+                                            <div class="card-body">
+                                                <table style="width: 100%;" id="example"
+                                                    class="table table-hover table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="5%">#</th>
+                                                            <th>Title</th>
+                                                            <!-- <th>Short Description</th> -->
+                                                            <!-- <th>Heading</th> -->
+                                                            <th>Image</th>
+                                                            <!-- <th>Alt Tag</th> -->
+                                                            <th>Show In Menu</th>
+                                                            <!-- <th>Alt Tag Show In Menu</th> -->
+                                                            <th>Show On Homepage</th>
+                                                            <th>Slug</th>
+                                                            <!-- <th width="10%">Updated At</th> -->
+                                                            <th width="5%">Status</th>
+                                                            <th width="15%"
+                                                                style="text-align: center;vertical-align: middle;">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% rows.forEach(function(data, index) { %>
+                                                            <tr>
+                                                                <td><%- index + 1 %></td>
+                                                                <td><%- data.title %></td>
+                                                                <!-- <td><%- data.short_description %></td> -->
+                                                                <!-- <td><%- data.heading %></td> -->
+                                                                <td>
+                                                                    <a href="<%- siteUrl +'/uploads/service/'+ data.image %>"
+                                                                        target="_blank">
+                                                                        <img class="img-thumbnail"
+                                                                            src="<%- siteUrl +'/uploads/service/'+ data.image %>" />
+                                                                    </a>
+                                                                </td>
+                                                                <!-- <td><%- data.altTag %></td> -->
+                                                                <td>
+                                                                    <% if(data.show_in_menu==1) { %>
+                                                                        <img style="height: 20px;width: 20px;"
+                                                                            src="<%- siteUrl +'/img/success.png' %>" />
+                                                                        <% } else { %>
+                                                                            <img style="height: 20px;width: 20px;"
+                                                                                src="<%- siteUrl +'/img/cross.png' %>" />
+                                                                            <% } %>
+                                                                </td>
+                                                                <!-- <td><%- data.altTagBanner %></td> -->
+                                                                <td>
+                                                                    <% if(data.show_on_home==1) { %>
+                                                                        <img style="height: 20px;width: 20px;"
+                                                                            src="<%- siteUrl +'/img/success.png' %>" />
+                                                                        <% } else { %>
+                                                                            <img style="height: 20px;width: 20px;"
+                                                                                src="<%- siteUrl +'/img/cross.png' %>" />
+                                                                            <% } %>
+                                                                </td>
+                                                                <td><%- data.slug %></td>
+                                                                <!-- <td><%- new Date(data.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td> -->
+                                                                <td>
+                                                                    <% if(data.status==1) { %>
+                                                                        <div class="mb-2 mr-2 badge badge-success">
+                                                                            Active</div>
+                                                                        <% } else { %>
+                                                                            <div
+                                                                                class="mb-2 mr-2 badge badge-secondary">
+                                                                                Inactive</div>
+                                                                            <% } %>
+                                                                </td>
+                                                                <td style="text-align: center;vertical-align: middle;">
+                                                                    <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a> -->
+                                                                    <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a> -->
+                                                                    <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a> -->
+                                                                    <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>"
+                                                                        class="btn " data-toggle="tooltip"
+                                                                        data-placement="top" title="View"
+                                                                        data-original-title="View"><span
+                                                                            style=" color: rgb(0, 0, 0);"><i
+                                                                                class="fa fa-eye"
+                                                                                title="View"></i></span></a>
+                                                                    <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>"
+                                                                        class="btn " data-toggle="tooltip"
+                                                                        data-placement="top" title="Edit"
+                                                                        data-original-title="Edit"><span
+                                                                            style=" color: rgb(32, 108, 221);"><i
+                                                                                class="fa fa-pen"
+                                                                                title="Edit"></i></span></a>
+                                                                    <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')"
+                                                                        class="btn" data-toggle="tooltip"
+                                                                        data-placement="top" title="Delete"
+                                                                        data-original-title="Delete"><span
+                                                                            style=" color: red;"><i class="fa fa-trash"
+                                                                                title="Delete"></i></span></a>
+                                                                </td>
+                                                            </tr>
+                                                            <% }); %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <% } %>
                         </div>
+                        <%- include('layouts/footer'); %>
                     </div>
-                </div>    
-                <% } else if(action=='view') { %>
-                <div class="main-card mb-3 card">
-                    <div class="card-body">
-                        <table class="mb-0 table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th style="width: 15%">Title</th>
-                                    <td><%- row.title %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Order Number</th>
-                                    <td><%- row.order_number %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Image</th>
-                                    <td>
-                                        <a href="<%- siteUrl +'/uploads/service/'+ row.image %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/service/'+ row.image %>"/>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <!-- altTag -->
-                                <tr>
-                                    <th style="width: 15%">Alt Tag</th>
-                                    <td><%- row.altTag %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Banner</th>
-                                    <td>
-                                        <a href="<%- siteUrl +'/uploads/service/banners/'+ row.banner %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/service/banners/'+ row.banner %>"/>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Banner Alt Tag</th>
-                                    <td><%- row.altTagBanner %></td>
-                                </tr>
-                                
-                                <tr>
-                                    <th style="width: 15%">Meta Title</th>
-                                    <td><%- row.meta_title %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Meta Description</th>
-                                    <td><%- row.meta_description %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Meta Keywords</th>
-                                    <td><%- row.meta_keywords %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Show In Menu</th>
-                                    <td>
-                                        <% if(row.show_in_menu == 1) { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/success.png' %>"/>	
-                                        <% } else { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/cross.png' %>"/>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Show On Homepage</th>
-                                    <td>
-                                        <% if(row.show_on_home == 1) { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/success.png' %>"/>	
-                                        <% } else { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/cross.png' %>"/>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Updated At</th>
-                                    <td><%- new Date(row.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 15%">Status</th>
-                                    <td>
-                                        <% if(row.status == 1) { %>
-                                            <div class="mb-2 mr-2 badge badge-success">Active</div>
-                                        <% } else { %>
-                                            <div class="mb-2 mr-2 badge badge-secondary">Inactive</div>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <br>
-                        <a href="<%- siteUrl+'/'+pageUrl %>" class="btn btn-secondary btn-icon" style="color: white;"><i class="pe-7s-back btn-icon-wrapper"> </i>Back</a>
-                    </div>
-                </div>
-                <% } else { %>
-                <div class="row">
-                    <div class="col-md-12">
-                        <%- include('layouts/flash'); %>
-                        <a href="<%- siteUrl +'/'+ page %>?action=add" class="mb-2 mr-2 btn-icon btn btn-primary pull-right"><i class="fa fa-plus"></i> Add New Record</a>
-                    </div>
-                </div>
-                <div class="main-card mb-3 card">
-                    <div class="card-body">
-                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="5%">#</th>
-                                    <th>Title</th>
-                                    <!-- <th>Short Description</th> -->
-                                    <!-- <th>Heading</th> -->
-                                    <th>Image</th>
-                                    <!-- <th>Alt Tag</th> -->
-                                    <th>Show In Menu</th>
-                                    <!-- <th>Alt Tag Show In Menu</th> -->
-                                    <th>Show On Homepage</th>
-                                    <th>Slug</th>
-                                    <!-- <th width="10%">Updated At</th> -->
-                                    <th width="5%">Status</th>
-                                    <th width="15%" style="text-align: center;vertical-align: middle;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% rows.forEach(function(data, index) { %>
-                                <tr>
-                                    <td><%- index + 1 %></td>
-                                    <td><%- data.title %></td>
-                                    <!-- <td><%- data.short_description %></td> -->
-                                    <!-- <td><%- data.heading %></td> -->
-                                    <td>
-                                        <a href="<%- siteUrl +'/uploads/service/'+ data.image %>" target="_blank">
-                                            <img class="img-thumbnail" src="<%- siteUrl +'/uploads/service/'+ data.image %>"/>
-                                        </a>
-                                    </td>
-                                    <!-- <td><%- data.altTag %></td> -->
-                                    <td>
-                                        <% if(data.show_in_menu == 1) { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/success.png' %>"/>	
-                                        <% } else { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/cross.png' %>"/>
-                                        <% } %>
-                                    </td>
-                                    <!-- <td><%- data.altTagBanner %></td> -->
-                                    <td>
-                                        <% if(data.show_on_home == 1) { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/success.png' %>"/>	
-                                        <% } else { %>
-                                            <img style="height: 20px;width: 20px;" src="<%- siteUrl +'/img/cross.png' %>"/>
-                                        <% } %>
-                                    </td>
-                                    <td><%- data.slug %></td>
-                                    <!-- <td><%- new Date(data.updatedAt).toLocaleString('en-GB', { hour12: false }) %></td> -->
-                                    <td>
-                                        <% if(data.status == 1) { %>
-                                            <div class="mb-2 mr-2 badge badge-success">Active</div>
-                                        <% } else { %>
-                                            <div class="mb-2 mr-2 badge badge-secondary">Inactive</div>
-                                        <% } %>
-                                    </td>
-                                    <td style="text-align: center;vertical-align: middle;">
-                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn btn-focus btn-xs" data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><i class="fa fa-eye"></i></a> -->
-                                        <!-- <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fas fa-edit"></i></a> -->
-                                        <!-- <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><i class="fas fa-trash"></i></a> -->
-                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=view&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="View" data-original-title="View"><span style=" color: rgb(0, 0, 0);"><i class="fa fa-eye" title="View"></i></span></a>
-                                        <a href="<%- siteUrl+'/'+pageUrl+'?action=edit&id='+data.id %>" class="btn "  data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><span style=" color: rgb(32, 108, 221);"><i class="fa fa-pen" title="Edit"></i></span></a>
-                                        <a href="javascript:del('<%- siteUrl+'/'+pageUrl+'?action=delete&id='+data.id %>')" class="btn" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><span style=" color: red;"><i class="fa fa-trash" title="Delete"></i></span></a>
-                                    </td>
-                                </tr>
-                                <% }); %>
-                            </tbody>
-                        </table>                        
-                    </div>
-                </div>
-                <% } %>
-			</div>
-			<%- include('layouts/footer'); %>
-		</div>
-	</div>
-</div>
-<div class="app-drawer-overlay d-none animated fadeIn"></div>
-<%- include('layouts/script'); %>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- <script>
+            </div>
+    </div>
+    <div class="app-drawer-overlay d-none animated fadeIn"></div>
+    <%- include('layouts/script'); %>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <!-- <script>
 function appendRow(gethisii) 
 { 
     var tblBody = document.getElementById(gethisii).tBodies[0];
@@ -497,49 +628,48 @@ function appendFaqRow(gethisii)
     }
 }
 </script> -->
-<script>
-    function textAreaRequired() {
-      var empt = document.forms["serviceForm"]["description"].value;
-      if (empt == "") {
-        alert("Please fill the description");
-        return false;
-      } else {
-        return true;
-      }
-    }
-    </script>
-<script type="text/javascript">
-var deleteRow = function (link, getthis) 
-{
-    try{
-        var result = window.confirm("Do you want to delete this item ?");
-        if (result) {
-            var rowCount = $('#'+getthis+' >tbody >tr').length;
-        if(rowCount > 1)  
-        {
-            var row = link.parentNode.parentNode;
-            var table = row.parentNode; 
-            table.removeChild(row);
-        } 
-        // window.history.back();
-        } else {
-        }
-        }catch(e){
-            // console.log(e);
-        }
-    // var rowCount = $('#'+getthis+' >tbody >tr').length;
-    // if(rowCount > 1)  
-    // {
-    //     var row = link.parentNode.parentNode;
-    //     var table = row.parentNode; 
-    //     table.removeChild(row);
-    // } 
-}
-</script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
+        <script>
+            function textAreaRequired() {
+                var empt = document.forms["serviceForm"]["description"].value;
+                if (empt == "") {
+                    alert("Please fill the description");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            var deleteRow = function (link, getthis) {
+                try {
+                    var result = window.confirm("Do you want to delete this item ?");
+                    if (result) {
+                        var rowCount = $('#' + getthis + ' >tbody >tr').length;
+                        if (rowCount > 1) {
+                            var row = link.parentNode.parentNode;
+                            var table = row.parentNode;
+                            table.removeChild(row);
+                        }
+                        // window.history.back();
+                    } else {
+                    }
+                } catch (e) {
+                    // console.log(e);
+                }
+                // var rowCount = $('#'+getthis+' >tbody >tr').length;
+                // if(rowCount > 1)  
+                // {
+                //     var row = link.parentNode.parentNode;
+                //     var table = row.parentNode; 
+                //     table.removeChild(row);
+                // } 
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.select2').select2();
+            });
+        </script>
 </body>
+
 </html>
