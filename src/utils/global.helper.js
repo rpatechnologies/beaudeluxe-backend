@@ -5,8 +5,7 @@ const HomePageContents = db.homePageContents;
 const settingData = async () => {
     const settings = await Setting.findAll();
     const object = {};
-    for(let i = 0; i < settings.length; i++)
-    {
+    for (let i = 0; i < settings.length; i++) {
         const data = settings[i];
         object[data.field] = data.value;
     }
@@ -16,8 +15,7 @@ const settingData = async () => {
 const homePageContentsData = async () => {
     const homePageContents = await HomePageContents.findAll();
     const object = {};
-    for(let i = 0; i < homePageContents.length; i++)
-    {
+    for (let i = 0; i < homePageContents.length; i++) {
         const data = homePageContents[i];
         object[data.field] = data.value;
     }
@@ -36,7 +34,7 @@ const createSlug = title => {
 
     // replace spaces with dash symbols
     slug = slug.replace(/ /gi, "-");
-    
+
     // remove consecutive dash symbols 
     slug = slug.replace(/\-\-\-\-\-/gi, '-');
     slug = slug.replace(/\-\-\-\-/gi, '-');
@@ -46,7 +44,7 @@ const createSlug = title => {
     // remove the unwanted dash symbols at the beginning and the end of the slug
     slug = '@' + slug + '@';
     slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-    
+
     return slug;
 };
 

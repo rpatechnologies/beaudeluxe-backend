@@ -7,6 +7,7 @@ const cache = require("memory-cache");
 const pageModel = models.page;
 const Banner = models.banner;
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Banner";
 const page = "banner";
 const pageUrl = "banner";
@@ -156,8 +157,14 @@ module.exports = {
 				// }
 
 				const { id, page_id, title, status, description, image_old, altTagImage, image_mob_old, altTagImageMob } = req.body;
-				const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
-				const imageMob = req.files && req.files.image_mob ? req.files.image_mob[0].filename : image_mob_old;
+				let image = image_old;
+				if (req.files && req.files.image && req.files.image[0]) {
+					image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/banners/");
+				}
+				let imageMob = image_mob_old;
+				if (req.files && req.files.image_mob && req.files.image_mob[0]) {
+					imageMob = await processAndConvertImageToWebp(req.files.image_mob[0], "./public/uploads/banners/");
+				}
 
 				const formData = {
 					page_id: page_id,

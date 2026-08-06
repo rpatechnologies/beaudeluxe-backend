@@ -59,8 +59,47 @@ app.use('/', webRoutes);
 
 // app.use(cors(corsOptions));
 
+const cleanSpacesInObject = (obj) => {
+	if (obj === null || obj === undefined) return obj;
+	if (typeof obj === 'string') {
+		if (obj.includes('/uploads/') || obj.startsWith('http://') || obj.startsWith('https://')) {
+			return obj.replace(/\s+/g, '-').replace(/%20/g, '-');
+		}
+		return obj;
+	}
+	if (Array.isArray(obj)) {
+		return obj.map(item => cleanSpacesInObject(item));
+	}
+	if (typeof obj === 'object') {
+		const cleaned = {};
+		for (const key of Object.keys(obj)) {
+			let val = obj[key];
+			if (typeof val === 'string') {
+				const isImageKey = /image|logo|photo|icon|banner|flag|file|picture|avatar|thumbnail/i.test(key);
+				if (isImageKey || val.includes('/uploads/')) {
+					val = val.replace(/\s+/g, '-').replace(/%20/g, '-');
+				}
+			} else if (typeof val === 'object' && val !== null) {
+				val = cleanSpacesInObject(val);
+			}
+			cleaned[key] = val;
+		}
+		return cleaned;
+	}
+	return obj;
+};
+
 const apiRoutes = require('./src/routes/api');
-app.use('/api', apiRoutes);
+app.use('/api', (req, res, next) => {
+	const originalJson = res.json;
+	res.json = function (body) {
+		if (body && typeof body === 'object') {
+			body = cleanSpacesInObject(body);
+		}
+		return originalJson.call(this, body);
+	};
+	next();
+}, apiRoutes);
 
 const db = require("./src/models");
 //{ force: true }{alter: true}

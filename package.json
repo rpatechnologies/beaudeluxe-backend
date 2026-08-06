@@ -20,6 +20,7 @@
     "mysql2": "^3.12.0",
     "nodemailer": "^6.9.3",
     "sequelize": "^6.31.1",
+    "sharp": "^0.35.3",
     "uuid": "^9.0.0"
   },
   "name": "BEAUDELUXE",
@@ -28,7 +29,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --ext js,ejs index.js",
-    "start": "node index.js",    
+    "start": "node index.js",
     "test": "test"
   },
   "author": "RPA",

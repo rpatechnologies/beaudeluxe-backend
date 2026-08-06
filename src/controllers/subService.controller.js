@@ -7,6 +7,7 @@ const Category = models.category;
 const fs = require("fs");
 const multer = require("multer");
 const cache = require("memory-cache");
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Sub Service";
 const page = "sub_service";
 const pageUrl = "sub_service";
@@ -212,7 +213,10 @@ module.exports = {
         altTag,
       } = req.body;
 
-      const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
+      let image = image_old;
+      if (req.files && req.files.image && req.files.image[0]) {
+        image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/sub_service/");
+      }
 
       const formData = {
         title: title,

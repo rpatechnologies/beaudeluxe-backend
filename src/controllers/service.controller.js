@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const models = require("../models");
 const Service = models.service;
 const ServiceFaq = models.serviceFaq;
@@ -176,13 +177,28 @@ module.exports = {
 
 				const request = req.body;
 				const { id, title, short_description, heading, order_number, description, image_old, altTag, logo_old, altTagLogo, sub_services_description, details_heading, meta_title, meta_description, meta_keywords, status, banner_old, altTagBanner, banner_mob_old, altTagBannerMob, show_in_menu, show_on_home, card_tag, card_title, card_description, card_image_old } = req.body;
-				const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
-				const banner = req.files && req.files.banner ? req.files.banner[0].filename : banner_old;
-				const bannerMob = req.files && req.files.banner_mob ? req.files.banner_mob[0].filename : banner_mob_old;
-				const cardImage = req.files && req.files.card_image ? req.files.card_image[0].filename : card_image_old;
+				let image = image_old;
+				if (req.files && req.files.image && req.files.image[0]) {
+					image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/service/");
+				}
+				let banner = banner_old;
+				if (req.files && req.files.banner && req.files.banner[0]) {
+					banner = await processAndConvertImageToWebp(req.files.banner[0], "./public/uploads/service/banners/");
+				}
+				let bannerMob = banner_mob_old;
+				if (req.files && req.files.banner_mob && req.files.banner_mob[0]) {
+					bannerMob = await processAndConvertImageToWebp(req.files.banner_mob[0], "./public/uploads/service/banners/");
+				}
+				let cardImage = card_image_old;
+				if (req.files && req.files.card_image && req.files.card_image[0]) {
+					cardImage = await processAndConvertImageToWebp(req.files.card_image[0], "./public/uploads/service/");
+				}
+				let logo = logo_old;
+				if (req.files && req.files.logo && req.files.logo[0]) {
+					logo = await processAndConvertImageToWebp(req.files.logo[0], "./public/uploads/service/");
+				}
 				const faqsQue = request.question ? request.question : [];
 				const subServiceTitle = request.subServiceTitle ? request.subServiceTitle : [];
-				const logo = req.files && req.files.logo ? req.files.logo[0].filename : logo_old;
 				const images = req.files ? req.files.bannerImages : [];
 				const orderOfImages = request.orderOfImages ? request.orderOfImages : [];
 
