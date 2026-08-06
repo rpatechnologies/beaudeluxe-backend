@@ -5,6 +5,8 @@ const { json } = require('body-parser');
 const About  = models.about;
 const fs = require("fs");
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
+
 const title 	= "About Us Content";
 const page  	= "about";
 const pageUrl   = "about";
@@ -64,8 +66,14 @@ module.exports = {
 
             const request = req.body;
 			const {title, description, image_old, altTag, methodology_bg_img_old, altTagMethodlology} = req.body;
-			const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
-			const bgImage = req.files && req.files.methodology_bg_img ? req.files.methodology_bg_img[0].filename : methodology_bg_img_old;
+			let image = image_old;
+			if (req.files && req.files.image && req.files.image[0]) {
+				image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/about/");
+			}
+			let bgImage = methodology_bg_img_old;
+			if (req.files && req.files.methodology_bg_img && req.files.methodology_bg_img[0]) {
+				bgImage = await processAndConvertImageToWebp(req.files.methodology_bg_img[0], "./public/uploads/about/");
+			}
 
 			const formData = {
 				title: 		 title,

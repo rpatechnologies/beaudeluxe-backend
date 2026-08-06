@@ -5,6 +5,8 @@ const db = require("../models");
 const Setting = db.setting;
 const { settingData } = require("../utils/global.helper");
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
+
 module.exports = {
 
     general: async function (req, res) {
@@ -35,10 +37,22 @@ module.exports = {
         ]);
         uploadMiddleware(req, res, async () => {
             const { email, career_email, contact, address, meta_title, meta_description, meta_keywords, logo_old, altTagHeaderLogo, footer_logo_old, altTagFooterLogo, favicon_old, altTagFavicon,  partner_icon_old, alt_tag_partner_icon, facebook, twitter, instagram, linkedin, hotline_text, copyright_text, about_text_footer, mails_to } = req.body;
-            const logo = req.files && req.files.logo ? req.files.logo[0].filename : logo_old;
-            const footerLogo = req.files && req.files.footer_logo ? req.files.footer_logo[0].filename : footer_logo_old;
-            const favicon = req.files && req.files.favicon ? req.files.favicon[0].filename : favicon_old;
-            const partner_icon = req.files && req.files.partner_icon ? req.files.partner_icon[0].filename : partner_icon_old;
+            let logo = logo_old;
+            if (req.files && req.files.logo && req.files.logo[0]) {
+                logo = await processAndConvertImageToWebp(req.files.logo[0], "./public/uploads/info/");
+            }
+            let footerLogo = footer_logo_old;
+            if (req.files && req.files.footer_logo && req.files.footer_logo[0]) {
+                footerLogo = await processAndConvertImageToWebp(req.files.footer_logo[0], "./public/uploads/info/");
+            }
+            let favicon = favicon_old;
+            if (req.files && req.files.favicon && req.files.favicon[0]) {
+                favicon = await processAndConvertImageToWebp(req.files.favicon[0], "./public/uploads/info/");
+            }
+            let partner_icon = partner_icon_old;
+            if (req.files && req.files.partner_icon && req.files.partner_icon[0]) {
+                partner_icon = await processAndConvertImageToWebp(req.files.partner_icon[0], "./public/uploads/info/");
+            }
 
             let request = [];
             request.push({key: "email", value: email});

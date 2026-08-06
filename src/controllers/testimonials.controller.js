@@ -8,6 +8,7 @@ const { dateFormat } = require("../services/date.service");
 const fs = require("fs");
 
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title 	= "Testimonials";
 const page  	= "testimonials";
 const pageUrl   = "testimonials";
@@ -144,7 +145,10 @@ module.exports = {
             // order_no, name, country, rating, description, photo, altTag, status, publishedAt
 
 			const {id, name, country, rating, description, photo_old, altTag, status, slug} = req.body;
-			const image = req.files && req.files.photo ? req.files.photo[0].filename : photo_old;
+			let image = photo_old;
+			if (req.files && req.files.photo && req.files.photo[0]) {
+				image = await processAndConvertImageToWebp(req.files.photo[0], "./public/uploads/testimonials/");
+			}
 			const countr  = await Countries.findOne({ where: {name: country} });
 			const formData = {
 				name: name,

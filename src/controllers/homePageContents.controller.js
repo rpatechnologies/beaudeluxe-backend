@@ -5,6 +5,26 @@ const db = require("../models");
 const HomePageContents = db.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
+
+const convertReqFilesToWebp = async (reqFiles, uploadDir) => {
+    if (!reqFiles) return;
+    if (Array.isArray(reqFiles)) {
+        for (let f of reqFiles) {
+            if (/\.(png|jpg|jpeg|avif|webp)$/i.test(f.originalname || f.filename)) {
+                f.filename = await processAndConvertImageToWebp(f, uploadDir);
+            }
+        }
+    } else if (typeof reqFiles === 'object') {
+        for (let key of Object.keys(reqFiles)) {
+            for (let f of reqFiles[key]) {
+                if (/\.(png|jpg|jpeg|avif|webp)$/i.test(f.originalname || f.filename)) {
+                    f.filename = await processAndConvertImageToWebp(f, uploadDir);
+                }
+            }
+        }
+    }
+};
 
 module.exports = {
 
@@ -33,6 +53,7 @@ module.exports = {
             { name: "home_banner_video", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { welcome_banner_button_one_title, welcome_banner_button_two_title, welcome_banner_button_two_link, screen_one_title, screen_one_shadow_title, screen_two_title, screen_two_shadow_title, screen_two_inner_title, screen_two_description, screen_two_image_old, screen_two_image_alt_tag, screen_three_title, screen_three_shadow_title, screen_four_title, screen_four_shadow_title, screen_four_image_old, screen_four_image_alt_tag, banner_screen_title, banner_screen_shadow_title, screen_faq_title, screen_faq_shadow_title, animation_content, home_banner_video_old } = req.body;
             const screen_two_image = req.files && req.files.screen_two_image ? req.files.screen_two_image[0].filename : screen_two_image_old;
             const home_banner_video = req.files && req.files.home_banner_video ? req.files.home_banner_video[0].filename : home_banner_video_old;
@@ -129,6 +150,7 @@ module.exports = {
             { name: "home_massage_image_2", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { home_massage_title, home_massage_intro, home_massage_right_paras, home_massage_image_1_old, home_massage_image_2_old, home_massage_image_1_alt_tag, home_massage_image_2_alt_tag } = req.body;
             const home_massage_image_1 = req.files && req.files.home_massage_image_1 ? req.files.home_massage_image_1[0].filename : home_massage_image_1_old;
             const home_massage_image_2 = req.files && req.files.home_massage_image_2 ? req.files.home_massage_image_2[0].filename : home_massage_image_2_old;
@@ -295,6 +317,7 @@ module.exports = {
             { name: "services_offered_main_image", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { services_offered_title, services_offered_intro, services_offered_main_image_old, services_offered_main_image_alt_tag, services_offered_qa1_title, services_offered_qa1_content, services_offered_qa2_title, services_offered_qa2_content } = req.body;
             const services_offered_main_image = req.files && req.files.services_offered_main_image ? req.files.services_offered_main_image[0].filename : services_offered_main_image_old;
 
@@ -348,6 +371,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { massage_types_title, massage_types_description } = req.body;
 
             const cardIndices = [].concat(req.body.card_index || []);
@@ -409,6 +433,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { health_benefits_title, health_benefits_description } = req.body;
 
             const cardIndices = [].concat(req.body.card_index || []);
@@ -472,6 +497,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { safety_privacy_title, safety_privacy_description } = req.body;
 
             const cardIndices = [].concat(req.body.card_index || []);
@@ -533,6 +559,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { booking_steps_title, booking_steps_description } = req.body;
 
             const cardIndices = [].concat(req.body.card_index || req.body['card_index[]'] || []);
@@ -658,6 +685,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { massage_legal_title, massage_legal_description, massage_legal_image_old } = req.body;
 
             const file = (req.files || []).find(f => f.fieldname === 'massage_legal_image');
@@ -716,6 +744,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { get_started_title, get_started_description, get_started_image_old } = req.body;
 
             const file = (req.files || []).find(f => f.fieldname === 'get_started_image');

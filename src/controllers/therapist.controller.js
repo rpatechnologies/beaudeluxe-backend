@@ -7,6 +7,7 @@ const HomePageContents = models.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Our Teams";
 const page = "our_teams";
 const pageUrl = "our-teams";
@@ -131,7 +132,10 @@ module.exports = {
         uploadMiddleware(req, res, async () => {
             const { id, name, designation, experience, image_old, altTag, specializations, certifications, order_number, status } = req.body;
 
-            const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
+            let image = image_old;
+            if (req.files && req.files.image && req.files.image[0]) {
+                image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/therapist/");
+            }
 
             const formData = {
                 name: name,

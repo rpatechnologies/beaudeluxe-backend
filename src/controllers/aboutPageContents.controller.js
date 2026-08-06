@@ -4,6 +4,26 @@ const db = require("../models");
 const HomePageContents = db.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
+
+const convertReqFilesToWebp = async (reqFiles, uploadDir) => {
+    if (!reqFiles) return;
+    if (Array.isArray(reqFiles)) {
+        for (let f of reqFiles) {
+            if (/\.(png|jpg|jpeg|avif|webp)$/i.test(f.originalname || f.filename)) {
+                f.filename = await processAndConvertImageToWebp(f, uploadDir);
+            }
+        }
+    } else if (typeof reqFiles === 'object') {
+        for (let key of Object.keys(reqFiles)) {
+            for (let f of reqFiles[key]) {
+                if (/\.(png|jpg|jpeg|avif|webp)$/i.test(f.originalname || f.filename)) {
+                    f.filename = await processAndConvertImageToWebp(f, uploadDir);
+                }
+            }
+        }
+    }
+};
 
 async function updateFields(requestArray) {
     for (let i = 0; i < requestArray.length; i++) {
@@ -45,6 +65,7 @@ module.exports = {
             { name: "about_story_image_3", maxCount: 1 }
         ]);
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { about_story_main_title, about_story_how_content, about_story_image_1_old, about_story_image_2_old, about_story_image_3_old } = req.body;
             const about_story_image_1 = req.files && req.files.about_story_image_1 ? req.files.about_story_image_1[0].filename : about_story_image_1_old;
             const about_story_image_2 = req.files && req.files.about_story_image_2 ? req.files.about_story_image_2[0].filename : about_story_image_2_old;
@@ -138,6 +159,7 @@ module.exports = {
         const uploadMiddleware = initUpload.any();
 
         uploadMiddleware(req, res, async () => {
+            await convertReqFilesToWebp(req.files, "./public/uploads/homepagecontents/");
             const { about_team_title, about_team_description } = req.body;
 
             const cardIndices = [].concat(req.body.card_index || []);

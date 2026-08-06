@@ -7,6 +7,7 @@ const pageModel = models.page;
 const fs = require("fs");
 const { Op } = require("sequelize");
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title 	= "CMS";
 const page  	= "cms";
 const pageUrl   = "cms";
@@ -153,7 +154,10 @@ module.exports = {
 
         // const {id,page_id, title, shadow_title, description, image_old, alt_tag, status, slug} = req.body;
         const {id, title, shadow_title, banner_heading, description, image_old, alt_tag, status, slug} = req.body;
-        const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
+        let image = image_old;
+        if (req.files && req.files.image && req.files.image[0]) {
+            image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/cms/");
+        }
 
         if(!image){
             req.flash("error", "Please Upload the required Images");

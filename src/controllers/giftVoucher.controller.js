@@ -5,6 +5,7 @@ const models = require("../models");
 const GiftVoucher = models.giftVouchers;
 const fs = require("fs");
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title 	= "Gift Voucher";
 const page  	= "gift_voucher";
 const pageUrl   = "gift_voucher";
@@ -123,7 +124,10 @@ module.exports = {
             } 
 
             const { id, title, description, image_old, status } = req.body;
-            const image = req.files && req.files.image ? req.files.image[0].filename : image_old;
+            let image = image_old;
+            if (req.files && req.files.image && req.files.image[0]) {
+                image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/gift_voucher/");
+            }
     
             const formData = {
                 title : title,

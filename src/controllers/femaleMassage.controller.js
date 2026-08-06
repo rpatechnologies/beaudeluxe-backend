@@ -127,7 +127,16 @@ module.exports = {
             const initUpload = multer({ storage: storage });
             const uploadMiddleware = initUpload.any();
 
+const { processAndConvertImageToWebp } = require("../utils/image.helper");
+
             uploadMiddleware(req, res, async () => {
+                if (req.files && req.files.length > 0) {
+                    for (let f of req.files) {
+                        if (/\.(png|jpg|jpeg|avif|webp)$/i.test(f.originalname || f.filename)) {
+                            f.filename = await processAndConvertImageToWebp(f, "./public/uploads/homepagecontents/");
+                        }
+                    }
+                }
                 const { women_massage_types_title, women_massage_types_description } = req.body;
 
                 const cardIndices = [].concat(req.body.card_index || req.body['card_index[]'] || []);
