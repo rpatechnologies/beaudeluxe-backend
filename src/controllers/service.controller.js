@@ -245,14 +245,15 @@ module.exports = {
 					if (images && images.length > 0) {
 						for (let j = 0; j < images.length; j++) {
 							const item = images[j];
+							const imgFilename = await processAndConvertImageToWebp(item, "./public/uploads/service/banners/");
 							var imgData = {}
 							if (orderOfImages.length > 0) {
 								imgData["service_id"] = id;
-								imgData["image"] = item.filename;
+								imgData["image"] = imgFilename;
 								imgData["order_no"] = 1;
 							} else {
 								imgData["service_id"] = id;
-								imgData["image"] = item.filename;
+								imgData["image"] = imgFilename;
 								imgData["order_no"] = 1;
 							}
 							await ServiceImage.create(imgData);
@@ -301,22 +302,17 @@ module.exports = {
 						if (images && images.length > 0) {
 							for (let j = 0; j < images.length; j++) {
 								const item = images[j];
+								const imgFilename = await processAndConvertImageToWebp(item, "./public/uploads/service/banners/");
 								var imgData = {}
 								if (orderOfImages.length > 0) {
 									imgData["service_id"] = record['id'];
-									imgData["image"] = item.filename;
+									imgData["image"] = imgFilename;
 									imgData["order_no"] = 1;
 								} else {
 									imgData["service_id"] = record['id'];
-									imgData["image"] = item.filename;
+									imgData["image"] = imgFilename;
 									imgData["order_no"] = 1;
 								}
-								// const imgData = {
-								// 	service_id:		id,
-								// 	image:			item.filename,
-								// 	// order_no:  1,
-								// 	order_no: 		request.orderOfImages[j]?request.orderOfImages[j]:1
-								// };
 								await ServiceImage.create(imgData);
 							}
 						}

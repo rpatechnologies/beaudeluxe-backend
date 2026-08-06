@@ -199,7 +199,10 @@ module.exports = {
                 therapist_founder_role
             } = req.body;
 
-            const therapist_founder_image = req.files && req.files.therapist_founder_image ? req.files.therapist_founder_image[0].filename : therapist_founder_image_old;
+            let therapist_founder_image = therapist_founder_image_old;
+            if (req.files && req.files.therapist_founder_image && req.files.therapist_founder_image[0]) {
+                therapist_founder_image = await processAndConvertImageToWebp(req.files.therapist_founder_image[0], "./public/uploads/homepagecontents/");
+            }
 
             let request = [];
             request.push({ key: "therapist_founder_title", value: therapist_founder_title });
