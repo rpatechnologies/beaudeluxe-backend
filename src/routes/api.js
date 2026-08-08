@@ -5,6 +5,7 @@ const homeController = require('../controllers/api/home.controller');
 const contactController = require('../controllers/api/contact.controller');
 const testimonialsController = require('../controllers/api/testimonials.controller');
 const serviceController = require('../controllers/api/service.controller');
+const googleReviewController = require('../controllers/api/googleReview.controller');
 const { files } = require('../middlewares/upload');
 
 // Common | Header and Footer
@@ -23,6 +24,7 @@ router.get('/contact_form_content', contactController.formContent);  // Submit F
 // var multer = require('multer');
 router.get('/get_a_quote_content', contactController.getAquoteContents);// Common | Testimonials
 router.get('/get_testimonials', testimonialsController.testimonials);
+router.get('/get_google_reviews', googleReviewController.getGoogleReviews);
 
 router.get('/site_info', homeController.info);
 router.get('/get_faq', homeController.faq);
