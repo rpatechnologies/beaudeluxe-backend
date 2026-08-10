@@ -25,8 +25,10 @@ router.get('/contact_form_content', contactController.formContent);  // Submit F
 router.get('/get_a_quote_content', contactController.getAquoteContents);// Common | Testimonials
 router.get('/get_testimonials', testimonialsController.testimonials);
 router.get('/get_google_reviews', googleReviewController.getGoogleReviews);
+
 router.get('/google_reviews', googleReviewController.getGoogleReviews);
-router.post('/sync_google_reviews', googleReviewController.syncGoogleReviews);
+
+
 
 router.get('/site_info', homeController.info);
 router.get('/get_faq', homeController.faq);

@@ -6,8 +6,8 @@ async function testAll() {
   const req1 = { query: { refresh: 'true' } };
   const res1 = {
     statusCode: 200,
-    status: function(code) { this.statusCode = code; return this; },
-    json: function(data) {
+    status: function (code) { this.statusCode = code; return this; },
+    json: function (data) {
       console.log("Status:", data.status, "| Total Reviews Returned:", data.data.reviews_count);
     }
   };
@@ -17,8 +17,8 @@ async function testAll() {
   const req2 = { query: { limit: '10' } };
   const res2 = {
     statusCode: 200,
-    status: function(code) { this.statusCode = code; return this; },
-    json: function(data) {
+    status: function (code) { this.statusCode = code; return this; },
+    json: function (data) {
       console.log("Status:", data.status, "| Reviews Returned:", data.data.reviews_count);
     }
   };
@@ -39,8 +39,8 @@ async function testAll() {
   };
   const res3 = {
     statusCode: 200,
-    status: function(code) { this.statusCode = code; return this; },
-    json: function(data) {
+    status: function (code) { this.statusCode = code; return this; },
+    json: function (data) {
       console.log("Sync Response:", data.message, "| New Total:", data.data ? data.data.total_reviews : 0);
     }
   };

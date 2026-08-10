@@ -30,6 +30,7 @@
   "scripts": {
     "dev": "nodemon --ext js,ejs index.js",
     "start": "node index.js",
+    "sync-reviews": "node src/scripts/sync_reviews.js",
     "test": "test"
   },
   "author": "RPA",
