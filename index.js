@@ -59,16 +59,27 @@ app.use('/', webRoutes);
 
 // app.use(cors(corsOptions));
 
-const cleanSpacesInObject = (obj) => {
+const cleanSpacesInObject = (obj, seen = new WeakSet()) => {
 	if (obj === null || obj === undefined) return obj;
+	if (typeof obj.toJSON === 'function' && typeof obj !== 'function') {
+		obj = obj.toJSON();
+	}
 	if (typeof obj === 'string') {
 		if (obj.includes('/uploads/') || obj.startsWith('http://') || obj.startsWith('https://')) {
 			return obj.replace(/\s+/g, '-').replace(/%20/g, '-');
 		}
 		return obj;
 	}
+	if (typeof obj !== 'object') {
+		return obj;
+	}
+	if (seen.has(obj)) {
+		return obj;
+	}
+	seen.add(obj);
+
 	if (Array.isArray(obj)) {
-		return obj.map(item => cleanSpacesInObject(item));
+		return obj.map(item => cleanSpacesInObject(item, seen));
 	}
 	if (typeof obj === 'object') {
 		const cleaned = {};
@@ -80,7 +91,7 @@ const cleanSpacesInObject = (obj) => {
 					val = val.replace(/\s+/g, '-').replace(/%20/g, '-');
 				}
 			} else if (typeof val === 'object' && val !== null) {
-				val = cleanSpacesInObject(val);
+				val = cleanSpacesInObject(val, seen);
 			}
 			cleaned[key] = val;
 		}

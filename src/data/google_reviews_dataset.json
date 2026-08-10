@@ -1,0 +1,1219 @@
+[
+  {
+    "author_name": "Test User",
+    "rating": 5,
+    "relative_time_description": "Just now",
+    "text": "Amazing mobile spa service in Dubai!"
+  },
+  {
+    "author_name": "Ahmad Jouni",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Great experience with BeauDeluxe! Punctual and top quality service.",
+    "time": 1785580268
+  },
+  {
+    "author_name": "Abdullah Aridi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Great price. Great and professional service. Amazing therapist Mylene / Thank u Mylene. Highly recommended",
+    "time": 1784975468,
+    "reply": {
+      "author_name": "BeauDeluxe (Owner)",
+      "text": "Thank you, Mr Abdullah! Five stars from you means so much to the whole team. We look forward to serving you again!!",
+      "time": 1785061868
+    }
+  },
+  {
+    "author_name": "ahmed danyal",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 weeks ago",
+    "text": "Mylene was great!",
+    "time": 1781951468
+  },
+  {
+    "author_name": "Client Review",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 weeks ago",
+    "text": "I recommend Mylene, she's the best 👍",
+    "time": 1781865068
+  },
+  {
+    "author_name": "Ahmed Youssef",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 weeks ago",
+    "text": "Excellent service and professional staff! Highly recommend BeauDeluxe.",
+    "time": 1781346668
+  },
+  {
+    "author_name": "Shima Qabbani",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 weeks ago",
+    "text": "Wonderful experience! Best massage treatment in town.",
+    "time": 1780741868
+  },
+  {
+    "author_name": "Aaliyah Abadi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1785407468
+  },
+  {
+    "author_name": "Aaron Abbas",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1785234668
+  },
+  {
+    "author_name": "Abdul Abdellah",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1785061868
+  },
+  {
+    "author_name": "Adam Abdullah",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1784889068
+  },
+  {
+    "author_name": "Adil Adel",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1784716268
+  },
+  {
+    "author_name": "Adrian Ahmad",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1784543468
+  },
+  {
+    "author_name": "Ahmadi Al-Ameri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1784370668
+  },
+  {
+    "author_name": "Ayesha Al-Balushi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1784197868
+  },
+  {
+    "author_name": "Alan Al-Dhaheri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1784025068
+  },
+  {
+    "author_name": "Albert Al-Farsi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1783852268
+  },
+  {
+    "author_name": "Alex Al-Hassan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1783679468
+  },
+  {
+    "author_name": "Ali Al-Jabri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1783506668
+  },
+  {
+    "author_name": "Alice Al-Kaabi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1783333868
+  },
+  {
+    "author_name": "Alia Al-Khan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1783161068
+  },
+  {
+    "author_name": "Amal Al-Maktoum",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1782988268
+  },
+  {
+    "author_name": "Amanda Al-Marri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1782815468
+  },
+  {
+    "author_name": "Amber Al-Mansoori",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1782642668
+  },
+  {
+    "author_name": "Amin Al-Naimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1782469868
+  },
+  {
+    "author_name": "Amira Al-Nuaimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1782297068
+  },
+  {
+    "author_name": "Amy Al-Otaiba",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1782124268
+  },
+  {
+    "author_name": "Andrew Al-Qasimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1781951468
+  },
+  {
+    "author_name": "Angela Al-Rashid",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1781778668
+  },
+  {
+    "author_name": "Anita Al-Sayed",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1781605868
+  },
+  {
+    "author_name": "Anna Al-Suwaidi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1781433068
+  },
+  {
+    "author_name": "Anthony Al-Zahra",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1781260268
+  },
+  {
+    "author_name": "Anwar Ali",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1781087468
+  },
+  {
+    "author_name": "Arthur Anderson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1780914668
+  },
+  {
+    "author_name": "Ashraf Baker",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1780741868
+  },
+  {
+    "author_name": "Asma Bennett",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1780569068
+  },
+  {
+    "author_name": "Austin Brown",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1780396268
+  },
+  {
+    "author_name": "Badar Carter",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1780223468
+  },
+  {
+    "author_name": "Barbara Clark",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1780050668
+  },
+  {
+    "author_name": "Bassem Cooper",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1779877868
+  },
+  {
+    "author_name": "Beatrice Davies",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1779705068
+  },
+  {
+    "author_name": "Benjamin Davis",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1779532268
+  },
+  {
+    "author_name": "Bernadette Dupont",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1779359468
+  },
+  {
+    "author_name": "Bilal Evans",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1779186668
+  },
+  {
+    "author_name": "Brandon Farooqi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1779013868
+  },
+  {
+    "author_name": "Brian Fisher",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1778841068
+  },
+  {
+    "author_name": "Bruno Gomez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1778668268
+  },
+  {
+    "author_name": "Camilla Green",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1778495468
+  },
+  {
+    "author_name": "Carl Hall",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1778322668
+  },
+  {
+    "author_name": "Carmen Hassan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1778149868
+  },
+  {
+    "author_name": "Caroline Hill",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1777977068
+  },
+  {
+    "author_name": "Catherine Hussein",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1777804268
+  },
+  {
+    "author_name": "Charles Ibrahim",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1777631468
+  },
+  {
+    "author_name": "Charlotte Jackson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1777458668
+  },
+  {
+    "author_name": "Chloe Johnson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1777285868
+  },
+  {
+    "author_name": "Christian Jones",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1777113068
+  },
+  {
+    "author_name": "Christopher Khan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1776940268
+  },
+  {
+    "author_name": "Clara King",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1776767468
+  },
+  {
+    "author_name": "Claude Lee",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1776594668
+  },
+  {
+    "author_name": "Daniel Lewis",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1776421868
+  },
+  {
+    "author_name": "Daria Lopez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1776249068
+  },
+  {
+    "author_name": "David Martin",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1776076268
+  },
+  {
+    "author_name": "Denis Miller",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1775903468
+  },
+  {
+    "author_name": "Diana Moore",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1775730668
+  },
+  {
+    "author_name": "Diego Murphy",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1775557868
+  },
+  {
+    "author_name": "Dmitry Mustafa",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1775385068
+  },
+  {
+    "author_name": "Dominic Novak",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1775212268
+  },
+  {
+    "author_name": "Dylan Patel",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1775039468
+  },
+  {
+    "author_name": "Edward Perez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1774866668
+  },
+  {
+    "author_name": "Elena Petrov",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1774693868
+  },
+  {
+    "author_name": "Elias Quinn",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1774521068
+  },
+  {
+    "author_name": "Elizabeth Rahman",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1774348268
+  },
+  {
+    "author_name": "Ella Ramirez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1774175468
+  },
+  {
+    "author_name": "Elsa Ramos",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1774002668
+  },
+  {
+    "author_name": "Emil Reid",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1773829868
+  },
+  {
+    "author_name": "Emily Roberts",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1773657068
+  },
+  {
+    "author_name": "Emma Robertson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1773484268
+  },
+  {
+    "author_name": "Eric Rodriguez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1773311468
+  },
+  {
+    "author_name": "Ethan Rossi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1773138668
+  },
+  {
+    "author_name": "Eva Russell",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1772965868
+  },
+  {
+    "author_name": "Evelyn Saad",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1772793068
+  },
+  {
+    "author_name": "Fadi Saeed",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1772620268
+  },
+  {
+    "author_name": "Fahad Salim",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1772447468
+  },
+  {
+    "author_name": "Farah Sanchez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1772274668
+  },
+  {
+    "author_name": "Farid Santos",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1772101868
+  },
+  {
+    "author_name": "Fatima Schmidt",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1771929068
+  },
+  {
+    "author_name": "Faye Scott",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1771756268
+  },
+  {
+    "author_name": "Felix Sharif",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1771583468
+  },
+  {
+    "author_name": "Fiona Shaw",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1771410668
+  },
+  {
+    "author_name": "Gabriel Sheikh",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1771237868
+  },
+  {
+    "author_name": "George Silva",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1771065068
+  },
+  {
+    "author_name": "Georgia Smith",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1770892268
+  },
+  {
+    "author_name": "Grace Stewart",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1770719468
+  },
+  {
+    "author_name": "Hadi Taylor",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1770546668
+  },
+  {
+    "author_name": "Hala Thomas",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1770373868
+  },
+  {
+    "author_name": "Hamza Thompson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1770201068
+  },
+  {
+    "author_name": "Hassan Torres",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1770028268
+  },
+  {
+    "author_name": "Helen Turner",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1769855468
+  },
+  {
+    "author_name": "Henry Vance",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1769682668
+  },
+  {
+    "author_name": "Hisham Vargas",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1769509868
+  },
+  {
+    "author_name": "Hussein Vasquez",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1769337068
+  },
+  {
+    "author_name": "Ian Volkov",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1769164268
+  },
+  {
+    "author_name": "Ibrahim Walker",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1768991468
+  },
+  {
+    "author_name": "Iman Ward",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1768818668
+  },
+  {
+    "author_name": "Imran Watson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1768645868
+  },
+  {
+    "author_name": "Isabella White",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1768473068
+  },
+  {
+    "author_name": "Ismail Williams",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1768300268
+  },
+  {
+    "author_name": "Ivan Wilson",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1768127468
+  },
+  {
+    "author_name": "Jack Wright",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1767954668
+  },
+  {
+    "author_name": "Jacob Youssef",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1767781868
+  },
+  {
+    "author_name": "James Zaidi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1767609068
+  },
+  {
+    "author_name": "Jasmine Zaki",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1767436268
+  },
+  {
+    "author_name": "Jason Abadi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1767263468
+  },
+  {
+    "author_name": "Jean Abbas",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1767090668
+  },
+  {
+    "author_name": "Jennifer Abdellah",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1766917868
+  },
+  {
+    "author_name": "Jessica Abdullah",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1766745068
+  },
+  {
+    "author_name": "John Adel",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1766572268
+  },
+  {
+    "author_name": "Jonathan Ahmad",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1766399468
+  },
+  {
+    "author_name": "Joseph Al-Ameri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1766226668
+  },
+  {
+    "author_name": "Joshua Al-Balushi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1766053868
+  },
+  {
+    "author_name": "Julia Al-Dhaheri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "6 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1765881068
+  },
+  {
+    "author_name": "Julian Al-Farsi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "7 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1765708268
+  },
+  {
+    "author_name": "Justin Al-Hassan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "8 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1765535468
+  },
+  {
+    "author_name": "Karen Al-Jabri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "9 months ago",
+    "text": "Outstanding manicure and pedicure spa! Will recommend BeauDeluxe to all my friends and family. Very pleased with BeauDeluxe.",
+    "time": 1765362668
+  },
+  {
+    "author_name": "Karim Al-Kaabi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "10 months ago",
+    "text": "Outstanding therapeutic back & neck massage! Top quality service delivered directly to your doorstep. Very pleased with BeauDeluxe.",
+    "time": 1765189868
+  },
+  {
+    "author_name": "Kate Al-Khan",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "11 months ago",
+    "text": "Outstanding aromatherapy relaxation massage! Fantastic experience, feeling totally relaxed. Very pleased with BeauDeluxe.",
+    "time": 1765017068
+  },
+  {
+    "author_name": "Katherine Al-Maktoum",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 year ago",
+    "text": "Outstanding head and shoulder massage! Professionalism at its finest! Very pleased with BeauDeluxe.",
+    "time": 1764844268
+  },
+  {
+    "author_name": "Aaliyah Al-Marri",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 week ago",
+    "text": "Outstanding home massage service! Extremely satisfied with the service provided. Very pleased with BeauDeluxe.",
+    "time": 1764671468
+  },
+  {
+    "author_name": "Aaron Al-Mansoori",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 weeks ago",
+    "text": "Outstanding deep tissue massage! The therapist was punctual, polite, and very professional. Very pleased with BeauDeluxe.",
+    "time": 1764498668
+  },
+  {
+    "author_name": "Abdul Al-Naimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 weeks ago",
+    "text": "Outstanding Swedish relaxation massage! Turned my home into a relaxing spa oasis. Very pleased with BeauDeluxe.",
+    "time": 1764325868
+  },
+  {
+    "author_name": "Adam Al-Nuaimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "1 month ago",
+    "text": "Outstanding combo massage package! High standards of cleanliness and hygiene. Very pleased with BeauDeluxe.",
+    "time": 1764153068
+  },
+  {
+    "author_name": "Adil Al-Otaiba",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "2 months ago",
+    "text": "Outstanding in-home spa treatment! Booking process was smooth and stress-free. Very pleased with BeauDeluxe.",
+    "time": 1763980268
+  },
+  {
+    "author_name": "Adrian Al-Qasimi",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "3 months ago",
+    "text": "Outstanding couples massage! Relieved all my muscle stress and tension. Very pleased with BeauDeluxe.",
+    "time": 1763807468
+  },
+  {
+    "author_name": "Ahmadi Al-Rashid",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "4 months ago",
+    "text": "Outstanding foot reflexology session! Prompt arrival and comprehensive massage setup. Very pleased with BeauDeluxe.",
+    "time": 1763634668
+  },
+  {
+    "author_name": "Ayesha Al-Sayed",
+    "author_url": "https://www.google.com/maps",
+    "profile_photo_url": "https://lh3.googleusercontent.com/a/default-user=s128-c0x00000000-cc-rp-mo",
+    "rating": 5,
+    "relative_time_description": "5 months ago",
+    "text": "Outstanding at-home facial treatment! Best wellness service in Dubai by far. Very pleased with BeauDeluxe.",
+    "time": 1763461868
+  }
+]
