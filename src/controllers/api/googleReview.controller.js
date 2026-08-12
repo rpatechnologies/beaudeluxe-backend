@@ -319,7 +319,7 @@ module.exports = {
           name: settings.site_name || process.env.SITE_NAME || "BeauDeluxe",
           rating: 5.0,
           user_ratings_total: merged.length,
-          url: "https://www.google.com/maps",
+          url: "https://maps.app.goo.gl/HpG9p4nmU1HUhaoMA",
           reviews: merged,
           source: resultData?.source ? `${resultData.source}+dataset` : "direct_google_reviews_merged"
         };

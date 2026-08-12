@@ -21,6 +21,7 @@ const {
   sendMultipleEmail,
 } = require("../../services/email.service");
 const googleSheetContoller = require("./googleSheet.contoller");
+const { verifyCaptcha } = require("../../services/recaptcha.service");
 
 module.exports = {
   contact: async function (req, res) {
@@ -371,6 +372,31 @@ module.exports = {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(422).json({ status: false, message: errors.array()[0].msg });
+      }
+
+      const captchaToken =
+        req.body["g-recaptcha-response"] ||
+        req.body.captcha_token ||
+        req.body.recaptcha_token ||
+        req.body.captchaToken ||
+        req.body.recaptcha ||
+        req.body.captcha ||
+        req.headers["x-recaptcha-token"] ||
+        req.headers["g-recaptcha-response"];
+
+      if (!captchaToken) {
+        return res.status(422).json({
+          status: false,
+          message: "Captcha verification failed. Captcha token is required.",
+        });
+      }
+
+      const captchaResult = await verifyCaptcha(captchaToken, req.ip);
+      if (!captchaResult.success) {
+        return res.status(422).json({
+          status: false,
+          message: captchaResult.message || "Captcha verification failed.",
+        });
       }
 
       const row = await TimeSlotValues.findOne({ where: { id: slot }, attributes: ['start_time', 'end_time'] });
