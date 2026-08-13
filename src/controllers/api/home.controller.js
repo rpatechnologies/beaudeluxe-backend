@@ -1465,6 +1465,9 @@ module.exports = {
 
   getAboutPageSections: async function (req, res) {
     const cacheKey = "about_page_sections_cache";
+    if (req.query && (req.query.clearCache || req.query.refresh)) {
+      cache.del(cacheKey);
+    }
     const cachedData = cache.get(cacheKey);
 
     if (cachedData) {
@@ -1559,6 +1562,7 @@ module.exports = {
 
       // 4. Team Section
       let teamMembers = [];
+      let fullTeams = [];
       try {
         const Therapist = models.therapist || require("../../models").therapist;
         const therapistsList = await Therapist.findAll({
@@ -1572,6 +1576,30 @@ module.exports = {
           role: item.designation || "",
           image: item.image ? `${siteUrl}/uploads/therapist/${item.image}` : null
         }));
+
+        fullTeams = therapistsList.map(item => {
+          const specializationsArray = (item.specializations || '')
+            .split(/,|\n/)
+            .map(s => s.trim())
+            .filter(Boolean);
+
+          const certificationsArray = (item.certifications || '')
+            .split('\n')
+            .map(c => c.trim())
+            .filter(Boolean);
+
+          return {
+            id: item.id,
+            name: item.name,
+            designation: item.designation,
+            experience: item.experience,
+            image: item.image ? `${siteUrl}/uploads/therapist/${item.image}` : null,
+            altTag: item.altTag || item.name,
+            specializations: specializationsArray,
+            certifications: certificationsArray,
+            order_number: item.order_number
+          };
+        });
       } catch (e) {
         console.error("Error fetching therapists for about page:", e);
       }
@@ -1635,6 +1663,7 @@ module.exports = {
         missionSection,
         numbersSection,
         teamSection,
+        teams: fullTeams,
         contactSection,
         faqs
       };
