@@ -53,6 +53,11 @@
                                                                 required />
                                                         </div>
                                                         <div class="form-group">
+                                                            <label class="label" for="service_title">Service Title</label>
+                                                            <input type="text" class="form-control" id="service_title"
+                                                                name="service_title" value="<%- row ? row.service_title : '' %>" />
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="label" for="image">Image *</label>
                                                             <% if(row && row.image) { %>
                                                                 <input type="file" class="form-control" id="image"
@@ -159,6 +164,10 @@
                                                         <td><%- row.title %></td>
                                                     </tr>
                                                     <tr>
+                                                        <th style="width: 15%">Service Title</th>
+                                                        <td><%- row.service_title %></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="width: 15%">Image</th>
                                                         <td>
                                                             <a href="<%- siteUrl +'/uploads/banners/'+ row.image %>"
@@ -236,6 +245,7 @@
                                                             <th width="5%">#</th>
                                                             <th>Page</th>
                                                             <th>Title</th>
+                                                            <th>Service Title</th>
                                                             <th>Description</th>
                                                             <th width="5%">Status</th>
                                                             <th width="15%"
@@ -249,6 +259,7 @@
                                                                 <td><%- index + 1 %></td>
                                                                 <td><%- data.page ? data.page.name : '' %></td>
                                                                 <td><%- data.title %></td>
+                                                                <td><%- data.service_title %></td>
                                                                 <td><%- data.description %></td>
                                                                 <td>
                                                                     <% if(data.status==1) { %>

@@ -136,7 +136,7 @@ module.exports = {
 
       const banners = await Banner.findAll({
         where: { status: 1, page_id: 3 },
-        attributes: ['id', 'page_id', 'title', 'image', 'altTagImage', 'image_mob', 'altTagImageMob', 'description', 'status', 'order_no'],
+        attributes: ['id', 'page_id', 'title', 'service_title', 'image', 'altTagImage', 'image_mob', 'altTagImageMob', 'description', 'status', 'order_no'],
         order: [['order_no', 'ASC']]
       });
 
@@ -212,6 +212,7 @@ module.exports = {
         arrayBanners = {
           id: itemBanner.id,
           title: itemBanner.title,
+          service_title: itemBanner.service_title,
           image: `${siteUrl}/uploads/banners/${itemBanner.image}`,
           altTagImage: itemBanner.altTagImage,
           mob_image: `${siteUrl}/uploads/banners/${itemBanner.image_mob}`,
@@ -321,7 +322,7 @@ module.exports = {
 
       const banners = page ? await Banner.findOne({
         where: { status: 1, page_id: page.id },
-        attributes: ["id", "title", "description", "image", "image_mob"],
+        attributes: ["id", "title", "service_title", "description", "image", "image_mob"],
       }) : null;
 
       let bannerData = null;

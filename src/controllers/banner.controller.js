@@ -142,7 +142,7 @@ module.exports = {
 				// 	return;
 				// }
 
-				const { id, page_id, title, status, description, image_old, altTagImage, image_mob_old, altTagImageMob } = req.body;
+				const { id, page_id, title, service_title, status, description, image_old, altTagImage, image_mob_old, altTagImageMob } = req.body;
 				let image = image_old;
 				if (req.files && req.files.image && req.files.image[0]) {
 					image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/banners/");
@@ -155,6 +155,7 @@ module.exports = {
 				const formData = {
 					page_id: page_id,
 					title: title,
+					service_title: service_title,
 					image: image,
 					altTagImage: altTagImage,
 					image_mob: imageMob,

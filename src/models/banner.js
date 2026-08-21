@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
         title: {
             type: Sequelize.STRING
         },
+        service_title: {
+            type: Sequelize.STRING
+        },
         image: {
             type: Sequelize.STRING
         },

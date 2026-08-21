@@ -281,6 +281,7 @@ module.exports = {
           "id",
           "page_id",
           "title",
+          "service_title",
           "image",
           "altTagImage",
           "image_mob",
@@ -312,6 +313,7 @@ module.exports = {
         arrayBanners = {
           id: itemBanner.id,
           title: itemBanner.title,
+          service_title: itemBanner.service_title,
           image: `${siteUrl}/uploads/banners/${itemBanner.image}`,
           altTagImage: itemBanner.altTagImage,
           mob_image: `${siteUrl}/uploads/banners/${itemBanner.image_mob}`,
@@ -501,6 +503,7 @@ module.exports = {
         attributes: [
           "id",
           "title",
+          "service_title",
           "image",
           "altTagImage",
           "image_mob",
@@ -511,6 +514,7 @@ module.exports = {
       const response = banner ? {
         id: banner.id,
         title: banner.title,
+        service_title: banner.service_title,
         image: banner.image ? `${siteUrl}/uploads/banners/${banner.image}` : null,
         altTagImage: banner.altTagImage,
         mob_image: banner.image_mob ? `${siteUrl}/uploads/banners/${banner.image_mob}` : null,
@@ -574,6 +578,7 @@ module.exports = {
             page_id: bannerRecord.page_id,
             page_name: bannerRecord.page ? bannerRecord.page.name : null,
             title: bannerRecord.title,
+            service_title: bannerRecord.service_title,
             image: bannerRecord.image ? `${siteUrl}/uploads/banners/${bannerRecord.image}` : null,
             altTagImage: bannerRecord.altTagImage || null,
             mob_image: bannerRecord.image_mob ? `${siteUrl}/uploads/banners/${bannerRecord.image_mob}` : null,
