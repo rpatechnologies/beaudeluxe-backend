@@ -306,6 +306,18 @@ module.exports = {
           description: cardDesc,
           image: cardImg
         };
+        plainService.image = plainService.image
+          ? (plainService.image.startsWith("http") ? plainService.image : `${siteUrl}/uploads/service/${plainService.image}`)
+          : null;
+        plainService.logo = plainService.logo
+          ? (plainService.logo.startsWith("http") ? plainService.logo : `${siteUrl}/uploads/service/${plainService.logo}`)
+          : null;
+        plainService.banner = plainService.banner
+          ? (plainService.banner.startsWith("http") ? plainService.banner : `${siteUrl}/uploads/service/banners/${plainService.banner}`)
+          : null;
+        plainService.banner_mob = plainService.banner_mob
+          ? (plainService.banner_mob.startsWith("http") ? plainService.banner_mob : `${siteUrl}/uploads/service/banners/${plainService.banner_mob}`)
+          : null;
         plainService.button = cardTag;
         plainService.card = cardData;
         delete plainService.card_tag;
