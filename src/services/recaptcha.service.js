@@ -19,7 +19,7 @@ const verifyCaptcha = async (token, remoteIp = null, secretKey = null) => {
     const secret =
       secretKey ||
       process.env.RECAPTCHA_SECRET_KEY ||
-      "6LeojYAtAAAAACR1UpkE1tw2TM6lR4C-QJ4OcDwF";
+      "6LeMXZYtAAAAAIMoT0ve7oHo39n7twmxnwPNHxga";
 
     const params = new URLSearchParams();
     params.append("secret", secret);
