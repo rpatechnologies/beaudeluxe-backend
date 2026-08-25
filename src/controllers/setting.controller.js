@@ -82,7 +82,10 @@ module.exports = {
             {
                 const data = request[i];
                 const dataObj = { value: data.value };
-                await Setting.update(dataObj, {where: {field: data.key}});
+                const [affectedRows] = await Setting.update(dataObj, {where: {field: data.key}});
+                if (affectedRows === 0) {
+                    await Setting.create({ field: data.key, value: data.value });
+                }
             }
 
             await req.flash("success", "General settings updated successfully.");
@@ -103,7 +106,10 @@ module.exports = {
         {
             const data = request[i];
             const dataObj = { value: data.value };
-            await Setting.update(dataObj, {where: {field: data.key}});
+            const [affectedRows] = await Setting.update(dataObj, {where: {field: data.key}});
+            if (affectedRows === 0) {
+                await Setting.create({ field: data.key, value: data.value });
+            }
         }
 
         await req.flash("success", "SMTP settings updated successfully.");

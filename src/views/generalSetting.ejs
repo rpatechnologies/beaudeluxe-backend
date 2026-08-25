@@ -70,12 +70,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="label" for="favicon">Favicon</label>
-                                        <input type="file" class="form-control" id="favicon" name="favicon" value="<%- data.favicon %>"/>
-                                        <input type="hidden" id="favicon_old" name="favicon_old" value="<%- data.favicon %>"/>
+                                        <input type="file" class="form-control" id="favicon" name="favicon" value="<%- data && data.favicon ? data.favicon : '' %>"/>
+                                        <input type="hidden" id="favicon_old" name="favicon_old" value="<%- data && data.favicon ? data.favicon : '' %>"/>
                                         <span class="help-block text-danger"><b>Recommend Size : 35x35 PX.</b></span><br>
+                                        <% if (data && data.favicon) { %>
                                         <a href="<%- siteUrl +'/uploads/info/'+ data.favicon %>" target="_blank">
                                             <img class="img-thumbnail" src="<%- siteUrl +'/uploads/info/'+ data.favicon %>"/>
                                         </a>
+                                        <% } %>
                                     </div>
                                     <div class="form-group">
                                         <label class="label" for="altTagFavicon">Alt Tag Favicon</label>

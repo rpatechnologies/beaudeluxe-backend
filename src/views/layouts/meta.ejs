@@ -9,8 +9,20 @@
 <title>
     <%= metaTitle %>
 </title>
-<meta name="description" content="">
-<link rel="icon" type="image/x-icon" href="<%= siteUrl %>/uploads/info/1786104589569-Favicon.ico">
+<% 
+  let currentFavicon = '1786104589569-Favicon.ico';
+  if (typeof favicon !== 'undefined' && favicon) {
+    currentFavicon = favicon;
+  } else if (typeof settings !== 'undefined' && settings && settings.favicon) {
+    currentFavicon = settings.favicon;
+  } else if (typeof data !== 'undefined' && data && data.favicon) {
+    currentFavicon = data.favicon;
+  }
+  let faviconUrl = (currentFavicon.startsWith('http://') || currentFavicon.startsWith('https://') || currentFavicon.startsWith('/')) 
+    ? currentFavicon 
+    : siteUrl + '/uploads/info/' + currentFavicon;
+%>
+<link rel="icon" href="<%= faviconUrl %>">
 <link href="<%= siteUrl %>/main.d810cf0ae7f39f28f336.css" rel="stylesheet">
 <style>
     .app-header__logo .logo-src {

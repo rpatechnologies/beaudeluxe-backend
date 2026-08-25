@@ -38,10 +38,22 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+const { settingData } = require('./src/utils/global.helper');
+
 app.use(flash());
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
+	res.locals.siteUrl = global.siteUrl;
+	try {
+		const settings = await settingData();
+		res.locals.settings = settings;
+		res.locals.favicon = (settings && settings.favicon) ? settings.favicon : '1786104589569-Favicon.ico';
+	} catch (err) {
+		console.error("Middleware settings fetch error:", err);
+		res.locals.settings = {};
+		res.locals.favicon = '1786104589569-Favicon.ico';
+	}
 	next();
 });
 
