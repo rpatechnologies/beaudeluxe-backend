@@ -16,7 +16,7 @@ const metaTitle = siteName + " | Service";
 
 const list = async (req, res) => {
 	var action = req.query.action;
-	var rows = await Service.findAll({ where: {}, order: [['id', 'DESC']], attributes: ['id', 'title', 'short_description', 'heading', 'image', 'altTag', 'logo', 'altTagLogo', 'updatedAt', 'status', 'show_in_menu', 'altTagBanner', 'show_on_home', 'altTagBannerMob', 'slug'] });
+	var rows = await Service.findAll({ where: {}, order: [['id', 'DESC']] });
 	res.render("service", {
 		title: title + "s",
 		page: page,
@@ -176,7 +176,7 @@ module.exports = {
 				}
 
 				const request = req.body;
-				const { id, title, short_description, heading, order_number, description, image_old, altTag, logo_old, altTagLogo, sub_services_description, details_heading, meta_title, meta_description, meta_keywords, status, banner_old, altTagBanner, banner_mob_old, altTagBannerMob, show_in_menu, show_on_home, card_tag, card_title, card_description, card_image_old } = req.body;
+				const { id, title, service_title, text_color, short_description, heading, order_number, description, image_old, altTag, logo_old, altTagLogo, sub_services_description, details_heading, meta_title, meta_description, meta_keywords, status, banner_old, altTagBanner, banner_mob_old, altTagBannerMob, show_in_menu, show_on_home, card_tag, card_title, card_description, card_image_old } = req.body;
 				let image = image_old;
 				if (req.files && req.files.image && req.files.image[0]) {
 					image = await processAndConvertImageToWebp(req.files.image[0], "./public/uploads/service/");
@@ -204,6 +204,8 @@ module.exports = {
 
 				const formData = {
 					title: title,
+					service_title: service_title,
+					text_color: text_color,
 					short_description: short_description,
 					heading: heading,
 					description: description,

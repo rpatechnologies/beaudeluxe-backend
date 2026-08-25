@@ -44,6 +44,25 @@
                                                                 required />
                                                         </div>
                                                         <div class="form-group">
+                                                            <label class="label" for="service_title">Service Title</label>
+                                                            <input type="text" class="form-control" id="service_title"
+                                                                name="service_title" value="<%- row ? (row.service_title || '') : '' %>"
+                                                                placeholder="e.g. Hair Studio or Nail Care & Art" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="text_color">Text Color</label>
+                                                            <div class="input-group">
+                                                                <input type="color" class="form-control col-md-2" id="text_color_picker"
+                                                                    value="<%- row && row.text_color ? row.text_color : '#ffffff' %>"
+                                                                    style="height: 38px; padding: 2px 6px; cursor: pointer;"
+                                                                    onchange="document.getElementById('text_color').value = this.value">
+                                                                <input type="text" class="form-control" id="text_color"
+                                                                    name="text_color" value="<%- row ? (row.text_color || '') : '' %>"
+                                                                    placeholder="e.g. #ffffff or #000000"
+                                                                    onchange="document.getElementById('text_color_picker').value = this.value" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="label" for="description">Description *</label>
                                                             <textarea class="form-control joeditor" id="description"
                                                                 name="description"

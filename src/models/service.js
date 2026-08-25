@@ -80,6 +80,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         card_image: {
             type: Sequelize.STRING
+        },
+        service_title: {
+            type: Sequelize.STRING
+        },
+        text_color: {
+            type: Sequelize.STRING
         }
     }, 
     {
