@@ -39,9 +39,9 @@
                                                         <input type="hidden" name="id" value="<%- row ? row.id : '' %>">
                                                         <div class="form-group">
                                                             <label class="label" for="title">Title *</label>
-                                                            <input type="text" class="form-control" id="title"
-                                                                name="title" value="<%- row ? row.title : '' %>"
-                                                                required />
+                                                            <textarea class="form-control joeditor" id="title"
+                                                                name="title"
+                                                                required><%- row ? row.title : '' %></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="description">Description *</label>
@@ -117,10 +117,9 @@
                                                                 <div class="form-group">
                                                                     <label class="label" for="card_tag">Card Tag /
                                                                         Category Title</label>
-                                                                    <input type="text" class="form-control"
+                                                                    <textarea class="form-control joeditor"
                                                                         id="card_tag" name="card_tag"
-                                                                        value="<%- row ? (row.card_tag || '') : '' %>"
-                                                                        placeholder="e.g. RELAXATION THERAPY" />
+                                                                        placeholder="e.g. RELAXATION THERAPY"><%- row ? (row.card_tag || '') : '' %></textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="label" for="card_title">Card

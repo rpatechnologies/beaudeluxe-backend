@@ -109,9 +109,9 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="description">Description*</label>
-                                                            <input type="text" class="form-control joeditor"
+                                                            <textarea class="form-control joeditor"
                                                                 id="description" name="description"
-                                                                value="<%= row ? row.description : '' %>" />
+                                                                rows="3"><%- row ? row.description : '' %></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="order_no">Order Number*</label>
