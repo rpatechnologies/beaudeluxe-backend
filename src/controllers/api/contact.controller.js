@@ -502,7 +502,7 @@ module.exports = {
 
       await formAppointment.update({ amount }, { where: { id: id } });
       await sendEmail(email, "CONTACT_ENQ_USER", null, object);
-      // await sendEmail("info@beaudeluxe.com", "CONTACT_ENQ_ADMIN", null, object);
+      await sendEmail(email, "CONTACT_ENQ_ADMIN", null, object);
       return res.status(200).json({
         status: true,
         message: "Form Submitted successfully.",
