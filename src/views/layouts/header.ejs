@@ -42,62 +42,53 @@
 							font-size: 15px;">
 								<i class="metismenu-icon pe-7s-refresh"></i>
 							</a>
-							<% let currentFavicon='1787645989739-logo-1.webp' ; if (typeof favicon !=='undefined' &&
-								favicon) { currentFavicon=favicon; } else if (typeof settings !=='undefined' && settings
-								&& settings.favicon) { currentFavicon=settings.favicon; } else if (typeof data
-								!=='undefined' && data && data.favicon) { currentFavicon=data.favicon; } let
-								faviconUrl=(currentFavicon.startsWith('http://') ||
-								currentFavicon.startsWith('https://') || currentFavicon.startsWith('/')) ?
-								currentFavicon : siteUrl + '/uploads/info/' + currentFavicon; %>
-								<div class="btn-group">
-									<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-										class="p-0 btn">
-										<img width="42" class="rounded-circle" href="<%= faviconUrl %>"
-											alt="icon custom" />
-										<i class="fa fa-angle-down ml-2 opacity-8"></i>
-									</a>
-									<div tabindex="-1" role="menu" aria-hidden="true"
-										class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
-										<div class="dropdown-menu-header">
-											<div class="dropdown-menu-header-inner bg-info">
-												<div class="menu-header-image opacity-2"
-													style="background-image: url('assets/images/dropdown-header/city3.jpg');">
-												</div>
-												<div class="menu-header-content text-left">
-													<div class="widget-content p-0">
-														<div class="widget-content-wrapper">
-															<div class="widget-content-left mr-3">
-																<img width="42" class="rounded-circle"
-																	src="<%= siteUrl %>/assets/images/logo.png" alt />
-															</div>
-															<div class="widget-content-left">
-																<div class="widget-heading">Admin</div>
-																<div class="widget-subheading opacity-8">Beaudeluxe
-																</div>
-															</div>
-															<div class="widget-content-right mr-2">
-																<a href="<%= siteUrl %>/logout"
-																	class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</a>
-															</div>
+							<div class="btn-group">
+								<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn d-flex align-items-center">
+									<img style="max-height: 42px; max-width: 120px; object-fit: contain;" class="rounded" src="<%= (typeof settings !== 'undefined' && settings && settings.logo) ? (siteUrl + '/uploads/info/' + settings.logo) : (siteUrl + '/assets/images/logo.png') %>"
+										alt="<%= (typeof settings !== 'undefined' && settings && settings.altTagHeaderLogo) ? settings.altTagHeaderLogo : 'Logo' %>" />
+									<i class="fa fa-angle-down ml-2 opacity-8"></i>
+								</a>
+								<div tabindex="-1" role="menu" aria-hidden="true"
+									class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
+									<div class="dropdown-menu-header">
+										<div class="dropdown-menu-header-inner bg-info">
+											<div class="menu-header-image opacity-2"
+												style="background-image: url('assets/images/dropdown-header/city3.jpg');">
+											</div>
+											<div class="menu-header-content text-left">
+												<div class="widget-content p-0">
+													<div class="widget-content-wrapper">
+														<div class="widget-content-left mr-3">
+															<img style="max-height: 42px; max-width: 120px; object-fit: contain;" class="rounded"
+																src="<%= (typeof settings !== 'undefined' && settings && settings.logo) ? (siteUrl + '/uploads/info/' + settings.logo) : (siteUrl + '/assets/images/logo.png') %>" alt="<%= (typeof settings !== 'undefined' && settings && settings.altTagHeaderLogo) ? settings.altTagHeaderLogo : 'Logo' %>" />
+														</div>
+														<div class="widget-content-left">
+															<div class="widget-heading">Admin</div>
+															<div class="widget-subheading opacity-8">Beaudeluxe</div>
+														</div>
+														<div class="widget-content-right mr-2">
+															<a href="<%= siteUrl %>/logout"
+																class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</a>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="scroll-area-xs" style="height: 150px;">
-											<div class="scrollbar-container ps">
-												<ul class="nav flex-column">
-													<!-- <li class="nav-item-header nav-item">Activity</li> -->
-													<li class="nav-item-header nav-item">My Account</li>
-													<li class="nav-item"><a href="<%= siteUrl %>/profile"
-															class="nav-link">My Profile</a></li>
-													<li class="nav-item"><a href="<%= siteUrl %>/password"
-															class="nav-link">Change Password</a></li>
-												</ul>
-											</div>
+									</div>
+									<div class="scroll-area-xs" style="height: 150px;">
+										<div class="scrollbar-container ps">
+											<ul class="nav flex-column">
+												<!-- <li class="nav-item-header nav-item">Activity</li> -->
+												<li class="nav-item-header nav-item">My Account</li>
+												<li class="nav-item"><a href="<%= siteUrl %>/profile"
+														class="nav-link">My Profile</a></li>
+												<li class="nav-item"><a href="<%= siteUrl %>/password"
+														class="nav-link">Change Password</a></li>
+											</ul>
 										</div>
 									</div>
 								</div>
+							</div>
 						</div>
 						<div class="widget-content-left ml-3 header-user-info">
 							<div class="widget-heading">Admin</div>
