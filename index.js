@@ -112,8 +112,9 @@ const cleanSpacesInObject = (obj, seen = new WeakSet()) => {
 	return obj;
 };
 
+const apiSecurity = require('./src/middlewares/apiSecurity');
 const apiRoutes = require('./src/routes/api');
-app.use('/api', (req, res, next) => {
+app.use('/api', apiSecurity, (req, res, next) => {
 	const originalJson = res.json;
 	res.json = function (body) {
 		if (body && typeof body === 'object') {
