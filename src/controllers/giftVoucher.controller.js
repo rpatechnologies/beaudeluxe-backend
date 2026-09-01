@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const GiftVoucher = models.giftVouchers;
 const fs = require("fs");
 
@@ -67,6 +68,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId = req.query.id;
     await GiftVoucher.destroy({ where: { id: getId } });
+    triggerRevalidate(["meta:gift-vouchers"], ["/giftvouchers"]);
     await req.flash("success", "Gift Voucher deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -152,6 +154,7 @@ module.exports = {
                     await req.flash("success", "GiftVoucher created successfully.");
                 }
             }
+            triggerRevalidate(["meta:gift-vouchers"], ["/giftvouchers"]);
             res.redirect(siteUrl + "/" + pageUrl);
         });
     },

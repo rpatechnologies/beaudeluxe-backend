@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const models = require("../models");
+const { revalidateAll } = require("../utils/revalidate.helper");
 const menu = models.menu;
 
 const title 	= "Menu";
@@ -64,6 +65,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId  = req.query.id;
 	await menu.destroy({ where: {id: getId}});
+	revalidateAll();
 	await req.flash("success", "Menu deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -121,6 +123,7 @@ module.exports = {
             await menu.create(formData);
             await req.flash("success", "Menu created successfully.");
         }
+        revalidateAll();
         res.redirect(siteUrl + "/" + pageUrl);
 	},
 };

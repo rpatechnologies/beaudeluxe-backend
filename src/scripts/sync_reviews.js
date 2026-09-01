@@ -87,6 +87,12 @@ async function syncGoogleReviewsScript() {
 
     fs.writeFileSync(datasetPath, JSON.stringify(existing, null, 2));
     console.log(`=== SYNC COMPLETE! Total reviews in dataset: ${existing.length} ===`);
+    try {
+      const { triggerRevalidate } = require('../utils/revalidate.helper');
+      await triggerRevalidate(["google-reviews"], ["/testimonial", "/"]);
+    } catch (err) {
+      console.error('Revalidation trigger error in sync_reviews:', err.message);
+    }
   } else {
     console.log('No new reviews fetched. Please ensure Google API credentials or Outscraper key are configured in .env');
   }

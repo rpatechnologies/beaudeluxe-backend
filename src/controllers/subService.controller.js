@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const Service = models.service;
 const SubService = models.subServices;
 const SubServicePrice = models.subServicePrice;
@@ -144,7 +145,8 @@ const destroy = async (req, res) => {
 
     await SubServicePrice.destroy({ where: { subservice_id: getId } });
     await SubService.destroy({ where: { id: getId } });
-
+    cache.clear();
+    triggerRevalidate(["all-services", "meta:services"], ["/services"]);
     await req.flash("success", "Sub Service deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
   } catch (error) {
@@ -316,6 +318,7 @@ module.exports = {
       }
 
       cache.clear();
+      triggerRevalidate(["all-services", "meta:services"], ["/services"]);
       res.redirect(siteUrl + "/" + pageUrl);
     });
   },

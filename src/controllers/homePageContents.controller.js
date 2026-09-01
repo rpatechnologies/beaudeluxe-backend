@@ -5,6 +5,7 @@ const db = require("../models");
 const HomePageContents = db.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
 
 const convertReqFilesToWebp = async (reqFiles, uploadDir) => {
@@ -91,6 +92,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             request.push({ key: "welcome_banner_button_one_title", value: welcome_banner_button_one_title });
             request.push({ key: "welcome_banner_button_two_title", value: welcome_banner_button_two_title });
             request.push({ key: "welcome_banner_button_two_link", value: welcome_banner_button_two_link });
@@ -177,6 +179,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Home Massage updated successfully.");
             res.redirect(siteUrl + "/home_massage");
         });
@@ -289,6 +292,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Why Choose updated successfully.");
             res.redirect(siteUrl + "/why_choose");
         });
@@ -344,6 +348,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Services Offered updated successfully.");
             res.redirect(siteUrl + "/services_offered");
         });
@@ -406,6 +411,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Massage Types updated successfully.");
             res.redirect(siteUrl + "/massage_types");
         });
@@ -470,6 +476,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Health Benefits updated successfully.");
             res.redirect(siteUrl + "/health_benefits");
         });
@@ -532,6 +539,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Safety & Privacy updated successfully.");
             res.redirect(siteUrl + "/safety_privacy");
         });
@@ -596,6 +604,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "How to Book updated successfully.");
             res.redirect(siteUrl + "/booking_steps");
         });
@@ -622,6 +631,7 @@ module.exports = {
         }
 
         cache.clear();
+        triggerRevalidate(["home-sections", "meta:home"], ["/"]);
         await req.flash("success", "Massage Cost updated successfully.");
         res.redirect(siteUrl + "/massage_cost");
     },
@@ -659,6 +669,7 @@ module.exports = {
         }
 
         cache.clear();
+        triggerRevalidate(["home-sections", "meta:home"], ["/"]);
         await req.flash("success", "Areas Covered updated successfully.");
         res.redirect(siteUrl + "/areas_covered");
     },
@@ -717,6 +728,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Massage Legal updated successfully.");
             res.redirect(siteUrl + "/massage_legal");
         });
@@ -762,6 +774,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
             await req.flash("success", "Get Started updated successfully.");
             res.redirect(siteUrl + "/get_started");
         });

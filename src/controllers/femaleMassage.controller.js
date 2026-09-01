@@ -3,6 +3,7 @@ const HomePageContents = db.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
 const multer = require("multer");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const fs = require("fs");
 
 const title = "Female Massage Cost";
@@ -83,6 +84,7 @@ module.exports = {
             await saveField("women_areas_covered_cards", JSON.stringify(cardsArray));
 
             cache.clear();
+            triggerRevalidate(["female-massage-sections", "meta:services/female-massage", "faqs"], ["/services"]);
             await req.flash("success", "Female Massage Cost Settings updated successfully.");
             res.redirect(siteUrl + "/female_massage_therapist");
         } catch (error) {
@@ -173,6 +175,7 @@ module.exports = {
                 await saveField("women_massage_types_cards", JSON.stringify(cardsArray));
 
                 cache.clear();
+                triggerRevalidate(["female-massage-sections", "meta:services/female-massage", "faqs"], ["/services"]);
                 await req.flash("success", "Type of Women Massage updated successfully.");
                 res.redirect(siteUrl + "/type_of_women_massage");
             });

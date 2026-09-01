@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const Category = models.category;
 const fs = require("fs");
 const { Op } = require("sequelize");
@@ -71,6 +72,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId  = req.query.id;
 	await Category.destroy({ where: {id: getId}});
+	triggerRevalidate(["all-services", "meta:services"], ["/services"]);
 	await req.flash("success", "Category deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -145,6 +147,7 @@ module.exports = {
             await Category.create(formData);
             await req.flash("success", "Category created successfully.");
         }
+        triggerRevalidate(["all-services", "meta:services"], ["/services"]);
         res.redirect(siteUrl + "/" + pageUrl);
     });
 }catch(e){console.log(e);}

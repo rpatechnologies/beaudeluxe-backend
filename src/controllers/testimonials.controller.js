@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const Testimonials = models.testimonials;
 const Countries = models.country;
 const { dateFormat } = require("../services/date.service");
@@ -79,6 +80,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await Testimonials.destroy({ where: { id: getId } });
+	triggerRevalidate(["testimonials-page", "google-reviews"], ["/testimonial", "/"]);
 	await req.flash("success", "Testimonial deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -171,6 +173,7 @@ module.exports = {
 				await Testimonials.create(formData);
 				await req.flash("success", "Testimonial created successfully.");
 			}
+			triggerRevalidate(["testimonials-page", "google-reviews"], ["/testimonial", "/"]);
 			res.redirect(siteUrl + "/" + pageUrl);
 		});
 	},

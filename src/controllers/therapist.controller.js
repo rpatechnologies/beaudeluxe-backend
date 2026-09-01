@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const fs = require('fs');
 var multer = require("multer");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const Therapist = models.therapist;
 const HomePageContents = models.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
@@ -83,6 +84,7 @@ const destroy = async (req, res) => {
     var getId = req.query.id;
     await Therapist.destroy({ where: { id: getId } });
     cache.clear();
+    triggerRevalidate(["therapist-sections", "our-teams", "meta:therapist"], ["/therapist"]);
     await req.flash("success", "Therapist deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -158,6 +160,7 @@ module.exports = {
             }
 
             cache.clear();
+            triggerRevalidate(["therapist-sections", "our-teams", "meta:therapist"], ["/therapist"]);
             res.redirect(siteUrl + "/" + pageUrl);
         });
     },
@@ -213,6 +216,7 @@ module.exports = {
 
             await updateFields(request);
             cache.clear();
+            triggerRevalidate(["therapist-sections", "our-teams", "meta:therapist"], ["/therapist"]);
             await req.flash("success", "Note from Founder updated successfully.");
             res.redirect(siteUrl + "/therapist_founder");
         });
@@ -255,6 +259,7 @@ module.exports = {
 
         await updateFields(request);
         cache.clear();
+        triggerRevalidate(["therapist-sections", "our-teams", "meta:therapist"], ["/therapist"]);
         await req.flash("success", "Specializations updated successfully.");
         res.redirect(siteUrl + "/therapist_specialization");
     },

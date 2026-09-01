@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const models = require("../models");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const Cms = models.cms;
 const pageModel = models.page;
 const fs = require("fs");
@@ -90,6 +91,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId = req.query.id;
     await Cms.destroy({ where: { id: getId } });
+    triggerRevalidate(["meta:terms-and-conditions", "meta:privacy-policy"], ["/terms-and-conditions", "/privacy-policy"]);
     await req.flash("success", "CMS deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -187,6 +189,7 @@ module.exports = {
                     await Cms.create(formData);
                     await req.flash("success", "CMS created successfully.");
                 }
+                triggerRevalidate(["meta:terms-and-conditions", "meta:privacy-policy"], ["/terms-and-conditions", "/privacy-policy"]);
                 res.redirect(siteUrl + "/" + pageUrl);
             });
         } catch (e) { console.log(e); }

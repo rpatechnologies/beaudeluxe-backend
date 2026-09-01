@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const models = require("../models");
+const { revalidateAll } = require("../utils/revalidate.helper");
 const pageModel = models.page;
 const MetaContents = models.metaContents;
 const { dateFormat } = require("../services/date.service");
@@ -89,6 +90,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await MetaContents.destroy({ where: { id: getId } });
+	revalidateAll();
 	await req.flash("success", "Meta Contents deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -172,6 +174,7 @@ module.exports = {
 				await MetaContents.create(formData);
 				await req.flash("success", "Meta Contents created successfully.");
 			}
+			revalidateAll();
 			res.redirect(siteUrl + "/" + pageUrl);
 		});
 	},

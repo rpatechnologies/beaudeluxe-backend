@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const { createSlug } = require("../utils/global.helper");
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const models = require("../models");
 const Service = models.service;
 const ServiceFaq = models.serviceFaq;
@@ -104,6 +105,7 @@ const destroy = async (req, res) => {
 	await Service.sequelize.query("SET FOREIGN_KEY_CHECKS = 0", null);
 	await Service.destroy({ where: { id: getId } });
 	await Service.sequelize.query("SET FOREIGN_KEY_CHECKS = 1", null);
+	triggerRevalidate(["all-services", "meta:services"], ["/services"]);
 	await req.flash("success", "Service deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -338,6 +340,7 @@ module.exports = {
 
 				}
 
+				triggerRevalidate(["all-services", "meta:services"], ["/services"]);
 				res.redirect(siteUrl + "/" + pageUrl);
 			});
 		} catch (e) {

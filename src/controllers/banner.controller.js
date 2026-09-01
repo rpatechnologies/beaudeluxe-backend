@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const models = require("../models");
 const { Op } = require("sequelize");
+const { revalidateAll } = require("../utils/revalidate.helper");
 const fs = require("fs");
 const cache = require("memory-cache");
 const pageModel = models.page;
@@ -76,6 +77,7 @@ const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await Banner.destroy({ where: { id: getId } });
 	cache.clear();
+	revalidateAll();
 	await req.flash("success", "Banner deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -174,6 +176,7 @@ module.exports = {
 					await req.flash("success", "Banner created successfully.");
 				}
 				cache.clear();
+				revalidateAll();
 				res.redirect(siteUrl + "/" + pageUrl);
 			});
 		} catch (e) { console.log(e); }

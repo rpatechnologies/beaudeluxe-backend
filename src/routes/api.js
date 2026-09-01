@@ -55,4 +55,22 @@ router.post('/appointment_form', contactController.appointment_form);
 
 router.get('/gift_vouchers', homeController.gift_voucher);
 
+const { triggerRevalidate, revalidateAll } = require('../utils/revalidate.helper');
+
+// On-demand Next.js Revalidation endpoint
+router.post('/revalidate', async (req, res) => {
+    try {
+        const { tags, paths, all } = req.body || {};
+        let result;
+        if (all || (!tags && !paths)) {
+            result = await revalidateAll();
+        } else {
+            result = await triggerRevalidate(tags, paths);
+        }
+        return res.json({ success: true, message: 'Revalidation requested', result });
+    } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+    }
+});
+
 module.exports = router;

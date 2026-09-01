@@ -4,6 +4,7 @@ var multer = require("multer");
 const db = require("../models");
 const Setting = db.setting;
 const { settingData } = require("../utils/global.helper");
+const { revalidateAll } = require("../utils/revalidate.helper");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
 
@@ -88,6 +89,7 @@ module.exports = {
             }
 
             await req.flash("success", "General settings updated successfully.");
+            revalidateAll();
             res.redirect(siteUrl + "/general_setting");
         });
     },
