@@ -6,6 +6,7 @@ const fs = require("fs");
 const cache = require("memory-cache");
 const pageModel = models.page;
 const Banner = models.banner;
+const { revalidateNextCache, revalidateAllNextCache } = require("../utils/revalidate.helper");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Banner";
@@ -76,6 +77,7 @@ const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await Banner.destroy({ where: { id: getId } });
 	cache.clear();
+	revalidateAllNextCache();
 	await req.flash("success", "Banner deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -174,6 +176,7 @@ module.exports = {
 					await req.flash("success", "Banner created successfully.");
 				}
 				cache.clear();
+				revalidateAllNextCache();
 				res.redirect(siteUrl + "/" + pageUrl);
 			});
 		} catch (e) { console.log(e); }

@@ -6,6 +6,7 @@ const GiftVoucher = models.giftVouchers;
 const fs = require("fs");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
+const { revalidateNextCache } = require("../utils/revalidate.helper");
 const title 	= "Gift Voucher";
 const page  	= "gift_voucher";
 const pageUrl   = "gift_voucher";
@@ -67,6 +68,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId  = req.query.id;
     await GiftVoucher.destroy({ where: {id: getId}});
+    revalidateNextCache({ tags: ["meta:gift-vouchers"], paths: ["/giftvouchers"] });
     await req.flash("success", "Gift Voucher deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -154,6 +156,7 @@ module.exports = {
                 await req.flash("success", "GiftVoucher created successfully.");
             }
             }
+            revalidateNextCache({ tags: ["meta:gift-vouchers"], paths: ["/giftvouchers"] });
             res.redirect(siteUrl + "/" + pageUrl);
         });
     },

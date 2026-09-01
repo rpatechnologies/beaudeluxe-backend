@@ -5,6 +5,7 @@ const HomePageContents = db.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
+const { revalidateNextCache } = require("../utils/revalidate.helper");
 
 const convertReqFilesToWebp = async (reqFiles, uploadDir) => {
     if (!reqFiles) return;
@@ -80,6 +81,7 @@ module.exports = {
 
             await updateFields(request);
             cache.clear();
+            revalidateNextCache({ tags: ["about-sections", "meta:about-us"], paths: ["/about-us"] });
             await req.flash("success", "Our Story updated successfully.");
             res.redirect(siteUrl + "/about_story");
         });
@@ -99,6 +101,7 @@ module.exports = {
 
         await updateFields(request);
         cache.clear();
+        revalidateNextCache({ tags: ["about-sections", "meta:about-us"], paths: ["/about-us"] });
         await req.flash("success", "Our Mission updated successfully.");
         res.redirect(siteUrl + "/about_mission");
     },
@@ -133,6 +136,7 @@ module.exports = {
 
         await updateFields(request);
         cache.clear();
+        revalidateNextCache({ tags: ["about-sections", "meta:about-us"], paths: ["/about-us"] });
         await req.flash("success", "By The Numbers updated successfully.");
         res.redirect(siteUrl + "/about_numbers");
     },
@@ -189,6 +193,7 @@ module.exports = {
 
             await updateFields(request);
             cache.clear();
+            revalidateNextCache({ tags: ["about-sections", "our-teams", "meta:about-us"], paths: ["/about-us"] });
             await req.flash("success", "Meet Our Team updated successfully.");
             res.redirect(siteUrl + "/about_team");
         });
@@ -222,6 +227,7 @@ module.exports = {
 
         await updateFields(request);
         cache.clear();
+        revalidateNextCache({ tags: ["about-sections", "meta:about-us"], paths: ["/about-us"] });
         await req.flash("success", "About Contact updated successfully.");
         res.redirect(siteUrl + "/about_contact");
     },

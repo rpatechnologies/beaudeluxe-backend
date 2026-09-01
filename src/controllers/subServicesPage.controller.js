@@ -7,6 +7,7 @@ const { Op } = require("sequelize");
 const ServicePages = models.servicePages;
 const ServiceFaq = models.serviceFaq;
 const fs = require("fs");
+const { revalidateNextCache } = require("../utils/revalidate.helper");
 
 const title = "Service Details Settings";
 const page = "subServicesPage";
@@ -94,6 +95,7 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId = req.query.id;
     await SubServicesSettings.destroy({ where: { id: getId } });
+    revalidateNextCache({ tags: ["all-services"], paths: ["/services"] });
     await req.flash("success", "Titles deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -146,6 +148,7 @@ module.exports = {
             await SubServicesSettings.create(formData);
             await req.flash("success", "Service Page Title created successfully.");
         }
+        revalidateNextCache({ tags: ["all-services"], paths: ["/services"] });
         res.redirect(siteUrl + "/" + pageUrl);
     },
 

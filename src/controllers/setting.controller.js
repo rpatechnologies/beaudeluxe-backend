@@ -6,6 +6,7 @@ const Setting = db.setting;
 const { settingData } = require("../utils/global.helper");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
+const { revalidateAllNextCache } = require("../utils/revalidate.helper");
 
 module.exports = {
 
@@ -88,6 +89,7 @@ module.exports = {
                 }
             }
 
+            revalidateAllNextCache();
             await req.flash("success", "General settings updated successfully.");
             res.redirect(siteUrl + "/general_setting");
         });
