@@ -6,7 +6,6 @@ const Therapist = models.therapist;
 const HomePageContents = models.homePageContents;
 const { homePageContentsData } = require("../utils/global.helper");
 const cache = require("memory-cache");
-const { revalidateNextCache } = require("../utils/revalidate.helper");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Our Teams";
@@ -84,7 +83,6 @@ const destroy = async (req, res) => {
     var getId = req.query.id;
     await Therapist.destroy({ where: { id: getId } });
     cache.clear();
-    revalidateNextCache({ tags: ["therapist-sections", "our-teams", "meta:therapist"], paths: ["/therapist", "/about-us"] });
     await req.flash("success", "Therapist deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -160,7 +158,6 @@ module.exports = {
             }
 
             cache.clear();
-            revalidateNextCache({ tags: ["therapist-sections", "our-teams", "meta:therapist"], paths: ["/therapist", "/about-us"] });
             res.redirect(siteUrl + "/" + pageUrl);
         });
     },
@@ -216,7 +213,6 @@ module.exports = {
 
             await updateFields(request);
             cache.clear();
-            revalidateNextCache({ tags: ["therapist-sections", "our-teams", "meta:therapist"], paths: ["/therapist", "/about-us"] });
             await req.flash("success", "Note from Founder updated successfully.");
             res.redirect(siteUrl + "/therapist_founder");
         });
@@ -259,7 +255,6 @@ module.exports = {
 
         await updateFields(request);
         cache.clear();
-        revalidateNextCache({ tags: ["therapist-sections", "our-teams", "meta:therapist"], paths: ["/therapist"] });
         await req.flash("success", "Specializations updated successfully.");
         res.redirect(siteUrl + "/therapist_specialization");
     },

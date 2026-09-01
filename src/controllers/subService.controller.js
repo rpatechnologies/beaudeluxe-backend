@@ -7,7 +7,6 @@ const Category = models.category;
 const fs = require("fs");
 const multer = require("multer");
 const cache = require("memory-cache");
-const { revalidateNextCache } = require("../utils/revalidate.helper");
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
 const title = "Sub Service";
 const page = "sub_service";
@@ -146,8 +145,6 @@ const destroy = async (req, res) => {
     await SubServicePrice.destroy({ where: { subservice_id: getId } });
     await SubService.destroy({ where: { id: getId } });
 
-    cache.clear();
-    revalidateNextCache({ tags: ["all-services", "meta:services"], paths: ["/services"] });
     await req.flash("success", "Sub Service deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
   } catch (error) {
@@ -319,7 +316,6 @@ module.exports = {
       }
 
       cache.clear();
-      revalidateNextCache({ tags: ["all-services", "meta:services"], paths: ["/services"] });
       res.redirect(siteUrl + "/" + pageUrl);
     });
   },

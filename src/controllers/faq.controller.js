@@ -3,7 +3,6 @@ var multer = require("multer");
 const cache = require("memory-cache");
 const models = require("../models");
 const Faq = models.faq;
-const { revalidateNextCache } = require("../utils/revalidate.helper");
 
 const title = "Faq";
 const page = "faq";
@@ -67,7 +66,6 @@ const destroy = async (req, res) => {
     var getId = req.query.id;
     await Faq.destroy({ where: { id: getId } });
     cache.clear();
-    revalidateNextCache({ tags: ["faqs", "meta:faq"], paths: ["/faq"] });
     await req.flash("success", "Faq deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -122,7 +120,6 @@ module.exports = {
             await req.flash("success", "Faq created successfully.");
         }
         cache.clear();
-        revalidateNextCache({ tags: ["faqs", "meta:faq"], paths: ["/faq"] });
         res.redirect(siteUrl + "/" + pageUrl);
     },
 };

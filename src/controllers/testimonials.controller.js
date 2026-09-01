@@ -9,7 +9,6 @@ const fs = require("fs");
 
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
-const { revalidateNextCache } = require("../utils/revalidate.helper");
 const title = "Testimonials";
 const page = "testimonials";
 const pageUrl = "testimonials";
@@ -80,7 +79,6 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await Testimonials.destroy({ where: { id: getId } });
-	revalidateNextCache({ tags: ["testimonials-page", "google-reviews"], paths: ["/testimonial", "/"] });
 	await req.flash("success", "Testimonial deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -173,7 +171,6 @@ module.exports = {
 				await Testimonials.create(formData);
 				await req.flash("success", "Testimonial created successfully.");
 			}
-			revalidateNextCache({ tags: ["testimonials-page", "google-reviews"], paths: ["/testimonial", "/"] });
 			res.redirect(siteUrl + "/" + pageUrl);
 		});
 	},

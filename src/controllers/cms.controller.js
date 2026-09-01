@@ -8,7 +8,6 @@ const fs = require("fs");
 const { Op } = require("sequelize");
 
 const { processAndConvertImageToWebp } = require("../utils/image.helper");
-const { revalidateNextCache, revalidateAllNextCache } = require("../utils/revalidate.helper");
 const title = "CMS";
 const page = "cms";
 const pageUrl = "cms";
@@ -91,7 +90,6 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
     var getId = req.query.id;
     await Cms.destroy({ where: { id: getId } });
-    revalidateAllNextCache();
     await req.flash("success", "CMS deleted successfully.");
     res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -188,11 +186,6 @@ module.exports = {
 
                     await Cms.create(formData);
                     await req.flash("success", "CMS created successfully.");
-                }
-                if (slug) {
-                    revalidateNextCache({ tags: [`meta:${slug}`], paths: [`/${slug}`] });
-                } else {
-                    revalidateAllNextCache();
                 }
                 res.redirect(siteUrl + "/" + pageUrl);
             });

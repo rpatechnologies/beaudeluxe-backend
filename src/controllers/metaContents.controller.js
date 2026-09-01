@@ -7,7 +7,6 @@ const MetaContents = models.metaContents;
 const { dateFormat } = require("../services/date.service");
 const { Op } = require("sequelize");
 const fs = require("fs");
-const { revalidateNextCache, revalidateAllNextCache } = require("../utils/revalidate.helper");
 
 const title = "Meta Contents";
 const page = "meta_contents";
@@ -90,7 +89,6 @@ const edit = async (req, res) => {
 const destroy = async (req, res) => {
 	var getId = req.query.id;
 	await MetaContents.destroy({ where: { id: getId } });
-	revalidateAllNextCache();
 	await req.flash("success", "Meta Contents deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -173,11 +171,6 @@ module.exports = {
 
 				await MetaContents.create(formData);
 				await req.flash("success", "Meta Contents created successfully.");
-			}
-			if (slug) {
-				revalidateNextCache({ tags: [`meta:${slug}`], paths: [`/${slug}`] });
-			} else {
-				revalidateAllNextCache();
 			}
 			res.redirect(siteUrl + "/" + pageUrl);
 		});

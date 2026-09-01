@@ -8,7 +8,6 @@ const ServiceFaq = models.serviceFaq;
 const SubServices = models.subServices;
 const ServiceImage = models.serviceImage;
 const fs = require("fs");
-const { revalidateNextCache } = require("../utils/revalidate.helper");
 
 const title = "Service";
 const page = "service";
@@ -105,7 +104,6 @@ const destroy = async (req, res) => {
 	await Service.sequelize.query("SET FOREIGN_KEY_CHECKS = 0", null);
 	await Service.destroy({ where: { id: getId } });
 	await Service.sequelize.query("SET FOREIGN_KEY_CHECKS = 1", null);
-	revalidateNextCache({ tags: ["all-services", "home-sections", "meta:services"], paths: ["/services", "/"] });
 	await req.flash("success", "Service deleted successfully.");
 	res.redirect(siteUrl + "/" + pageUrl);
 };
@@ -340,7 +338,6 @@ module.exports = {
 
 				}
 
-				revalidateNextCache({ tags: ["all-services", "home-sections", "meta:services"], paths: ["/services", "/"] });
 				res.redirect(siteUrl + "/" + pageUrl);
 			});
 		} catch (e) {
