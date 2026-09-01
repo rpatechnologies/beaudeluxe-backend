@@ -45,7 +45,7 @@ const DEFAULT_PATHS = [
  */
 const triggerRevalidate = async (tags = [], paths = []) => {
   const envUrl = process.env.NEXTJS_FRONTEND_URL || "https://staging.dkph4vur59we8.amplifyapp.com";
-  const secret = process.env.NEXTJS_REVALIDATE_SECRET || process.env.REVALIDATE_SECRET || "beaudeluxe_revalidate_secret_2026";
+  const secret = process.env.REVALIDATE_SECRET_KEY || process.env.NEXTJS_REVALIDATE_SECRET || process.env.REVALIDATE_SECRET || "beaudeluxe-revalidate-af1f471fbdb07ef166c2fe491b5e1de61e346e393d8968fa5b72d4bbfc79914d";
 
   // Split comma-separated URLs
   const frontendUrls = envUrl.split(',').map(u => u.trim()).filter(Boolean);
