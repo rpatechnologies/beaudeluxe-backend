@@ -74,17 +74,7 @@ const fetchMeta = async (slugs) => {
 module.exports = {
   home: async function (req, res) {
     const cacheKey = "home_content_cache";
-
-    const cachedData = cache.get(cacheKey);
-
-    if (cachedData) {
-      console.log("Cache hit!");
-      return res.status(200).json({
-        status: true,
-        message: "Data fetched successfully.",
-        data: cachedData,
-      });
-    }
+    // Bypass in-memory cache to ensure fresh DB content
 
     try {
       const homePageContents = await HomePageContents.findAll({
@@ -1795,15 +1785,7 @@ module.exports = {
 
   therapists: async function (req, res) {
     const cacheKey = "therapists_cache";
-    const cachedData = cache.get(cacheKey);
-
-    if (cachedData) {
-      return res.status(200).json({
-        status: true,
-        message: "Data fetched successfully.",
-        data: cachedData,
-      });
-    }
+    // Bypass in-memory cache to ensure fresh DB content
 
     try {
       const homePageContents = await HomePageContents.findAll({
