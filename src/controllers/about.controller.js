@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 var multer = require("multer");
 const models = require("../models");
 const { json } = require('body-parser');
+const { triggerRevalidate } = require("../utils/revalidate.helper");
 const About  = models.about;
 const fs = require("fs");
 
@@ -86,6 +87,7 @@ module.exports = {
 			};
 
             await About.update(formData, {where: {id: 1}});
+            triggerRevalidate(["about-sections", "our-teams", "meta:about-us"], ["/about-us", "/"]);
             await req.flash("success", "About us content updated successfully.");
 			
 			res.redirect(siteUrl + "/" + pageUrl);

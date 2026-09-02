@@ -44,11 +44,25 @@ const DEFAULT_PATHS = [
  * @param {string|string[]} [paths] - Path(s) to revalidate
  */
 const triggerRevalidate = async (tags = [], paths = []) => {
-  const envUrl = process.env.NEXTJS_FRONTEND_URL || "https://staging.dkph4vur59we8.amplifyapp.com";
+  // Clear backend Node.js in-memory cache first so API returns fresh database values
+  try {
+    const cache = require("memory-cache");
+    cache.clear();
+    console.log("[Revalidate] Cleared backend memory-cache.");
+  } catch (e) {
+    console.error("[Revalidate] Error clearing backend memory-cache:", e);
+  }
+
+  const envUrl = process.env.NEXTJS_FRONTEND_URL || "https://staging.dkph4vur59we8.amplifyapp.com,https://www.beaudeluxe.com";
   const secret = process.env.REVALIDATE_SECRET_KEY || process.env.NEXTJS_REVALIDATE_SECRET || process.env.REVALIDATE_SECRET || "beaudeluxe-revalidate-af1f471fbdb07ef166c2fe491b5e1de61e346e393d8968fa5b72d4bbfc79914d";
 
-  // Split comma-separated URLs
-  const frontendUrls = envUrl.split(',').map(u => u.trim()).filter(Boolean);
+  // Split comma-separated URLs and normalize domain names for SSL certificate matching
+  const frontendUrls = envUrl.split(',').map(u => u.trim().replace(/^https?:\/\/www\.beaudeluxe\.com/i, 'https://beaudeluxe.com')).filter(Boolean);
+
+  // Auto-include local Next.js frontend in non-production environments if not already listed
+  if (process.env.NODE_ENV !== 'production' && !frontendUrls.some(u => u.includes('localhost:3000'))) {
+    frontendUrls.push("http://localhost:3000");
+  }
 
   const tagList = Array.isArray(tags) ? tags : (tags ? [tags] : []);
   const pathList = Array.isArray(paths) ? paths : (paths ? [paths] : []);
@@ -82,7 +96,7 @@ const triggerRevalidate = async (tags = [], paths = []) => {
             'x-revalidate-secret': secret,
             'authorization': `Bearer ${secret}`
           },
-          timeout: 10000
+          timeout: 5000
         }
       );
 

@@ -145,6 +145,12 @@ module.exports = {
     clearHomeCache: async function (req, res) {
         const cacheKey = "home_content_cache"; 
         cache.del(cacheKey);
+        try {
+            const { triggerRevalidate } = require("../utils/revalidate.helper");
+            triggerRevalidate(["home-sections", "meta:home"], ["/"]);
+        } catch (e) {
+            console.error("clearHomeCache revalidate error:", e);
+        }
         await req.flash("success", "Cache clear successfully.");
         res.redirect("/dashboard");
       },
