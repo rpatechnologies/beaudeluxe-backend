@@ -184,9 +184,19 @@
     <%- include('layouts/script'); %>
 
         <script>
+            function reindexCards() {
+                $('.type-card-item').each(function (index) {
+                    const titleVal = $(this).find('.card-title-input').val() || 'New Card';
+                    $(this).find('.card-header span').html(`Card #${index + 1}: <strong class="card-title-preview">${titleVal}</strong>`);
+                    $(this).find('input[name="card_index[]"]').val(index + 1);
+                    $(this).find('input[type="file"]').attr('name', `card_image_${index}`);
+                });
+            }
+
             $(document.body).on('click', '.remove-card-btn', function () {
                 if ($('.type-card-item').length > 1) {
                     $(this).closest('.type-card-item').remove();
+                    reindexCards();
                 } else {
                     alert('At least one card is required.');
                 }
@@ -235,10 +245,15 @@
                 </div>
             `;
                 $('#types-cards-container').append(cardHtml);
+                reindexCards();
             });
 
             $(document.body).on('input', '.card-title-input', function () {
                 $(this).closest('.type-card-item').find('.card-title-preview').text($(this).val() || 'New Card');
+            });
+
+            $('form').on('submit', function () {
+                reindexCards();
             });
         </script>
 </body>

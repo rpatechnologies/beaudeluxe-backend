@@ -154,7 +154,7 @@ module.exports = {
 
                     let imageName = cardOldImages[i] || "";
                     if (req.files && req.files.length > 0) {
-                        const fileMatch = req.files.find(f => f.fieldname === `card_image_${i}` || f.fieldname === `card_image[${i}]` || f.fieldname === `card_image_${cardIndices[i]}`);
+                        const fileMatch = req.files.find(f => f.fieldname === `card_image_${i}` || f.fieldname === `card_image[${i}]`);
                         if (fileMatch) {
                             imageName = fileMatch.filename;
                         }
