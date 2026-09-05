@@ -284,11 +284,27 @@ module.exports = {
   },
   servicePost: async function (req, res) {
     try {
-      const { slug } = req.query;
+      const slug = req.query.slug || req.body.slug;
+      const reqGender = req.body.gender || req.query.gender;
 
-      const mainService = await Service.findOne({
-        where: { slug: slug, status: 1 }
-      });
+      let genderWhere = null;
+      if (reqGender && reqGender.toString().trim() !== "" && reqGender.toString().trim() !== "Both") {
+        const g = reqGender.toString().trim().toLowerCase();
+        if (g === "men" || g === "man") {
+          genderWhere = { [Op.in]: ["Men", "Both"] };
+        } else if (g === "women" || g === "woman") {
+          genderWhere = { [Op.in]: ["Women", "Both"] };
+        } else {
+          genderWhere = { [Op.in]: [reqGender, "Both"] };
+        }
+      }
+
+      let mainService = null;
+      if (slug && slug.toString().trim() !== "") {
+        mainService = await Service.findOne({
+          where: { slug: slug.toString().trim(), status: 1 }
+        });
+      }
 
       let cardData = null;
       let serviceData = null;
@@ -327,10 +343,10 @@ module.exports = {
         serviceData = plainService;
       }
 
-      const page = await Page.findOne({
+      const page = slug ? await Page.findOne({
         where: { slug: slug },
         attributes: ["id"],
-      });
+      }) : null;
 
       const banners = page ? await Banner.findOne({
         where: { status: 1, page_id: page.id },
@@ -347,10 +363,16 @@ module.exports = {
         };
       }
 
-      const reqGender = req.body.gender || req.query.gender;
       let subServiceWhere = { status: 1 };
-      if (reqGender && reqGender !== "Both") {
+      if (genderWhere) {
+        subServiceWhere.gender = genderWhere;
+      } else if (reqGender && reqGender !== "Both") {
         subServiceWhere.gender = { [Op.in]: [reqGender, "Both"] };
+      }
+
+      let serviceIncludeWhere = { status: 1 };
+      if (slug && slug.toString().trim() !== "") {
+        serviceIncludeWhere.slug = slug.toString().trim();
       }
 
       const subService = await SubServices.findAll({
@@ -360,8 +382,8 @@ module.exports = {
         include: [
           {
             model: Service,
-            attributes: ["title", "description"],
-            where: { slug: slug, status: 1 },
+            attributes: ["id", "title", "description", "slug"],
+            where: serviceIncludeWhere,
           },
           {
             model: SubServicePrice,
@@ -390,7 +412,9 @@ module.exports = {
         return plainItem;
       });
 
-      let metaData = await fetchMeta([`services/${slug}`, slug]);
+      const serviceCount = subServicesFormatted.length;
+
+      let metaData = slug ? await fetchMeta([`services/${slug}`, slug]) : null;
       if (!metaData && mainService) {
         metaData = {
           id: mainService.id,
@@ -407,10 +431,11 @@ module.exports = {
         status: true,
         data: {
           service: serviceData,
+          service_count: serviceCount,
           card: cardData,
           services: subServicesFormatted,
           banner: bannerData,
-          meta: metaData
+          meta: metaData,
         },
         title: subServicesFormatted[0]?.service?.title ?? mainService?.title ?? null,
         shadow_title: 'Service',
