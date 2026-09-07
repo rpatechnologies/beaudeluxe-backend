@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function testRevalidate() {
-  const url = "https://staging.dkph4vur59we8.amplifyapp.com/api/revalidate";
+  const url = "https://beaudeluxe.com/api/revalidate";
   const secret = "beaudeluxe-revalidate-af1f471fbdb07ef166c2fe491b5e1de61e346e393d8968fa5b72d4bbfc79914d";
   const payload = {
     secret,
